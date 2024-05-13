@@ -1,2 +1,10 @@
-# anno-amsterdam
-This is the repo for the Meesterproef course. The client is Anno Amsterdam.
+# Anno Amsterdam
+
+# Team Members
+- Manoah Tervoort
+- Quinten Kok
+- Tristan Brattinga
+
+# Assignment
+
+# 
