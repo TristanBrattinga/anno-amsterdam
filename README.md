@@ -1,4 +1,4 @@
-# :x: :x: :x: Anno Amsterdam
+# Anno Amsterdam :x: :x: :x:
 
 ## Team Members
 - Manoah Tervoort
