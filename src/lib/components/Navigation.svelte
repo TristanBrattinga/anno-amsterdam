@@ -1,6 +1,5 @@
-<script>
-export let title = 'Navigation'
-
+<script lang="ts">
+export let title: string = 'Navigation'
 </script>
 
 <nav>{title}</nav>
