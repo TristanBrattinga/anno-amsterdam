@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '$env/static/private';
 import { error } from '@sveltejs/kit';
 import { normalizeURL } from '$lib';
-import type { Building } from 'types';
+import type { Building } from '$types';
 
 export const api = {
 	getBuildings: async (): Promise<Building[]> => {

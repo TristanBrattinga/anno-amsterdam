@@ -781,6 +781,7 @@ __metadata:
     svelte-check: "npm:^3.7.1"
     svelte-meta-tags: "npm:^3.1.2"
     tslib: "npm:^2.6.2"
+    typesafe-i18n: "npm:^5.26.2"
     typescript: "npm:^5.4.5"
     vite: "npm:^5.2.11"
   languageName: unknown
@@ -3050,6 +3051,17 @@ __metadata:
   version: 0.20.2
   resolution: "type-fest@npm:0.20.2"
   checksum: 10c0/dea9df45ea1f0aaa4e2d3bed3f9a0bfe9e5b2592bddb92eb1bf06e50bcf98dbb78189668cd8bc31a0511d3fc25539b4cd5c704497e53e93e2d40ca764b10bfc3
+  languageName: node
+  linkType: hard
+
+"typesafe-i18n@npm:^5.26.2":
+  version: 5.26.2
+  resolution: "typesafe-i18n@npm:5.26.2"
+  peerDependencies:
+    typescript: ">=3.5.1"
+  bin:
+    typesafe-i18n: cli/typesafe-i18n.mjs
+  checksum: 10c0/f13b13d54bf121701c85424de2d677f3d3e61c6b7160dffa681e3ffcbb2843ea10931d5842fcc382faed78bac727b234259e9fc767a44cd9dc1d64ddd8ddf397
   languageName: node
   linkType: hard
 

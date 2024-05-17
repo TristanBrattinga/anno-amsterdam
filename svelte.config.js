@@ -14,9 +14,10 @@ const config = {
 		adapter: adapter(),
 		alias: {
 			'~~': '.',
-			'~': './src',
-			components: './src/lib/components',
-			types: './src/lib/types'
+			'~': 'src',
+			$components: 'src/lib/components',
+			$i18n: 'src/i18n',
+			$types: 'src/lib/types'
 		}
 	}
 };

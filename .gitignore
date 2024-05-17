@@ -29,3 +29,6 @@ node_modules
 
 # IntelliJ
 .idea
+
+# i18n
+src/i18n/i18n-*.ts
