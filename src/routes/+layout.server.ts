@@ -1,5 +1,3 @@
-export const load = ({ locals: { locale, LL } }) => {
-	console.info(LL.log({ fileName: '+layout.server.ts' }));
-
+export const load = ({ locals: { locale } }) => {
 	return { locale };
 };

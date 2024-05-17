@@ -7,12 +7,7 @@ import { APP_NAME, replaceLocaleInUrl } from '$lib';
 export const load = async ({ url, data: { locale } }) => {
 	// load dictionary into memory
 	await loadLocaleAsync(locale);
-	// if you need to output a localized string in a `load` function,
-	// you always need to create a new `i18nObject` instance in each `load` function
-	// to not run into shared server state issues
 	const LL = i18nObject(locale);
-
-	console.info(LL.log({ fileName: '+layout.ts' }));
 
 	const baseMetaTags = Object.freeze({
 		title: APP_NAME,
@@ -49,6 +44,5 @@ export const load = async ({ url, data: { locale } }) => {
 		}
 	} satisfies MetaTagsProps);
 
-	// pass locale to the "rendering context"
-	return { locale, baseMetaTags };
+	return { locale, baseMetaTags, goHome: LL.goHome(), unexpectedError: LL.unexpectedError() };
 };

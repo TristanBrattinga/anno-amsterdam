@@ -8,10 +8,8 @@ const url = (path: string) => normalizeURL(API_BASE_URL) + path;
 export const api = {
 	getBuildings: async (): Promise<Building[]> => {
 		try {
-			console.log(url('buildings/?format=json'));
-			const res = await fetch(url('buildings/?format=json'));
+			const res = await fetch(url('buildings/?format=json/'));
 			if (res.ok) return await res.json();
-			console.log('error', { status: res.status, text: await res.text() });
 			error(res.status, await res.text());
 		} catch (e) {
 			error(500, e instanceof Error ? e.message : '');
