@@ -1,13 +1,13 @@
 {
-  "recommendations": [
-    "svelte.svelte-vscode",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "edwinhuish.better-comments-next",
-    "streetsidesoftware.code-spell-checker",
-    "streetsidesoftware.code-spell-checker-dutch",
-    "dotenv.dotenv-vscode",
-    "usernamehw.errorlens",
-    "editorconfig.editorconfig"
-  ]
+	"recommendations": [
+		"svelte.svelte-vscode",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"edwinhuish.better-comments-next",
+		"streetsidesoftware.code-spell-checker",
+		"streetsidesoftware.code-spell-checker-dutch",
+		"dotenv.dotenv-vscode",
+		"usernamehw.errorlens",
+		"editorconfig.editorconfig"
+	]
 }
