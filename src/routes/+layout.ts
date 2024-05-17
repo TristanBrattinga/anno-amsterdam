@@ -1,7 +1,8 @@
 import { loadLocaleAsync } from '$i18n/i18n-util.async';
+import { locales, baseLocale } from '$i18n/i18n-util';
 import { i18nObject } from '$i18n/i18n-util';
 import type { MetaTagsProps } from 'svelte-meta-tags';
-import { APP_NAME } from '$lib';
+import { APP_NAME, replaceLocaleInUrl } from '$lib';
 
 export const load = async ({ url, data: { locale } }) => {
 	// load dictionary into memory
@@ -18,6 +19,16 @@ export const load = async ({ url, data: { locale } }) => {
 		titleTemplate: `%s | ${APP_NAME}`,
 		description: LL.description(),
 		canonical: new URL(url.pathname, url.origin).href,
+		languageAlternates: [
+			...locales.map((l) => ({
+				hrefLang: l,
+				href: replaceLocaleInUrl(url, l, true)
+			})),
+			{
+				hrefLang: 'x-default',
+				href: replaceLocaleInUrl(url, baseLocale, true)
+			}
+		],
 		openGraph: {
 			type: 'website',
 			url: new URL(url.pathname, url.origin).href,
@@ -36,7 +47,7 @@ export const load = async ({ url, data: { locale } }) => {
 				}
 			]
 		}
-	}) satisfies MetaTagsProps;
+	} satisfies MetaTagsProps);
 
 	// pass locale to the "rendering context"
 	return { locale, baseMetaTags };
