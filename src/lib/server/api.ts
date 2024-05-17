@@ -3,10 +3,12 @@ import { error } from '@sveltejs/kit';
 import { normalizeURL } from '$lib';
 import type { Building } from '$types';
 
+const url = (path: string) => normalizeURL(API_BASE_URL + path);
+
 export const api = {
 	getBuildings: async (): Promise<Building[]> => {
 		try {
-			const res = await fetch(`${normalizeURL(API_BASE_URL)}buildings/?format=json`);
+			const res = await fetch(url('buildings/?format=json'));
 			if (res.ok) return await res.json();
 			error(res.status, await res.text());
 		} catch (e) {

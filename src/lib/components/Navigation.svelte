@@ -1,5 +1,10 @@
 <script lang="ts">
+	import { Logo } from '$components';
+
 	export let title: string = 'Navigation';
 </script>
 
-<nav>{title}</nav>
+<nav>
+	<Logo />
+	{title}
+</nav>
