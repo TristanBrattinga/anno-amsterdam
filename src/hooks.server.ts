@@ -2,14 +2,14 @@ import { base } from '$app/paths';
 import type { Locales } from '$i18n/i18n-types';
 import { detectLocale, i18n, isLocale } from '$i18n/i18n-util';
 import { loadAllLocales } from '$i18n/i18n-util.sync';
-import { redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
+import { redirect, type RequestEvent } from '@sveltejs/kit';
 import { initAcceptLanguageHeaderDetector } from 'typesafe-i18n/detectors';
 import { getPathnameWithoutBase } from '$lib';
 
 loadAllLocales();
 const L = i18n();
 
-export const handle: Handle = async ({ event, resolve }) => {
+export const handle = async ({ event, resolve }) => {
 	// read language slug
 	const [, lang] = getPathnameWithoutBase(event.url).split('/');
 
