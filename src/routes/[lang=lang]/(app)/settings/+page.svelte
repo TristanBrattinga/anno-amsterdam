@@ -5,4 +5,4 @@
 </script>
 
 <ThemeSwitcher {data} />
-<LocaleSwitcher />
+<LocaleSwitcher lang={data.lang} />

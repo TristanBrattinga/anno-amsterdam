@@ -61,12 +61,20 @@
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
+
+	<!-- Page content -->
+	<div class="p-4">
+		<slot />
+	</div>
+
+	<!-- Footer -->
 	<nav slot="footer">
 		<TabGroup
 			justify="justify-center"
 			flex="flex-1 lg:flex-none"
 			rounded=""
 			border=""
+			active="border-b-2 border-surface-900-50-token text-primary-500"
 			class="bg-surface-100-800-token w-full"
 		>
 			{#each menuItems as item}
@@ -83,7 +91,4 @@
 			{/each}
 		</TabGroup>
 	</nav>
-	<div class="p-4">
-		<slot />
-	</div>
 </AppShell>

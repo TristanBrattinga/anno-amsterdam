@@ -40,15 +40,23 @@
 			replaceState(replaceLocaleInUrl($page.url, lang), { ...$page.state, locale: lang });
 		}
 	}
+
+	export let lang: string;
+
+	const langs: Record<Locales, string> = {
+		en: 'English',
+		nl: 'Nederlands'
+	};
 </script>
 
 <svelte:window on:popstate={handlePopStateEvent} />
 
+<p>{lang}</p>
 <ul>
 	{#each locales as l}
 		<li>
 			<a class:active={l === $locale} href={replaceLocaleInUrl($page.url, l)}>
-				{l}
+				{langs[l]}
 			</a>
 		</li>
 	{/each}
