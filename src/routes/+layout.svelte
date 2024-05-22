@@ -1,12 +1,10 @@
 <script lang="ts">
-	import '../app.css';
 	import { pwaInfo } from 'virtual:pwa-info';
 	import { MetaTags } from 'svelte-meta-tags';
 	import { page } from '$app/stores';
 	import extend from 'just-extend';
 	import { browser } from '$app/environment';
 	import { darkMode } from '$stores';
-	import { setInitialClassState } from '@skeletonlabs/skeleton';
 
 	export let data;
 
@@ -21,7 +19,6 @@
 <MetaTags {...metaTags} />
 <svelte:head>
 	{@html webManifestLink}
-	{@html '<script>(' + setInitialClassState.toString() + ')();</script>'}
 </svelte:head>
 
 <slot />
