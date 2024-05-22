@@ -5,7 +5,7 @@ export const load = async ({ parent }) => {
 	const { locale } = await parent();
 	const LL = i18nObject(locale);
 
-	const title = 'Settings';
+	const title = LL.settings();
 	const pageMetaTags = Object.freeze({
 		title,
 		openGraph: { title }
