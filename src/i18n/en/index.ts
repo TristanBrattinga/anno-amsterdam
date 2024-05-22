@@ -1,4 +1,4 @@
-import type { Translation } from '../i18n-types';
+import type { Translation } from '../i18n-types'
 
 const en = {
 	welcome: 'Welcome to {app}!',
@@ -7,6 +7,6 @@ const en = {
 	log: `This log was called from '{fileName}'`,
 	goHome: 'Go back home',
 	unexpectedError: 'Oops! Something went wrong'
-} satisfies Translation;
+} satisfies Translation
 
-export default en;
+export default en

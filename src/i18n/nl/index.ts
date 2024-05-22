@@ -1,4 +1,4 @@
-import type { BaseTranslation } from '../i18n-types';
+import type { BaseTranslation } from '../i18n-types'
 
 const nl = {
 	welcome: 'Welkom bij {app:string}!',
@@ -6,6 +6,6 @@ const nl = {
 	log: `Deze log was gestuurd vanaf '{fileName:string}'`,
 	goHome: 'Ga naar de startpagina',
 	unexpectedError: 'Oeps! Er is iets misgegaan'
-} satisfies BaseTranslation;
+} satisfies BaseTranslation
 
-export default nl;
+export default nl
