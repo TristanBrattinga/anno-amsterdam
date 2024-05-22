@@ -1,4 +1,5 @@
 <script lang="ts">
+	// Stores
 	import { page } from '$app/stores';
 
 	// Icons

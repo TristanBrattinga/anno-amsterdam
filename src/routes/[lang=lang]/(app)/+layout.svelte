@@ -8,6 +8,6 @@
 	setLocale(data.locale);
 </script>
 
-<Header />
+<Header settings={data.settings} />
 <slot />
 <Footer />

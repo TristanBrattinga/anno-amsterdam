@@ -1,11 +1,16 @@
 <script lang="ts">
+	// SvelteKit
 	import { browser } from '$app/environment';
 	import { invalidateAll, pushState, replaceState } from '$app/navigation';
 	import { page } from '$app/stores';
+
+	// I18n
 	import { setLocale, locale } from '$i18n/i18n-svelte';
 	import type { Locales } from '$i18n/i18n-types';
 	import { locales } from '$i18n/i18n-util';
 	import { loadLocaleAsync } from '$i18n/i18n-util.async';
+
+	// Utils
 	import { replaceLocaleInUrl } from '$lib';
 
 	const switchLocale = async (newLocale: Locales, updateHistoryState = true) => {
