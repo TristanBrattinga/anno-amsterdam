@@ -5,6 +5,7 @@
 	import { Navigation } from '$components';
 
 	export let data;
+	import '../app.css';
 
 	$: metaTags = extend(true, {}, data.baseMetaTags, $page.data.pageMetaTags);
 </script>
