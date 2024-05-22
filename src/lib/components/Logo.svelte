@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let color: string = '#073854';
+	export let color: string = '';
 	export let width: string = '100%';
 	export let height: string = '100%';
 </script>
@@ -10,7 +10,7 @@
 	viewBox="0 0 192 42"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
-	style:color
+	class={color ? `text-${color}-500` : ''}
 >
 	<rect width="100%" height="100%" viewBox="0 0 192 42" fill="none" />
 	<g fill="currentColor">

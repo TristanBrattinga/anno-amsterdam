@@ -11,13 +11,15 @@ const L = i18n();
 
 export const handle = async ({ event, resolve }) => {
 	// read language slug
-	const [, lang] = getPathnameWithoutBase(event.url).split('/');
+	const [, lang, ...rest] = getPathnameWithoutBase(event.url).split('/');
 
 	// redirect to base locale if no locale slug was found
 	if (!lang) {
 		const locale = getPreferredLocale(event);
-
 		throw redirect(307, `${base}/${locale}`);
+	} else if (lang !== 'api' && !isLocale(lang)) {
+		const locale = getPreferredLocale(event);
+		throw redirect(307, `${base}/${locale}/${lang}/${rest.join('/')}`);
 	}
 
 	// if slug is not a locale, use base locale (e.g. api endpoints)
@@ -27,8 +29,6 @@ export const handle = async ({ event, resolve }) => {
 	// bind locale and translation functions to current request
 	event.locals.locale = locale;
 	event.locals.LL = LL;
-
-	console.info(LL.log({ fileName: 'hooks.server.ts' }));
 
 	// replace html lang attribute with correct language
 	return resolve(event, { transformPageChunk: ({ html }) => html.replaceAll('%lang%', locale) });

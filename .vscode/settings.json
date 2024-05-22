@@ -5,5 +5,5 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit"
 	},
-	"cSpell.words": ["amsterdam", "audioguids"]
+	"cSpell.words": ["amsterdam", "audioguids", "mstile", "purgecss", "tailwindcss", "vincjo"]
 }

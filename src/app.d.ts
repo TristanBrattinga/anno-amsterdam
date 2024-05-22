@@ -1,3 +1,6 @@
+import 'vite-plugin-pwa/svelte';
+import 'vite-plugin-pwa/info';
+import 'vite-plugin-pwa/pwa-assets';
 import type { Locales, TranslationFunctions } from '$i18n/i18n-types';
 
 // See https://kit.svelte.dev/docs/types#app
