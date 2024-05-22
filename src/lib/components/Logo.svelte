@@ -1,5 +1,6 @@
 <script lang="ts">
-	export let color: string = '#073854';
+	// Props
+	export let color: string = '';
 	export let width: string = '100%';
 	export let height: string = '100%';
 </script>

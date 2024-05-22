@@ -4,6 +4,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
+		"prepare": "yarn typesafe-i18n --no-watch",
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -14,12 +15,13 @@
 		"typesafe-i18n": "typesafe-i18n"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.2.0",
-		"@sveltejs/kit": "^2.5.8",
+		"@sveltejs/adapter-auto": "^3.2.1",
+		"@sveltejs/kit": "^2.5.10",
 		"@sveltejs/vite-plugin-svelte": "^3.1.0",
 		"@types/eslint": "^8.56.10",
-		"@typescript-eslint/eslint-plugin": "^7.9.0",
-		"@typescript-eslint/parser": "^7.9.0",
+		"@types/node": "^20.12.12",
+		"@typescript-eslint/eslint-plugin": "^7.10.0",
+		"@typescript-eslint/parser": "^7.10.0",
 		"@vite-pwa/sveltekit": "^0.5.0",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
@@ -32,11 +34,13 @@
 		"tslib": "^2.6.2",
 		"typesafe-i18n": "^5.26.2",
 		"typescript": "^5.4.5",
-		"vite": "^5.2.11"
+		"vite": "^5.2.11",
+		"vite-plugin-pwa": "^0.20.0"
 	},
 	"type": "module",
 	"dependencies": {
-		"just-extend": "^6.2.0"
+		"just-extend": "^6.2.0",
+		"lucide-svelte": "^0.379.0"
 	},
 	"packageManager": "yarn@4.2.2"
 }
