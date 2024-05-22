@@ -1,0 +1,35 @@
+# SvelteKit
+/build
+/.svelte-kit
+/package
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Node modules
+node_modules
+
+# Environment variables
+.env
+../test/apps/web/.env.example
+!../test/apps/web/.env.example
+
+# Yarn
+.pnp.*
+../test/.yarn/*
+!../test/.yarn/patches
+!../test/.yarn/plugins
+!../test/.yarn/releases
+!../test/.yarn/sdks
+!../test/.yarn/versions
+
+# MacOS
+.DS_Store
+
+# IDEA
+.idea
+.vscode
+
+# i18n
+src/i18n/i18n-*.ts
