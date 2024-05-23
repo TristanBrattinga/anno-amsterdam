@@ -1,2 +1,15 @@
 @import './reset.scss';
 @import './variables.scss';
+
+a {
+	color: currentColor;
+	text-decoration: none;
+}
+
+a:hover {
+	color: var(--primary-color);
+}
+
+a[aria-current='page'] {
+	color: var(--secondary-color);
+}

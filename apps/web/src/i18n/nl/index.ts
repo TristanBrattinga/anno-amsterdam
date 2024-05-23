@@ -11,6 +11,8 @@ const nl = {
 	home: 'Home',
 	dark: 'Donker',
 	system: 'Systeem',
+	list: 'Lijst',
+	map: 'Kaart',
 	settings: 'Instellingen',
 	theme: 'Thema'
 } satisfies BaseTranslation;

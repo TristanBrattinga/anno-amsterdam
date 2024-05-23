@@ -11,6 +11,8 @@ const en = {
 	light: 'Light',
 	home: 'Home',
 	dark: 'Dark',
+	list: 'List',
+	map: 'Map',
 	system: 'System',
 	settings: 'Settings',
 	theme: 'Theme'
