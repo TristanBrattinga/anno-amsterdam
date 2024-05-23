@@ -8,8 +8,14 @@
 	setLocale(data.locale);
 </script>
 
-<Header settings={data.settings} />
+<Header home={data.home} settings={data.settings} />
 <main>
 	<slot />
 </main>
 <Footer />
+
+<style>
+	main {
+		padding: 0.5rem;
+	}
+</style>

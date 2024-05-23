@@ -78,15 +78,5 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		color: var(--text-color);
-		text-decoration: none;
-	}
-
-	nav a:hover {
-		color: var(--primary-color);
-	}
-
-	nav a[aria-current='page'] {
-		color: var(--secondary-color);
 	}
 </style>

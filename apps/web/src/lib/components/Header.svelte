@@ -9,16 +9,23 @@
 	import Cog from 'lucide-svelte/icons/cog';
 
 	// Props
+	export let home: string;
 	export let settings: string;
 </script>
 
 <header>
 	<div class="lead">
-		<Logo color="var(--color-primary)" />
+		<a href={`/${$page.data.locale}`} aria-label={home}>
+			<Logo color="var(--color-primary)" />
+		</a>
 		<h1>Amsterdam</h1>
 	</div>
 	<div class="trail">
-		<a href={`/${$page.data.locale}/settings`} aria-label={settings}>
+		<a
+			href={`/${$page.data.locale}/settings`}
+			aria-label={settings}
+			aria-current={$page.url.pathname === `/${$page.data.locale}/settings` ? 'page' : false}
+		>
 			<Cog />
 		</a>
 	</div>
