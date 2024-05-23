@@ -2380,8 +2380,8 @@ __metadata:
     "@repo/eslint-config": "npm:*"
     eslint: "npm:^8.57.0"
     prettier: "npm:^3.2.5"
-    prettier-plugin-svelte: "npm:^3.2.2"
-    turbo: "npm:latest"
+    prettier-plugin-svelte: "npm:^3.2.3"
+    turbo: "npm:^1.13.3"
   languageName: unknown
   linkType: soft
 
@@ -2741,7 +2741,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.4.1":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.1":
   version: 3.6.0
   resolution: "chokidar@npm:3.6.0"
   dependencies:
@@ -5348,7 +5348,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-svelte@npm:^3.2.2":
+"prettier-plugin-svelte@npm:^3.2.2, prettier-plugin-svelte@npm:^3.2.3":
   version: 3.2.3
   resolution: "prettier-plugin-svelte@npm:3.2.3"
   peerDependencies:
@@ -6475,7 +6475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turbo@npm:latest":
+"turbo@npm:^1.13.3":
   version: 1.13.3
   resolution: "turbo@npm:1.13.3"
   dependencies:
@@ -6905,6 +6905,7 @@ __metadata:
     lucide-svelte: "npm:^0.379.0"
     prettier: "npm:^3.2.5"
     prettier-plugin-svelte: "npm:^3.2.2"
+    sass: "npm:^1.77.2"
     svelte: "npm:^4.2.12"
     svelte-check: "npm:^3.6.6"
     svelte-meta-tags: "npm:^3.1.2"
