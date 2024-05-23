@@ -1,13 +1,13 @@
-import { loadLocaleAsync } from '$i18n/i18n-util.async';
-import { locales, baseLocale } from '$i18n/i18n-util';
-import { i18nObject } from '$i18n/i18n-util';
-import type { MetaTagsProps } from 'svelte-meta-tags';
-import { APP_NAME, replaceLocaleInUrl } from '$lib';
+import { loadLocaleAsync } from '$i18n/i18n-util.async'
+import { locales, baseLocale } from '$i18n/i18n-util'
+import { i18nObject } from '$i18n/i18n-util'
+import type { MetaTagsProps } from 'svelte-meta-tags'
+import { APP_NAME, replaceLocaleInUrl } from '$lib'
 
 export const load = async ({ url, data: { locale } }) => {
 	// load dictionary into memory
-	await loadLocaleAsync(locale);
-	const LL = i18nObject(locale);
+	await loadLocaleAsync(locale)
+	const LL = i18nObject(locale)
 
 	const baseMetaTags = Object.freeze({
 		title: APP_NAME,
@@ -42,7 +42,7 @@ export const load = async ({ url, data: { locale } }) => {
 				}
 			]
 		}
-	} satisfies MetaTagsProps);
+	} satisfies MetaTagsProps)
 
-	return { locale, baseMetaTags, goHome: LL.goHome(), unexpectedError: LL.unexpectedError() };
-};
+	return { locale, baseMetaTags, goHome: LL.goHome(), unexpectedError: LL.unexpectedError() }
+}
