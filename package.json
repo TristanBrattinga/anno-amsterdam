@@ -20,8 +20,14 @@
     "node": ">=20"
   },
   "packageManager": "yarn@4.2.2",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/typesafe-i18n",
+      "**/typesafe-i18n/**"
+    ]
+  }
 }
