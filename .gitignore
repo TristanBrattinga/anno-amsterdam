@@ -11,6 +11,15 @@ coverage
 # svelte
 .svelte-kit
 
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # misc
 .DS_Store
 *.pem
@@ -21,12 +30,17 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env
+.env.*
+!.env.example
 
 # turbo
 .turbo
 
+# IDEA
 .idea
+.vscode
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
