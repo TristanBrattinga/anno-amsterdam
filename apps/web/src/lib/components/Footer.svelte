@@ -37,7 +37,10 @@
 		<ul>
 			{#each menuItems as { name, href, icon }}
 				<li>
-					<a href={`/${$page.data.locale}${href}`}>
+					<a
+						href={`/${$page.data.locale}${href}`}
+						aria-current={$page.url.pathname === `/${$page.data.locale}${href}` ? 'page' : false}
+					>
 						<svelte:component this={icon} />
 						{name}
 					</a>
@@ -71,11 +74,19 @@
 	}
 
 	nav a {
-		color: var(--color-white);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: var(--text-color);
 		text-decoration: none;
 	}
 
 	nav a:hover {
-		text-decoration: underline;
+		color: var(--primary-color);
+	}
+
+	nav a[aria-current='page'] {
+		color: var(--secondary-color);
 	}
 </style>
