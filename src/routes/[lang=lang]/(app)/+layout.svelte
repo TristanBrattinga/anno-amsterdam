@@ -9,5 +9,7 @@
 </script>
 
 <Header settings={data.settings} />
-<slot />
+<main>
+	<slot />
+</main>
 <Footer />

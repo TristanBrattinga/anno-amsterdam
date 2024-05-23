@@ -19,6 +19,7 @@ const config = {
 			$constants: 'src/lib/constants',
 			$i18n: 'src/i18n',
 			$stores: 'src/lib/stores',
+			$styles: 'src/lib/styles',
 			$types: 'src/lib/types',
 			$utils: 'src/lib/utils'
 		}

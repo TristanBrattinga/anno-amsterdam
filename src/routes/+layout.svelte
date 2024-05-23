@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '$styles/main.scss';
 	import { pwaInfo } from 'virtual:pwa-info';
 	import { MetaTags } from 'svelte-meta-tags';
 	import { page } from '$app/stores';
@@ -16,5 +17,3 @@
 </svelte:head>
 
 <slot />
-
-<style></style>
