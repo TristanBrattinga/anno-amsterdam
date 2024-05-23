@@ -6,7 +6,9 @@ const config = {
 	preprocess: vitePreprocess(),
 	vitePlugin: { inspector: true },
 	kit:        {
-		adapter: adapter(),
+		adapter: adapter({
+			out: 'build'
+		}),
 		alias:   {
 			'~~':        '.',
 			'~':         'src',
