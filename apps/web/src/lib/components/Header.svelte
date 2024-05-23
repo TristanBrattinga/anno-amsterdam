@@ -13,7 +13,7 @@
 </script>
 
 <header>
-	<Logo />
+	<Logo color="var(--color-primary)" />
 	Amsterdam
 	<a href={`/${$page.data.locale}/settings`} aria-label={settings}>
 		<Cog />
