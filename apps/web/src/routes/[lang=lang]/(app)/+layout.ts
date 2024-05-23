@@ -6,6 +6,8 @@ export const load = async ({ parent }) => {
 
 	return {
 		home: LL.home(),
-		settings: LL.settings()
+		settings: LL.settings(),
+		list: LL.list(),
+		map: LL.map()
 	};
 };

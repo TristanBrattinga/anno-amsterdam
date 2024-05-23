@@ -7,25 +7,31 @@
 	import List from 'lucide-svelte/icons/list';
 	import Map from 'lucide-svelte/icons/map';
 
+	// Props
+	export let home: string;
+	export let map: string;
+	export let list: string;
+
 	type MenuItem = {
 		name: string;
 		href: string;
 		icon: typeof Home;
 	};
 
-	const menuItems: MenuItem[] = [
+	let menuItems: MenuItem[];
+	$: menuItems = [
 		{
-			name: 'Home',
+			name: home,
 			href: '',
 			icon: Home
 		},
 		{
-			name: 'Map',
+			name: map,
 			href: '/map',
 			icon: Map
 		},
 		{
-			name: 'List',
+			name: list,
 			href: '/list',
 			icon: List
 		}
@@ -35,7 +41,7 @@
 <footer>
 	<nav>
 		<ul>
-			{#each menuItems as { name, href, icon }}
+			{#each menuItems as { name, href, icon } (href)}
 				<li>
 					<a
 						href={`/${$page.data.locale}${href}`}
@@ -55,6 +61,7 @@
 		position: fixed;
 		bottom: 0;
 		width: 100%;
+		height: 80px;
 		background-color: var(--bg-color);
 		color: var(--text-color);
 		padding: 1rem;
