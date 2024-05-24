@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '$styles/grid.scss';
+
 	// Components
 	import { BuildingCell } from '$components';
 
@@ -6,12 +8,20 @@
 	import type { Building, Coords } from '$types';
 
 	// Props
+	export let buildingsTitle;
 	export let buildings: Building[];
 	export let location: Coords | null = null;
 </script>
 
-<div>
+<section class="auto-grid" style="--auto-grid-min-size: 400px">
+	<h2 class="sr-only">{buildingsTitle}</h2>
 	{#each buildings as building}
 		<BuildingCell {building} {location} />
 	{/each}
-</div>
+</section>
+
+<style>
+	.auto-grid {
+		justify-items: center;
+	}
+</style>

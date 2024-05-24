@@ -10,6 +10,7 @@ const en = {
 	unexpectedError: 'Oops! Something went wrong',
 	light: 'Light',
 	home: 'Home',
+	buildings: 'Buildings',
 	dark: 'Dark',
 	list: 'List',
 	map: 'Map',

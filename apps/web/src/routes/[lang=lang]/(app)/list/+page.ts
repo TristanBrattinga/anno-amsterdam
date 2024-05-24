@@ -13,6 +13,7 @@ export const load = async ({ parent, data: { buildings } }) => {
 
 	return {
 		pageMetaTags,
+		buildingsTitle: LL.buildings(),
 		buildings
 	};
 };

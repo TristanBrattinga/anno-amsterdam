@@ -1,21 +1,18 @@
 import { browser } from '$app/environment';
-import { location } from '$lib';
+import { location, locationWatchId } from '$lib';
 
-export const getLocation = () => {
-	if (!browser) return;
-	if (!navigator.geolocation) {
-		location.set(false);
-		return;
-	}
-	navigator.geolocation.getCurrentPosition(
+export const watchLocation = (id?: number | null) => {
+	if (!browser || !navigator.geolocation) return;
+	if (id) navigator.geolocation.clearWatch(id);
+	const watchId = navigator.geolocation.watchPosition(
 		(pos) => {
 			location.set({ lat: pos.coords.latitude, lng: pos.coords.longitude });
 		},
-		(e) => {
-			console.error(e);
-			location.set(false);
+		(error) => {
+			alert(`ERROR(${error.code}): ${error.message}`);
 		}
 	);
+	locationWatchId.set(watchId);
 };
 
 export function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
