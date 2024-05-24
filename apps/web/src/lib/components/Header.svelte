@@ -16,7 +16,7 @@
 <header>
 	<div class="lead">
 		<a href={`/${$page.data.locale}`} aria-label={home}>
-			<Logo height="48px" color="var(--color-primary)" />
+			<Logo width="48px" height="48px" color="var(--color-primary)" />
 		</a>
 		<h1>Amsterdam</h1>
 	</div>
@@ -32,35 +32,35 @@
 </header>
 
 <style>
-	header {
-		position: fixed;
-		top: 0;
-		width: 100%;
-		height: 64px;
-		display: flex;
-		padding-inline: 16px;
-		justify-content: space-between;
-		align-items: center;
-		background-color: var(--bg-color);
-	}
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 64px;
+        display: flex;
+        padding-inline: 16px;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--bg-color);
+    }
 
-	.lead {
-		display: flex;
-		align-items: center;
-	}
+    .lead {
+        display: flex;
+        align-items: center;
+    }
 
-	.trail a {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 48px;
-		width: 48px;
-	}
+    .trail a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 48px;
+        width: 48px;
+    }
 
-	h1 {
-		margin-left: 8px;
-		font-size: 1.5rem;
-		text-transform: uppercase;
-		color: var(--secondary-color);
-	}
+    h1 {
+        margin-left: 8px;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        color: var(--secondary-color);
+    }
 </style>

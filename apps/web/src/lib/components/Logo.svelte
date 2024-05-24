@@ -1,19 +1,12 @@
 <script lang="ts">
-<<<<<<<< HEAD:apps/web/src/icons/Logo.svelte
-	export let color: string = '#073854'
-	export let width: number = 32
-	export let height: number = 32
-========
-	// Props
-	export let color: string = '';
-	export let width: string = '100%';
-	export let height: string = '100%';
->>>>>>>> develop:apps/web/src/lib/components/Logo.svelte
+	export let color: string = '#073854';
+	export let width: string = '24px';
+	export let height: string = '24px';
 </script>
 
 <svg
-	{width}
-	{height}
+	width={width}
+	height={height}
 	viewBox="0 0 192 42"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"

@@ -15,12 +15,11 @@
 <Footer home={data.home} list={data.list} map={data.map} />
 
 <style>
-	main {
-		padding: 0.5rem;
-		position: absolute;
-		top: 64px;
-		width: 100%;
-		overflow: auto;
-		height: calc(100dvh - 64px - 80px);
-	}
+    main {
+        position: absolute;
+        top: 64px;
+        width: 100%;
+        overflow: auto;
+        height: calc(100dvh - 64px - 80px);
+    }
 </style>
