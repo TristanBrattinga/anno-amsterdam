@@ -1,7 +1,9 @@
-<script lang="ts">
-	import { MyCounterButton } from '@repo/ui';
+<script>
+    import Button from '$lib/components/Button.svelte';
 </script>
 
-<h1>Docs</h1>
-<MyCounterButton />
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>Content incoming</h1>
+<Button size="small">Small Button</Button>
+<Button size="normal" disabled={true}>Normal Disabled Button</Button>
+<Button size="large" cta={true}>Large CTA Button</Button>
+<Button size="large" subtle={true}>Large Subtle Button</Button>
