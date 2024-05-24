@@ -12,7 +12,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@repo/ui": "*"
+    "@repo/ui": "*",
+    "sass": "^1.77.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.42.1",
