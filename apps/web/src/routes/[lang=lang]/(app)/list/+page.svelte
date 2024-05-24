@@ -1,19 +1,19 @@
 <script lang="ts">
 	// Components
-	import { BuildingList } from '$components';
+	import { BuildingList } from '$components'
 
 	// Stores
-	import { location } from '$stores';
-	import { onMount } from 'svelte';
-	import { watchLocation } from '$lib';
+	import { location } from '$stores'
+	import { onMount } from 'svelte'
+	import { watchLocation } from '$lib'
 
-	export let data;
+	export let data
 
 	onMount(() => {
 		if (!$location) {
-			watchLocation();
+			watchLocation()
 		}
-	});
+	})
 </script>
 
 <section>
@@ -21,6 +21,6 @@
 	<BuildingList
 		buildingsTitle={data.buildingsTitle}
 		buildings={data.buildings}
-		location={$location}
+		location={$location || null}
 	/>
 </section>

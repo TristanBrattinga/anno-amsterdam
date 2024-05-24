@@ -40,60 +40,56 @@
 	</div>
 </article>
 
-<style>
+<style lang="scss">
 	article {
 		display: flex;
 		height: 15em;
 		background-color: var(--bg-color);
 		max-width: 600px;
-	}
 
-	header {
-		display: flex;
-	}
+		img {
+			height: 100%;
+			max-width: 50%;
+			object-fit: cover;
+		}
 
-	header p {
-		color: var(--secondary-color);
-	}
+		.content {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			padding: 0.5em;
 
-	.content {
-		display: flex;
-		flex-direction: column;
-		flex: 1;
-		padding: 0.5em;
-	}
+			& > * {
+				flex: 1;
+			}
 
-	.content > * {
-		flex: 1;
-	}
+			header {
+				display: flex;
 
-	hgroup {
-		flex: 1;
-	}
+				h3 {
+					margin: 0;
+				}
 
-	h3 {
-		margin: 0;
-	}
+				p {
+					color: var(--secondary-color);
+				}
+			}
 
-	footer {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	img {
-		height: 100%;
-		max-width: 50%;
-		object-fit: cover;
+			footer {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+		}
 	}
 
 	@media screen and (max-width: 400px) {
 		article {
 			flex-direction: column;
-		}
 
-		img {
-			max-width: 100%;
+			img {
+				max-width: 100%;
+			}
 		}
 	}
 </style>
