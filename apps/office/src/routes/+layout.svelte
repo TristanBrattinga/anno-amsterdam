@@ -4,4 +4,12 @@
 </script>
 
 <Header />
+<main>
 <slot />
+</main>
+<style>
+  main{
+    margin: 0 2.5vw;
+    min-height: 80vh;
+    }
+</style>

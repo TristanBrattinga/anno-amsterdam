@@ -3,6 +3,7 @@
   export let disabled = false;
   export let cta = false;
   export let subtle = false;
+  export let href = '#'; // Default href value
   
   const sizeClasses = {
     small: 'small',
@@ -13,12 +14,14 @@
   $: className = sizeClasses[size] || sizeClasses['normal'];
 </script>
 
-<button class="{className} {cta ? 'cta' : ''} {subtle ? 'subtle' : ''}" disabled={disabled}>
+<a href={href}
+   class="{className} {cta ? 'cta' : ''} {subtle ? 'subtle' : ''}"
+   disabled={disabled}>
   <slot></slot>
-</button>
+</a>
 
 <style>
-  button {
+  a {
     padding: 0.5rem .75rem;
     border: none;
     border-radius: 0.25rem;
@@ -29,44 +32,43 @@
     color: white;
     }
   
-  button.small {
+  a.small {
     width: 6em;
     }
   
-  button.normal {
+  a.normal {
     width: 8em;
     }
   
-  button.large {
+  a.large {
     width: clamp(12em, fit-content, max-content);
     }
   
-  button:hover:not(:disabled):not(.subtle) {
+  a:hover:not(:disabled):not(.subtle) {
     background-color: var(--secondary-color);
-    color: white
     }
   
-  button.cta {
+  a.cta {
     background-color: var(--secondary-color);
     color: white;
     }
   
-  button.cta:hover:not(.disabled):not(.subtle) {
+  a.cta:hover:not(.disabled):not(.subtle) {
     background-color: var(--primary-color);
     }
   
-  button.subtle {
+  a.subtle {
     background-color: white;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
     }
   
-  button.subtle:hover:not(.disabled) {
+  a.subtle:hover:not(.disabled) {
     background-color: var(--primary-color);
     color: white;
     }
   
-  button:disabled {
+  a:disabled {
     background-color: var(--disabled-color);
     cursor: not-allowed;
     opacity: 0.6;

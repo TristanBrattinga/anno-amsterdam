@@ -3,6 +3,7 @@
   import { page } from '$app/stores';
   import { derived } from 'svelte/store';
   import Logo from '$lib/components/Logo.svelte';
+  import Exit from '$lib/components/exit.svelte';
   const activePath = derived(page, $page => $page.url.pathname);
 </script>
 
@@ -12,7 +13,7 @@
       <a href="/" aria-current={$activePath === '/' ? 'page' : undefined} class={$activePath === '/' ? 'active' : ''}><Logo /><span>Amsterdam</span></a>
     </li>
     <li>
-      <a href="/toevoegen" aria-current={$activePath === '/toevoegen' ? 'page' : undefined} class={$activePath === '/toevoegen' ? 'active' : ''}>Toevoegen</a>
+      <a href="/import" aria-current={$activePath === '/import' ? 'page' : undefined} class={$activePath === '/import' ? 'active' : ''}>Toevoegen</a>
     </li>
     <li>
       <a href="/statistieken" aria-current={$activePath === '/statistieken' ? 'page' : undefined} class={$activePath === '/statistieken' ? 'active' : ''}>Statistieken</a>
@@ -21,7 +22,7 @@
       <a href="/gebruikers" aria-current={$activePath === '/gebruikers' ? 'page' : undefined} class={$activePath === '/gebruikers' ? 'active' : ''}>Gebruikers</a>
     </li>
     <li>
-      <a href="/logout" aria-current={$activePath === '/logout' ? 'page' : undefined} class={$activePath === '/logout' ? 'active' : ''}>Logout</a>
+      <a href="/logout" aria-current={$activePath === '/logout' ? 'page' : undefined} class={$activePath === '/logout' ? 'active' : ''}><Exit /> </a>
     </li>
   </ul>
 </header>
@@ -29,11 +30,13 @@
 <style lang="scss">
   header {
     width: 100vw;
-    height: 8vh;
+    height: 12vh;
     display: flex;
     padding-inline: 1rem;
     align-items: center;
-    background-color: var(--bg-color);
+    //background-color: var(--bg-color);
+    border-bottom: 2px solid var(--border-color);
+    
     
     ul {
       width: 100%;
@@ -46,7 +49,7 @@
       margin: 0;
       
       li {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         
         &.left {
           margin-right: auto;
@@ -58,6 +61,10 @@
           display: flex;
           align-items: center;
           width: 25vw;
+        }
+        &.left a span {
+          font-size: 1.5rem;
+          text-transform: uppercase;
         }
         &.left a:hover {
           color: var(--primary-color);

@@ -6,10 +6,3 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
-	color: var(--primary-color);
-}
-
-a[aria-current='page'] {
-	color: var(--secondary-color);
-}
