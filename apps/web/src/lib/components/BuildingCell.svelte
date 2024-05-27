@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Building, Coords } from '$types';
+	import type { Building, Coords } from '$types'
 
 	// Utils
-	import { getDistanceFromLatLonInKm } from '$lib';
+	import { getDistanceFromLatLonInKm } from '$lib'
 
 	// Props
-	export let building: Building;
-	export let location: Coords | null = null;
+	export let building: Building
+	export let location: Coords | null = null
 
 	$: km =
 		location && building.location.coordinates[0] !== 0
@@ -16,9 +16,9 @@
 					building.location.coordinates[0],
 					building.location.coordinates[1]
 				)
-			: 0;
+			: 0
 
-	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : '';
+	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
 <article>
@@ -43,7 +43,6 @@
 <style lang="scss">
 	article {
 		display: flex;
-		height: 15em;
 		background-color: var(--bg-color);
 		max-width: 600px;
 
