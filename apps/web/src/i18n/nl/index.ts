@@ -10,6 +10,7 @@ const nl = {
 	light: 'Licht',
 	home: 'Home',
 	dark: 'Donker',
+	buildings: 'Gebouwen',
 	system: 'Systeem',
 	list: 'Lijst',
 	map: 'Kaart',
