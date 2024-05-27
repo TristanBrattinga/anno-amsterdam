@@ -43,7 +43,6 @@
 <style lang="scss">
 	article {
 		display: flex;
-		height: 15em;
 		background-color: var(--bg-color);
 		max-width: 600px;
 
