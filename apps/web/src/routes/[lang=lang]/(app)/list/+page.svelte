@@ -4,16 +4,8 @@
 
 	// Stores
 	import { location } from '$stores'
-	import { onMount } from 'svelte'
-	import { watchLocation } from '$lib'
 
 	export let data
-
-	onMount(() => {
-		if (!$location) {
-			watchLocation()
-		}
-	})
 </script>
 
 <section>
