@@ -3,6 +3,7 @@
 	import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import { onMount, onDestroy } from 'svelte';
 	import type { Building } from '$types';
+	import { PUBLIC_MAPBOX_API_TOKEN } from '\$env/static/public';
 
 	let map: mapboxgl.Map;
 	let mapContainer: HTMLDivElement;
@@ -23,7 +24,7 @@
 
 		map = new mapboxgl.Map({
 			container: mapContainer,
-			accessToken: 'pk.eyJ1IjoidHJpc3RhbmJyYXR0aW5nYSIsImEiOiJjbHdoajY2dHEwY3h3MmtxbWN4ajYwYjdqIn0.GL3d0YfePpQYZKJYPnNl0g',
+			accessToken: PUBLIC_MAPBOX_API_TOKEN,
 			style: 'mapbox://styles/mapbox/outdoors-v11',
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom

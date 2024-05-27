@@ -17,5 +17,5 @@
 </script>
 
 <section>
-	<Map buildings={data.buildings} location={$location || null} />
+	<Map buildings={data.buildings} />
 </section>
