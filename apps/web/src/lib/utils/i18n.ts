@@ -26,3 +26,5 @@ export const replaceLocaleInUrl = (url: URL, locale: string, full = false): stri
 
 const REGEX_START_WITH_BASE = new RegExp(`^${base}`)
 export const getPathnameWithoutBase = (url: URL) => url.pathname.replace(REGEX_START_WITH_BASE, '')
+
+export const getAssetUrl = (url: URL, asset: string) => url.origin + base + asset

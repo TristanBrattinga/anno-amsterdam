@@ -2,7 +2,7 @@ import { loadLocaleAsync } from '$i18n/i18n-util.async'
 import { locales, baseLocale } from '$i18n/i18n-util'
 import { i18nObject } from '$i18n/i18n-util'
 import type { MetaTagsProps } from 'svelte-meta-tags'
-import { APP_NAME, getPathnameWithoutBase, replaceLocaleInUrl } from '$lib'
+import { APP_NAME, getAssetUrl, getPathnameWithoutBase, replaceLocaleInUrl } from '$lib'
 import type { Locales } from '$i18n/i18n-types'
 
 const mapLocale = (l: Locales) => {
@@ -38,11 +38,10 @@ export const load = async ({ url, data: { locale } }) => {
 			siteName: 'Anno Amsterdam',
 			images: [
 				{
-					url: replaceLocaleInUrl(url, '', true) + '/manifest-icon-512.maskable.png',
+					url: getAssetUrl(url, '/manifest-icon-512.maskable.png'),
 					alt: 'Anno Logo',
 					width: 512,
 					height: 512,
-					secureUrl: replaceLocaleInUrl(url, '', true) + 'manifest-icon-512.maskable.png',
 					type: 'image/png'
 				}
 			]
