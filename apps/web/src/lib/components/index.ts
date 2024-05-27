@@ -7,4 +7,3 @@ export { default as BuildingList } from './BuildingList.svelte';
 export { default as Dialog } from './Dialog.svelte';
 export { default as LocationPopup } from './LocationPopup.svelte';
 export { default as Map } from './Map.svelte';
-export { default as Sidebar } from './Sidebar.svelte';
