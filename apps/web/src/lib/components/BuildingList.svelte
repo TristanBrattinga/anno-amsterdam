@@ -8,7 +8,7 @@
 	import type { Building, Coords } from '$types';
 
 	// Props
-	export let buildingsTitle;
+	export let buildingsTitle: string;
 	export let buildings: Building[];
 	export let location: Coords | null = null;
 </script>
@@ -21,7 +21,7 @@
 </section>
 
 <style>
-	.auto-grid {
-		justify-items: center;
-	}
+    .auto-grid {
+        justify-items: center;
+    }
 </style>
