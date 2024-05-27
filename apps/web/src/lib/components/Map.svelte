@@ -3,7 +3,7 @@
 	import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import { onMount, onDestroy } from 'svelte';
 	import type { Building } from '$types';
-	import { PUBLIC_MAPBOX_API_TOKEN } from '\$env/static/public';
+	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public';
 
 	let map: mapboxgl.Map;
 	let mapContainer: HTMLDivElement;
