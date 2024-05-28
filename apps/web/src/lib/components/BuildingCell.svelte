@@ -1,4 +1,7 @@
 <script lang="ts">
+	// Stores
+	import { page } from '$app/stores'
+
 	import type { Building, Coords } from '$types'
 
 	// Utils
@@ -21,24 +24,26 @@
 	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
-<article>
-	<img src={building.image_urls[0].url} alt={building.name} />
-	<div class="content">
-		<header>
-			<hgroup>
-				<h3>{building.address}</h3>
-				<p>Anno {building.construction_year}</p>
-			</hgroup>
-			<div>
-				<button>Map</button>
-			</div>
-		</header>
-		<footer>
-			<p>{building.type_of_user}</p>
-			<p>{distance ? `(${distance})` : ''}</p>
-		</footer>
-	</div>
-</article>
+<a href={`/${$page.data.locale}/building/${building._id}`}>
+	<article>
+		<img src={building.image_urls[0].url} alt={building.name} />
+		<div class="content">
+			<header>
+				<hgroup>
+					<h3>{building.address}</h3>
+					<p>Anno {building.construction_year}</p>
+				</hgroup>
+				<div>
+					<button>Map</button>
+				</div>
+			</header>
+			<footer>
+				<p>{building.type_of_user}</p>
+				<p>{distance ? `(${distance})` : ''}</p>
+			</footer>
+		</div>
+	</article>
+</a>
 
 <style lang="scss">
 	article {
