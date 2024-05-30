@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-  
+  import Button from '$lib/components/Button.svelte';
+  import LinkButton from '$lib/components/LinkButton.svelte';
   onMount(() => {
     const details = document.querySelectorAll('details');
     
@@ -87,12 +88,12 @@
           Naam (evt. in plaats van adres)
           <input id="name" name="name" required type="text">
         </label>
-        <!-- Question 10 -->
+        <!-- Question 10 Make a select!! -->
         <label for="typeOfUse">
           Gebruik (?) [select van maken]
           <input id="typeOfUse" name="typeOfUse" required type="text">
         </label>
-        <!-- Question 11 -->
+        <!-- Question 11 Make a select + checkbox !!-->
         <label for="tags">
           Tags (?) [select + checkbox van maken]
           <input id="tags" name="tags" required type="text">
@@ -109,18 +110,14 @@
   <details>
     <summary><h2>Afbeeldingen</h2></summary>
     <div class="step-content">
-      <!-- Question 5 -->
+      <!-- Question 13 -->
       <fieldset form="Buildings">
-        <label for="email">
-          Email:
-          <input id="email" name="email" required type="email">
+        <label for="image">
+          Upload een foto
+          <input type="file" id="image" name="image" required accept="image/png, image/jpeg">
         </label>
-        
-        <!-- Question 6 -->
-        <label for="phone">
-          Phone:
-          <input id="phone" name="phone" required type="tel">
-        </label>
+
+        <LinkButton href="https://archief.amsterdam/beeldbank/?mode=gallery&view=horizontal&q=" size="large" cta={false} subtle={false}>Zoek de Beeldbank</LinkButton>
       </fieldset>
     </div>
   </details>
@@ -128,18 +125,18 @@
   <details>
     <summary><h2>Tijdlijn</h2></summary>
     <div class="step-content">
-      <!-- Question 7 -->
       <fieldset form="Buildings">
-        <label for="color">
-          Favorite Color:
-          <input id="color" name="color" required type="text">
+
+        <!-- Question 14 -->
+        <label for="tY1">
+          Year
+          <input id="tY1" name="TimelineYearOne" required type="number">
         </label>
-        
-        <!-- Question 8 -->
-        <label for="food">
-          Favorite Food:
-          <input id="food" name="food" required type="text">
+        <label for="tD1">
+          Year
+          <input id="tD1" name="TimelineDescriptionOne" required type="text">
         </label>
+        <p>Hier moet ik nog aan werken, dit zal een los component worden denk ik. Overleg Manoah, Tristan.</p>
       </fieldset>
     </div>
   </details>
@@ -148,8 +145,8 @@
     <summary><h2>Overzicht</h2></summary>
     <div class="step-content">
       <!-- Review/Summary Part -->
-      <p>Include a review or summary of the process here...</p>
-      <button type="submit">Submit</button>
+      <p>Javascript dingen inladen, anders simpele submit denk ik. Misschien weten Manoah of Tristan een slimme oplossing</p>
+      <Button size="large" cta={true} type="submit">Large CTA Button</Button>
     </div>
   </details>
 </form>
