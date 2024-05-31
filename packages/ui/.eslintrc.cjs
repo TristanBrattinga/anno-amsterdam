@@ -1,3 +1,14 @@
+const defaultConfig = require('config');
+
 module.exports = {
-	extends: ['config/index.js']
+	...defaultConfig,
+	root:      true,
+	overrides: [
+		{
+			files: ['**/*.stories.*'],
+			rules: {
+				'import/no-anonymous-default-export': 'off'
+			}
+		}
+	]
 };

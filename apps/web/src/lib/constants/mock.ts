@@ -4,7 +4,7 @@ export const BUILDINGS_MOCK: Building[] = [
 	{
 		_id: 'id1',
 		location: { type: 'Point', coordinates: [52.37883521144042, 4.874603183381912] },
-		name: "Pieter's huis",
+		name: 'Pieter\'s huis',
 		address: 'Rombout Hogerbeetsstraat 1',
 		construction_year: 1600,
 		type_of_user: 'Woning',

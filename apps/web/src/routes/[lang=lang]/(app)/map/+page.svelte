@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { watchLocation } from '$lib';
 	import Sidebar from '$components/Sidebar.svelte';
+	import NavBar from '$components/NavBar.svelte';
 
 	export let data;
 
@@ -18,6 +19,7 @@
 </script>
 
 <section>
+	<NavBar />
 	<Sidebar />
 	<Map buildings={data.buildings} />
 </section>

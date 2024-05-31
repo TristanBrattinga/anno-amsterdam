@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "ui",
   "version": "0.0.0",
   "type": "module",
   "module": "index.ts",
@@ -11,10 +11,26 @@
     }
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.5.0",
+    "@storybook/addon-essentials": "^8.1.5",
+    "@storybook/addon-interactions": "^8.1.5",
+    "@storybook/addon-links": "^8.1.5",
+    "@storybook/blocks": "^8.1.5",
+    "@storybook/svelte": "^8.1.5",
+    "@storybook/svelte-vite": "^8.1.5",
+    "@storybook/test": "^8.1.5",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "config": "*",
+    "eslint-plugin-storybook": "^0.8.0",
+    "storybook": "^8.1.5",
     "svelte": "^4.2.12"
+  },
+  "dependencies": {
+    "vite": "^5.2.12"
   }
 }

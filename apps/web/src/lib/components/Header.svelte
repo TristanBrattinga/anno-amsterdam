@@ -41,7 +41,8 @@
         padding-inline: 16px;
         justify-content: space-between;
         align-items: center;
-        background-color: var(--bg-color);
+        background-color: #fff;
+        border-bottom: 1px solid #E6E6E6;
     }
 
     .lead {

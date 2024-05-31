@@ -1,26 +1,36 @@
 @import './reset.scss';
 @import './variables.scss';
+@import "./typography.scss";
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Oswald, Helvetica, sans-serif;
+  position: relative;
+}
 
 a {
-	color: currentColor;
-	text-decoration: none;
+  color: currentColor;
+  text-decoration: none;
 }
 
 a:hover {
-	color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 a[aria-current='page'] {
-	color: var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
