@@ -2,8 +2,9 @@
 	import mapboxgl from 'mapbox-gl';
 	import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import { onMount, onDestroy } from 'svelte';
-	import type { Building } from '$types';
+	import type { Building, Coords } from '$types';
 	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public';
+	import CardPopup from '$components/CardPopup.svelte';
 
 	let map: mapboxgl.Map;
 	let mapContainer: HTMLDivElement;
@@ -12,14 +13,14 @@
 	let zoom = 12;
 	let geolocateControl: mapboxgl.GeolocateControl;
 
-
 	export let buildings: Building[];
+	export let location: Coords | null = null;
 
-	function updateData() {
+	const updateData = () => {
 		zoom = map.getZoom();
 		lng = map.getCenter().lng;
 		lat = map.getCenter().lat;
-	}
+	};
 
 	onMount(() => {
 		const initialState = { lng, lat, zoom };
@@ -66,7 +67,6 @@
 		}
 	};
 
-
 	onDestroy(() => {
 		if (map) {
 			map.remove();
@@ -84,6 +84,9 @@
 				fill="#343330" />
 		</svg>
 	</button>
+	{#each buildings as building}
+		<CardPopup building={building} location={location} />
+	{/each}
 </div>
 
 <style>

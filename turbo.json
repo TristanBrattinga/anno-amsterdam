@@ -20,9 +20,6 @@
 	},
 	"start": {
 	  "cache": false
-	},
-	"storybook": {
-	  "cache": false
 	}
   }
 }

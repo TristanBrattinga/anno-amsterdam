@@ -10,6 +10,7 @@
 	import NavBar from '$components/NavBar.svelte';
 
 	export let data;
+	let sidebarMenuId = 'mainSidebar';
 
 	onMount(() => {
 		if (!$location) {
@@ -19,7 +20,7 @@
 </script>
 
 <section>
-	<NavBar />
-	<Sidebar />
-	<Map buildings={data.buildings} />
+	<NavBar menuId={sidebarMenuId} />
+	<Sidebar menuId={sidebarMenuId} />
+	<Map buildings={data.buildings} location={location} />
 </section>
