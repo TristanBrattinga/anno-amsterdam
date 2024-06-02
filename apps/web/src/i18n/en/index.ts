@@ -16,7 +16,8 @@ const en = {
 	map: 'Map',
 	system: 'System',
 	settings: 'Settings',
-	theme: 'Theme'
+	theme: 'Theme',
+	filters: 'Filters'
 } satisfies Translation;
 
 export default en;

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { menuStore } from '$stores/menu';
 	import { onDestroy } from 'svelte';
-	import { writable } from 'svelte/store';
-	import { Logo } from '$components/index';
+	import { Logo } from '$icons';
 
 	export let menuId: string;
+	export let filterTitle: string;
 
 	let sidebarOpen = false;
 	const unsubscribe = menuStore.subscribe(value => {
@@ -31,7 +31,7 @@
 			</svg>
 		</button>
 	</div>
-	<p>Filters</p>
+	<p>{filterTitle}</p>
 	<div class="divider" />
 	<ul>
 		<li>

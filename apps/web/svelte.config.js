@@ -18,7 +18,8 @@ const config = {
 			$stores:     'src/lib/stores',
 			$styles:     'src/lib/styles',
 			$types:      'src/lib/types',
-			$utils:      'src/lib/utils'
+			$utils:      'src/lib/utils',
+			$icons:      'src/lib/icons'
 		}
 	}
 };

@@ -15,7 +15,8 @@ const nl = {
 	list: 'Lijst',
 	map: 'Kaart',
 	settings: 'Instellingen',
-	theme: 'Thema'
+	theme: 'Thema',
+	filters: 'Filters'
 } satisfies BaseTranslation;
 
 export default nl;

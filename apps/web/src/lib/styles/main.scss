@@ -2,10 +2,6 @@
 @import './variables.scss';
 @import "./typography.scss";
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: Oswald, Helvetica, sans-serif;
   position: relative;

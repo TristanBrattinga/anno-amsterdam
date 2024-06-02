@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 
 	// Components
-	import { Logo } from '$components';
+	import { Logo } from '$icons';
 
 	// Icons
 	import Cog from 'lucide-svelte/icons/cog';
