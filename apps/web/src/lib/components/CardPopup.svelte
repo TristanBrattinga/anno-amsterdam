@@ -1,11 +1,9 @@
 <script lang="ts">
-
-	// Props
 	import type { Building, Coords } from '$types';
 	import { getDistanceFromLatLonInKm } from '~/lib';
 
 	export let building: Building;
-	export let location: Coords | null = null;
+	export let location: Coords | null | undefined = null;
 
 	$: km =
 		location && building.location.coordinates[0] !== 0
@@ -85,27 +83,10 @@
 			<p>{building?.type_of_user}</p>
 		</li>
 	</ul>
-	<svg class="triangle" width="30" height="13" viewBox="0 0 30 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path d="M30 0L18.5355 11.4645C16.5829 13.4171 13.4171 13.4171 11.4645 11.4645L0 0H30Z" fill="white" />
-	</svg>
 </a>
 
 <style lang="scss">
-
   a {
-    display: none;
-    padding: 2.25rem 1.25rem 1.75rem;
-    border-radius: 10px;
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    background-color: #ffffff;
-    max-width: 248px;
-    width: 100%;
-
-    &.show {
-      display: block;
-    }
 
     button {
       position: absolute;
@@ -118,7 +99,6 @@
       justify-content: center;
       align-items: center;
       padding: 5px;
-
     }
 
     div {
@@ -128,24 +108,24 @@
         margin-bottom: 10px;
       }
 
-
       &:nth-of-type(2) {
         margin-bottom: 12px;
         justify-content: space-between;
 
         p {
           font-size: 22px;
+          font-weight: 500;
           color: var(--secondary-color-dark);
         }
 
-
         ul {
-          gap: .5rem;
+          gap: 0.5rem;
         }
-
       }
 
       p {
+        font-family: Oswald, sans-serif;
+        font-size: 1rem;
         line-height: 1;
       }
     }
@@ -155,7 +135,6 @@
       justify-content: space-between;
 
       li {
-
         span {
           display: block;
           height: 100%;
@@ -164,20 +143,11 @@
         }
 
         p:first-of-type {
-          font-size: .75rem;
+          font-size: 0.75rem;
           color: var(--primary-color-light);
           opacity: 50%;
         }
       }
     }
-  }
-
-  .triangle {
-    position: absolute;
-    width: 30px;
-    height: 15px;
-    left: calc(50% - 30px / 2 + 34px);
-    bottom: -12px;
-    border-radius: 0;
   }
 </style>

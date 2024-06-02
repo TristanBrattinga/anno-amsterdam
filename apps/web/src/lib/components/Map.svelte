@@ -5,6 +5,7 @@
 	import type { Building, Coords } from '$types';
 	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public';
 	import CardPopup from '$components/CardPopup.svelte';
+	import { renderComponentToElement } from '$utils/renderComponent';
 
 	let map: mapboxgl.Map;
 	let mapContainer: HTMLDivElement;
@@ -41,6 +42,10 @@
 		buildings.forEach(building => {
 			new mapboxgl.Marker()
 				.setLngLat(building.location.coordinates.reverse() as [number, number])
+				.setPopup(
+					new mapboxgl.Popup({ offset: 25 })
+						.setDOMContent(renderComponentToElement(CardPopup, { building, location }))
+				)
 				.addTo(map);
 		});
 
@@ -84,9 +89,6 @@
 				fill="#343330" />
 		</svg>
 	</button>
-	{#each buildings as building}
-		<CardPopup building={building} location={location} />
-	{/each}
 </div>
 
 <style>
