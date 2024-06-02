@@ -1,4 +1,4 @@
-import type { Translation } from '../i18n-types';
+import type { Translation } from '../i18n-types'
 
 const en = {
 	lang: 'Language',
@@ -10,6 +10,7 @@ const en = {
 	unexpectedError: 'Oops! Something went wrong',
 	light: 'Light',
 	home: 'Home',
+	building: 'Building',
 	buildings: 'Buildings',
 	dark: 'Dark',
 	list: 'List',
@@ -18,6 +19,6 @@ const en = {
 	settings: 'Settings',
 	theme: 'Theme',
 	filters: 'Filters'
-} satisfies Translation;
+} satisfies Translation
 
-export default en;
+export default en

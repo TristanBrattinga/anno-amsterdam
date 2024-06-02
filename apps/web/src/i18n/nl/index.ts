@@ -1,4 +1,4 @@
-import type { BaseTranslation } from '../i18n-types';
+import type { BaseTranslation } from '../i18n-types'
 
 const nl = {
 	lang: 'Taal',
@@ -10,6 +10,7 @@ const nl = {
 	light: 'Licht',
 	home: 'Home',
 	dark: 'Donker',
+	building: 'Gebouw',
 	buildings: 'Gebouwen',
 	system: 'Systeem',
 	list: 'Lijst',
@@ -17,6 +18,6 @@ const nl = {
 	settings: 'Instellingen',
 	theme: 'Thema',
 	filters: 'Filters'
-} satisfies BaseTranslation;
+} satisfies BaseTranslation
 
-export default nl;
+export default nl

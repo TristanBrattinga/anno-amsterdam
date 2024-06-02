@@ -8,16 +8,16 @@ body {
 }
 
 a {
-  color: currentColor;
-  text-decoration: none;
-}
+	color: currentColor;
+	text-decoration: none;
 
-a:hover {
-  color: var(--primary-color);
-}
+	&[aria-current='page'] {
+		color: var(--secondary-color);
+	}
 
-a[aria-current='page'] {
-  color: var(--secondary-color);
+	&.link:hover {
+		color: var(--primary-color);
+	}
 }
 
 .sr-only {
