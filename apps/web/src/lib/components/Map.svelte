@@ -45,7 +45,7 @@
 			new mapboxgl.Marker()
 				.setLngLat(building.location.coordinates.reverse() as [number, number])
 				.setPopup(
-					new mapboxgl.Popup({ offset: 25 })
+					new mapboxgl.Popup({ offset: 1 })
 						.setDOMContent(renderComponentToElement(CardPopup, { building, location }))
 				)
 				.addTo(map);

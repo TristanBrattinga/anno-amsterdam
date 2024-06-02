@@ -1,4 +1,5 @@
 <script lang="ts">
+	export let color: string = '#00425A';
 	export let width: string = '18px';
 	export let height: string = '18px';
 
@@ -12,7 +13,7 @@
 		<rect width="18" height="18" fill="url(#pattern0_3366_6198)" />
 	</mask>
 	<g mask="url(#mask0_3366_6198)">
-		<rect y="-2.39062" width="23.0625" height="23.4844" fill="#00425A" />
+		<rect y="-2.39062" width="23.0625" height="23.4844" fill={color} />
 	</g>
 	<defs>
 		<pattern id="pattern0_3366_6198" patternContentUnits="objectBoundingBox" width="1" height="1">

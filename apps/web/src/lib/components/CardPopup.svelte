@@ -2,6 +2,7 @@
 	import type { Building, Coords } from '$types';
 	import { getDistanceFromLatLonInKm } from '~/lib';
 	import { AudioGuideIcon, CloseIcon, RouteIcon } from '$icons';
+	import { page } from '$app/stores';
 
 
 	export let building: Building;
@@ -20,21 +21,21 @@
 	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : '';
 </script>
 
-<a href="#top">
+<a href={`/${$page.data.locale}/building/${building._id}`}>
 	<div>
 		<p>{building?.address || 'Address missing'}</p>
-		<button>
-			<CloseIcon />
-		</button>
+		<!--		<button>-->
+		<!--			<CloseIcon />-->
+		<!--		</button>-->
 	</div>
 	<div>
 		<p class="anno">Anno {building.construction_year}</p>
 		<ul>
 			<li>
-				<RouteIcon />
+				<RouteIcon color={building.timeline.length === 0 ? '#C5D9E0' : '#00425A'} />
 			</li>
 			<li>
-				<AudioGuideIcon />
+				<AudioGuideIcon color={building.audioguids.length === 0 ? '#C5D9E0' : '#00425A'} />
 			</li>
 		</ul>
 	</div>
@@ -53,6 +54,8 @@
 
 <style lang="scss">
   a {
+    padding: 10px;
+    outline: none;
 
     button {
       position: absolute;
@@ -115,5 +118,6 @@
         }
       }
     }
+
   }
 </style>
