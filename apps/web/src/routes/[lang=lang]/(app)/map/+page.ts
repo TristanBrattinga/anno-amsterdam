@@ -13,7 +13,7 @@ export const load = async ({ parent, data: { buildings } }) => {
 
 	return {
 		pageMetaTags,
-		filtersTitle: LL.filters(),
+		filterTitle: LL.filters(),
 		buildings
 	};
 };
