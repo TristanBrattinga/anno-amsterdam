@@ -20,6 +20,6 @@
 
 <section>
 	<NavBar menuId={sidebarMenuId} />
-	<Sidebar menuId={sidebarMenuId} filterTitle={data.filters} />
+	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} />
 	<Map buildings={data.buildings} location={location} />
 </section>

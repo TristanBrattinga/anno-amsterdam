@@ -1,4 +1,4 @@
-import type { BaseTranslation } from '../i18n-types'
+import type { BaseTranslation } from '../i18n-types';
 
 const nl = {
 	lang: 'Taal',
@@ -17,7 +17,8 @@ const nl = {
 	map: 'Kaart',
 	settings: 'Instellingen',
 	theme: 'Thema',
-	filters: 'Filters'
-} satisfies BaseTranslation
+	filters: 'Filters',
+	centuries: { 16: '16e eeuw', 17: '17e eeuw', 18: '18e eeuw', 19: '19e eeuw', 20: '20e eeuw', 21: '21e eeuw' }
+} satisfies BaseTranslation;
 
-export default nl
+export default nl;

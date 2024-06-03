@@ -5,7 +5,7 @@ export const load = async ({ parent, data: { buildings } }) => {
 	const { locale } = await parent();
 	const LL = i18nObject(locale);
 
-	const title = LL.filters();
+	const title = LL.map();
 	const pageMetaTags = Object.freeze({
 		title,
 		openGraph: { title }
