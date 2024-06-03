@@ -33,7 +33,10 @@
 				<p>Anno {building.construction_year}</p>
 			</hgroup>
 			<div>
-				<a href={`/${$page.data.locale}/map#${building._id}`}>Map</a>
+				<form action={`/${$page.data.locale}/map`} method="post">
+					<input type="hidden" name="id" value={building._id} />
+					<button>Map</button>
+				</form>
 			</div>
 		</header>
 		<footer>
