@@ -96,6 +96,11 @@
 						border-radius: 8px;
 						border: 2px solid var(--primary-color);
 						color: var(--text-color);
+
+						&:hover {
+							background-color: var(--primary-color);
+							color: #fff;
+						}
 					}
 				}
 			}
@@ -113,6 +118,12 @@
 					border-radius: 8px;
 					background-color: var(--primary-color);
 					color: #fff;
+
+					&:hover {
+						background-color: unset;
+						border: 2px solid var(--primary-color);
+						color: var(--text-color);
+					}
 				}
 			}
 		}

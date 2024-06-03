@@ -3,7 +3,7 @@
 </script>
 
 <section>
-	<button on:click={() => history.back()}>{data.back}</button>
+	<button on:click={() => history.back()}>&#60; {data.back}</button>
 	<img src={data.building.image_urls[0].url} alt={data.building.name} />
 	<div class="content">
 		<p class="anno">Anno {data.building.construction_year}</p>
