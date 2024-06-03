@@ -2,18 +2,24 @@
 	import mapboxgl from 'mapbox-gl'
 	import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css'
 	import { onMount, onDestroy } from 'svelte'
-	import type { Building } from '$types'
+	import type { Building, Coords } from '$types'
 	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public'
+
+	import { renderComponentToElement } from '$utils/renderComponent'
+	import { LocationIcon } from '$icons'
+	import { CardPopup } from '$components/index'
 
 	let map: mapboxgl.Map
 	let mapContainer: HTMLDivElement
 	let lat = 52.3728
 	let lng = 4.8936
 	let zoom = 12
+	let geolocateControl: mapboxgl.GeolocateControl
 
 	export let buildings: Building[]
+	export let location: Coords | null = null
 
-	function updateData() {
+	const updateData = () => {
 		zoom = map.getZoom()
 		lng = map.getCenter().lng
 		lat = map.getCenter().lat
@@ -27,33 +33,48 @@
 			accessToken: PUBLIC_MAPBOX_API_TOKEN,
 			style: 'mapbox://styles/mapbox/outdoors-v11',
 			center: [initialState.lng, initialState.lat],
-			zoom: initialState.zoom
+			zoom: initialState.zoom,
+			attributionControl: false
 		})
 
 		map.on('move', () => {
 			updateData()
 		})
 
-		console.log(buildings)
-
 		buildings.forEach((building) => {
 			new mapboxgl.Marker()
 				.setLngLat(building.location.coordinates.reverse() as [number, number])
+				.setPopup(
+					new mapboxgl.Popup({ offset: 1 }).setDOMContent(
+						renderComponentToElement(CardPopup, { building, location })
+					)
+				)
 				.addTo(map)
 		})
 
-		map.addControl(
-			new mapboxgl.GeolocateControl({
-				positionOptions: {
-					enableHighAccuracy: true
-				},
-				// When active the map will receive updates to the device's location as it changes.
-				trackUserLocation: true,
-				// Draw an arrow next to the location dot to indicate which direction the device is heading.
-				showUserHeading: true
-			})
-		)
+		geolocateControl = new mapboxgl.GeolocateControl({
+			positionOptions: {
+				enableHighAccuracy: true
+			},
+			trackUserLocation: true,
+			showUserHeading: true
+		})
+
+		map.addControl(geolocateControl)
+
+		const geolocateButton = map
+			.getContainer()
+			.querySelector('.mapboxgl-ctrl-top-right') as HTMLElement
+		if (geolocateButton) {
+			geolocateButton.style.display = 'none'
+		}
 	})
+
+	const triggerGeolocate = () => {
+		if (geolocateControl) {
+			geolocateControl.trigger()
+		}
+	}
 
 	onDestroy(() => {
 		if (map) {
@@ -64,12 +85,11 @@
 
 <div class="map-wrap">
 	<div class="map" bind:this={mapContainer} />
-</div>
 
-<!--<div class="sidebar">-->
-<!--	Longitude: {lng.toFixed(4)} | Latitude: {lat.toFixed(4)} | Zoom:-->
-<!--	{zoom.toFixed(2)}-->
-<!--</div>-->
+	<button class="locationButton" on:click={triggerGeolocate}>
+		<LocationIcon />
+	</button>
+</div>
 
 <style>
 	.map {
@@ -78,16 +98,18 @@
 		height: 100%;
 	}
 
-	.sidebar {
-		background-color: rgb(35 55 75 / 90%);
-		color: #fff;
-		padding: 6px 12px;
-		font-family: monospace;
-		z-index: 1;
+	.locationButton {
 		position: absolute;
-		top: 0;
-		left: 0;
-		margin: 12px;
-		border-radius: 4px;
+		border: 1px solid #c5d9e0;
+		background-color: #ffffff;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 999px;
+		bottom: 10px;
+		right: 10px;
+		cursor: pointer;
 	}
 </style>

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "ui",
   "version": "0.0.0",
   "type": "module",
   "module": "index.ts",
@@ -14,7 +14,11 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "config": "*",
     "svelte": "^4.2.12"
+  },
+  "dependencies": {
+    "vite": "^5.2.12"
   }
 }

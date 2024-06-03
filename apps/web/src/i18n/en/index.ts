@@ -1,4 +1,4 @@
-import type { Translation } from '../i18n-types'
+import type { Translation } from '../i18n-types';
 
 const en = {
 	lang: 'Language',
@@ -18,7 +18,16 @@ const en = {
 	map: 'Map',
 	system: 'System',
 	settings: 'Settings',
-	theme: 'Theme'
-} satisfies Translation
+	theme: 'Theme',
+	filters: 'Filters',
+	centuries: {
+		16: '16th century',
+		17: '17th century',
+		18: '18th century',
+		19: '19th century',
+		20: '20th century',
+		21: '21st century'
+	}
+} satisfies Translation;
 
-export default en
+export default en;

@@ -1,3 +1,6 @@
+const defaultConfig = require('config');
+
 module.exports = {
-	extends: ['@repo/eslint-config/index.js']
+	...defaultConfig,
+	root: true
 };
