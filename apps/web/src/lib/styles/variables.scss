@@ -23,7 +23,9 @@
 }
 
 /* System prefers light or no preference */
-@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+@media (prefers-color-scheme: light),
+	(prefers-color-scheme: dark),
+	(prefers-color-scheme: no-preference) {
 	:root {
 		--primary-color: var(--primary-color-light);
 		--secondary-color: var(--secondary-color-light);
@@ -41,7 +43,7 @@
 }
 
 /* System prefers dark */
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
 	:root {
 		--primary-color: var(--primary-color-dark);
 		--secondary-color: var(--secondary-color-dark);
@@ -55,4 +57,4 @@
 		color-scheme: dark;
 		font-palette: dark;
 	}
-}
+}*/

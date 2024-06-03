@@ -24,37 +24,39 @@
 	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
-<a href={`/${$page.data.locale}/building/${building._id}`}>
-	<article>
-		<img src={building.image_urls[0].url} alt={building.name} />
-		<div class="content">
-			<header>
-				<hgroup>
-					<h3>{building.address}</h3>
-					<p>Anno {building.construction_year}</p>
-				</hgroup>
-				<div>
-					<button>Map</button>
-				</div>
-			</header>
-			<footer>
-				<p>{building.type_of_user}</p>
-				<p>{distance ? `(${distance})` : ''}</p>
-			</footer>
-		</div>
-	</article>
-</a>
+<article>
+	<img src={building.image_urls[0].url} alt={building.name} />
+	<div class="content">
+		<header>
+			<hgroup>
+				<h3>{building.address}</h3>
+				<p>Anno {building.construction_year}</p>
+			</hgroup>
+			<div>
+				<a href={`/${$page.data.locale}/map#${building._id}`}>Map</a>
+			</div>
+		</header>
+		<footer>
+			{#if building.type_of_user}
+				<a href={`/${$page.data.locale}/building/${building._id}`}>Meer info</a>
+			{/if}
+			<p>{distance ? `(${distance})` : ''}</p>
+		</footer>
+	</div>
+</article>
 
 <style lang="scss">
 	article {
 		display: flex;
-		background-color: var(--bg-color);
 		max-width: 600px;
+		border-top: solid 1px var(--primary-color);
+		padding-top: 1em;
 
 		img {
 			height: 100%;
 			max-width: 50%;
 			object-fit: cover;
+			border-radius: 8px;
 		}
 
 		.content {
@@ -69,13 +71,32 @@
 
 			header {
 				display: flex;
+				justify-content: space-between;
 
-				h3 {
-					margin: 0;
+				hgroup {
+					h3 {
+						margin: 0;
+					}
+
+					p {
+						color: var(--secondary-color);
+						font-size: 1.5em;
+					}
 				}
 
-				p {
-					color: var(--secondary-color);
+				div {
+					display: flex;
+					align-items: center;
+
+					a {
+						text-transform: uppercase;
+						display: block;
+						width: fit-content;
+						padding: 0.25rem 0.5rem;
+						border-radius: 8px;
+						border: 2px solid var(--primary-color);
+						color: var(--text-color);
+					}
 				}
 			}
 
@@ -83,6 +104,16 @@
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
+
+				a {
+					text-transform: uppercase;
+					display: block;
+					width: fit-content;
+					padding: 0.25rem 0.5rem;
+					border-radius: 8px;
+					background-color: var(--primary-color);
+					color: #fff;
+				}
 			}
 		}
 	}

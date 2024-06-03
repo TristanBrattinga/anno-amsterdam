@@ -3,6 +3,7 @@
 </script>
 
 <section>
+	<button on:click={() => history.back()}>{data.back}</button>
 	<img src={data.building.image_urls[0].url} alt={data.building.name} />
 	<div class="content">
 		<p class="anno">Anno {data.building.construction_year}</p>
@@ -21,6 +22,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+
+		button {
+			position: absolute;
+			top: 0.25em;
+			left: 0.5em;
+		}
 
 		.content {
 			width: 100%;
@@ -49,7 +56,7 @@
 				align-items: center;
 				margin-top: calc(-24px - 1rem);
 				width: fit-content;
-				color: var(--text-color);
+				color: #fff;
 				background-color: var(--secondary-color);
 			}
 		}

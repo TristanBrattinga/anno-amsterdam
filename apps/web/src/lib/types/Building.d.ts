@@ -16,13 +16,13 @@ export interface Building {
 	name: string
 	address: string
 	construction_year: number
-	type_of_user: string
+	type_of_user?: string
 	tags: string[]
-	description: string
+	description?: string
 	image_urls: Image[]
-	timeline: never[]
+	timeline?: never[]
 	active: boolean
-	audioguids: never[]
+	audioguids?: never[]
 	created_at: string
 	updated_at: string
 }

@@ -1,26 +1,26 @@
 <script lang="ts">
-	import mapboxgl from 'mapbox-gl';
-	import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-	import { onMount, onDestroy } from 'svelte';
-	import type { Building } from '$types';
-	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public';
+	import mapboxgl from 'mapbox-gl'
+	import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css'
+	import { onMount, onDestroy } from 'svelte'
+	import type { Building } from '$types'
+	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public'
 
-	let map: mapboxgl.Map;
-	let mapContainer: HTMLDivElement;
-	let lat = 52.3728;
-	let lng = 4.8936;
-	let zoom = 12;
+	let map: mapboxgl.Map
+	let mapContainer: HTMLDivElement
+	let lat = 52.3728
+	let lng = 4.8936
+	let zoom = 12
 
-	export let buildings: Building[];
+	export let buildings: Building[]
 
 	function updateData() {
-		zoom = map.getZoom();
-		lng = map.getCenter().lng;
-		lat = map.getCenter().lat;
+		zoom = map.getZoom()
+		lng = map.getCenter().lng
+		lat = map.getCenter().lat
 	}
 
 	onMount(() => {
-		const initialState = { lng, lat, zoom };
+		const initialState = { lng, lat, zoom }
 
 		map = new mapboxgl.Map({
 			container: mapContainer,
@@ -28,19 +28,19 @@
 			style: 'mapbox://styles/mapbox/outdoors-v11',
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom
-		});
+		})
 
 		map.on('move', () => {
-			updateData();
-		});
+			updateData()
+		})
 
-		console.log(buildings);
+		console.log(buildings)
 
-		buildings.forEach(building => {
+		buildings.forEach((building) => {
 			new mapboxgl.Marker()
 				.setLngLat(building.location.coordinates.reverse() as [number, number])
-				.addTo(map);
-		});
+				.addTo(map)
+		})
 
 		map.addControl(
 			new mapboxgl.GeolocateControl({
@@ -51,19 +51,19 @@
 				trackUserLocation: true,
 				// Draw an arrow next to the location dot to indicate which direction the device is heading.
 				showUserHeading: true
-			}));
-	});
-
+			})
+		)
+	})
 
 	onDestroy(() => {
 		if (map) {
-			map.remove();
+			map.remove()
 		}
-	});
+	})
 </script>
 
 <div class="map-wrap">
-	<div class="map" bind:this="{mapContainer}" />
+	<div class="map" bind:this={mapContainer} />
 </div>
 
 <!--<div class="sidebar">-->
@@ -72,22 +72,22 @@
 <!--</div>-->
 
 <style>
-    .map {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
+	.map {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
 
-    .sidebar {
-        background-color: rgb(35 55 75 / 90%);
-        color: #fff;
-        padding: 6px 12px;
-        font-family: monospace;
-        z-index: 1;
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin: 12px;
-        border-radius: 4px;
-    }
+	.sidebar {
+		background-color: rgb(35 55 75 / 90%);
+		color: #fff;
+		padding: 6px 12px;
+		font-family: monospace;
+		z-index: 1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 12px;
+		border-radius: 4px;
+	}
 </style>

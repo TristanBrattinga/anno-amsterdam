@@ -10,6 +10,7 @@ const nl = {
 	light: 'Licht',
 	home: 'Home',
 	dark: 'Donker',
+	back: 'Terug',
 	building: 'Gebouw',
 	buildings: 'Gebouwen',
 	system: 'Systeem',
