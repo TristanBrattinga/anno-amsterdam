@@ -1,5 +1,7 @@
+const defaultConfig = require('config');
+
 module.exports = {
-  root: true,
-  // This tells ESLint to load the config from the package `eslint-config-custom`
-  extends: ['custom']
+	// Manually load ESLint config from the package `config`
+	...defaultConfig,
+	root: true
 };

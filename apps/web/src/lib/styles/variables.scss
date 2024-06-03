@@ -1,58 +1,58 @@
 :root {
-	/* Light colors */
-	--primary-color-light: #00425a;
-	--secondary-color-light: #a60001;
-	--logo-color-light: #073854;
+  /* Light colors */
+  --primary-color-light: #00425a;
+  --secondary-color-light: #a60001;
+  --logo-color-light: #073854;
 
-	--text-color-light: #091520;
-	--bg-color-light: #c5c5c58c;
-	--info-color-light: lightskyblue;
-	--success-color-light: green;
-	--error-color-light: #ad0000;
+  --text-color-light: #091520;
+  --bg-color-light: #c5c5c58c;
+  --info-color-light: lightskyblue;
+  --success-color-light: green;
+  --error-color-light: #ad0000;
 
-	/* Dark colors */
-	--primary-color-dark: #00425a;
-	--secondary-color-dark: #a60001;
-	--logo-color-dark: #073854;
+  /* Dark colors */
+  --primary-color-dark: #00425a;
+  --secondary-color-dark: #a60001;
+  --logo-color-dark: #073854;
 
-	--text-color-dark: rgba(255, 255, 255, 0.87);
-	--bg-color-dark: #242424;
-	--info-color-dark: #0462ae;
-	--success-color-dark: #00ff00;
-	--error-color-dark: #ff4242;
+  --text-color-dark: rgba(255, 255, 255, 0.87);
+  --bg-color-dark: #242424;
+  --info-color-dark: #0462ae;
+  --success-color-dark: #00ff00;
+  --error-color-dark: #ff4242;
 }
 
 /* System prefers light or no preference */
 @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-	:root {
-		--primary-color: var(--primary-color-light);
-		--secondary-color: var(--secondary-color-light);
-		--logo-color: var(--logo-color-light);
+  :root {
+    --primary-color: var(--primary-color-light);
+    --secondary-color: var(--secondary-color-light);
+    --logo-color: var(--logo-color-light);
 
-		--text-color: var(--text-color-light);
-		--bg-color: var(--bg-color-light);
-		--info-color: var(--info-color-light);
-		--success-color: var(--success-color-light);
-		--error-color: var(--error-color-light);
-		accent-color: var(--link-color-light);
-		color-scheme: light;
-		font-palette: light;
-	}
+    --text-color: var(--text-color-light);
+    --bg-color: var(--bg-color-light);
+    --info-color: var(--info-color-light);
+    --success-color: var(--success-color-light);
+    --error-color: var(--error-color-light);
+    accent-color: var(--link-color-light);
+    color-scheme: light;
+    font-palette: light;
+  }
 }
 
 /* System prefers dark */
-@media (prefers-color-scheme: dark) {
-	:root {
-		--primary-color: var(--primary-color-dark);
-		--secondary-color: var(--secondary-color-dark);
-		--logo-color: var(--logo-color-dark);
-		--text-color: var(--text-color-dark);
-		--bg-color: var(--bg-color-dark);
-		--info-color: var(--info-color-dark);
-		--success-color: var(--success-color-dark);
-		--error-color: var(--error-color-dark);
-		accent-color: var(--link-color-dark);
-		color-scheme: dark;
-		font-palette: dark;
-	}
-}
+//@media (prefers-color-scheme: dark) {
+//	:root {
+//		--primary-color: var(--primary-color-dark);
+//		--secondary-color: var(--secondary-color-dark);
+//		--logo-color: var(--logo-color-dark);
+//		--text-color: var(--text-color-dark);
+//		--bg-color: var(--bg-color-dark);
+//		--info-color: var(--info-color-dark);
+//		--success-color: var(--success-color-dark);
+//		--error-color: var(--error-color-dark);
+//		accent-color: var(--link-color-dark);
+//		color-scheme: dark;
+//		font-palette: dark;
+//	}
+//}

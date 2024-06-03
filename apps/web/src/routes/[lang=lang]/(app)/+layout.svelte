@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { setLocale } from '$i18n/i18n-svelte'
+	import { setLocale } from '$i18n/i18n-svelte';
 
 	// Components
-	import { Header, Footer, LocationPopup } from '$components'
+	import { Header, Footer, LocationPopup } from '$components';
 
-	export let data
-	setLocale(data.locale)
+	export let data;
+	setLocale(data.locale);
 </script>
 
 <Header home={data.home} settings={data.settings} />

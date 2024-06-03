@@ -1,6 +1,6 @@
 <script lang="ts">
 	// Components
-	import { Map } from '$components';
+	import { Map, NavBar, Sidebar } from '$components';
 
 	// Stores
 	import { location } from '$stores';
@@ -8,6 +8,8 @@
 	import { watchLocation } from '$lib';
 
 	export let data;
+
+	let sidebarMenuId = 'mainSidebar';
 
 	onMount(() => {
 		if (!$location) {
@@ -17,5 +19,7 @@
 </script>
 
 <section>
-	<Map buildings={data.buildings} />
+	<NavBar menuId={sidebarMenuId} />
+	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} />
+	<Map buildings={data.buildings} location={location} />
 </section>

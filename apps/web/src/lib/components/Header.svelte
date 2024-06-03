@@ -3,7 +3,7 @@
 	import { page } from '$app/stores'
 
 	// Components
-	import { Logo } from '$components'
+	import { Logo } from '$icons';
 
 	// Icons
 	import Cog from 'lucide-svelte/icons/cog'
@@ -33,6 +33,18 @@
 </header>
 
 <style>
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 64px;
+        display: flex;
+        padding-inline: 16px;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        border-bottom: 1px solid #E6E6E6;
+    }
 	header {
 		position: fixed;
 		top: 0;
