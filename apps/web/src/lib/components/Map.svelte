@@ -66,6 +66,27 @@
 			geolocateButton.style.display = 'none';
 		}
 
+		map.on('load', () => {
+			map.addSource('earthquakes', {
+				type: 'geojson',
+				// Use a URL for the value for the `data` property.
+				data: ''
+			});
+
+			map.addLayer({
+				'id': 'earthquakes-layer',
+				'type': 'circle',
+				'source': 'earthquakes',
+				'paint': {
+					'circle-radius': 4,
+					'circle-stroke-width': 2,
+					'circle-color': 'red',
+					'circle-stroke-color': 'white'
+				}
+			});
+
+		});
+
 	});
 
 	const triggerGeolocate = () => {
@@ -89,26 +110,33 @@
 	</button>
 </div>
 
-<style>
-    .map {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
+<style lang="scss">
+  :global(.mapboxgl-popup-content) {
+    display: none;
+  }
 
-    .locationButton {
-        position: absolute;
-        border: 1px solid #C5D9E0;
-        background-color: #ffffff;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 999px;
-        bottom: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
+  .map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+
+  }
+
+  .locationButton {
+    position: absolute;
+    border: 1px solid #C5D9E0;
+    background-color: #ffffff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 999px;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+
 
 </style>
