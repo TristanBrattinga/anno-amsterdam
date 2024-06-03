@@ -15,15 +15,13 @@
     <li>
       <a href="/import" aria-current={$activePath === '/import' ? 'page' : undefined} class={$activePath === '/import' ? 'active' : ''}>Toevoegen</a>
     </li>
-    <li>
-      <a href="/statistieken" aria-current={$activePath === '/statistieken' ? 'page' : undefined} class={$activePath === '/statistieken' ? 'active' : ''}>Statistieken</a>
-    </li>
+<!--    <li>-->
+<!--      <a href="/statistieken" aria-current={$activePath === '/statistieken' ? 'page' : undefined} class={$activePath === '/statistieken' ? 'active' : ''}>Statistieken</a>-->
+<!--    </li>-->
     <li>
       <a href="/gebruikers" aria-current={$activePath === '/gebruikers' ? 'page' : undefined} class={$activePath === '/gebruikers' ? 'active' : ''}>Gebruikers</a>
     </li>
-    <li>
-      <a href="/logout" aria-current={$activePath === '/logout' ? 'page' : undefined} class={$activePath === '/logout' ? 'active' : ''}><Exit /> </a>
-    </li>
+
   </ul>
 </header>
 
