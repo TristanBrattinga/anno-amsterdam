@@ -15,22 +15,24 @@
     "typesafe-i18n": "typesafe-i18n"
   },
   "dependencies": {
-    "@repo/ui": "*",
     "just-extend": "^6.2.0",
-    "lucide-svelte": "^0.379.0"
+    "lucide-svelte": "^0.379.0",
+    "mapbox-gl": "^3.3.0",
+    "ui": "*"
   },
   "devDependencies": {
     "@playwright/test": "^1.42.1",
-    "@repo/eslint-config": "*",
     "@sveltejs/adapter-auto": "^3.1.1",
     "@sveltejs/adapter-vercel": "^5.3.0",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "@types/eslint": "^8.56.10",
+    "@types/mapbox-gl": "^3",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "@vite-pwa/sveltekit": "^0.5.0",
+    "config": "*",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.39.0",

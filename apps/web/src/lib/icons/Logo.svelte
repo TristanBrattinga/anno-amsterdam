@@ -1,8 +1,7 @@
 <script lang="ts">
-	// Props
-	export let color: string = '';
-	export let width: string = '100%';
-	export let height: string = '100%';
+	export let color: string = '#073854'
+	export let width: string = '24px'
+	export let height: string = '24px'
 </script>
 
 <svg

@@ -4,6 +4,6 @@
  * @returns The normalized URL.
  */
 export const normalizeURL = (url: string) => {
-	if (url.endsWith('/')) return url;
-	return url + '/';
-};
+	if (url.endsWith('/')) return url
+	return url + '/'
+}
