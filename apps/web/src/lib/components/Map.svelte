@@ -67,25 +67,32 @@
 		}
 
 		map.on('load', () => {
-			map.addSource('earthquakes', {
+			map.addSource('buildings', {
 				type: 'geojson',
-				// Use a URL for the value for the `data` property.
-				data: ''
+				data: 'https://raw.githubusercontent.com/TristanBrattinga/anno-amsterdam/develop-tristan/apps/web/src/lib/constants/export.geojson'
 			});
 
 			map.addLayer({
-				'id': 'earthquakes-layer',
-				'type': 'circle',
-				'source': 'earthquakes',
+				'id': 'buildings-layer',
+				'type': 'fill',
+				'source': 'buildings',
 				'paint': {
-					'circle-radius': 4,
-					'circle-stroke-width': 2,
-					'circle-color': 'red',
-					'circle-stroke-color': 'white'
+					'fill-color': [
+						'interpolate',
+						['linear'],
+						['to-number', ['get', 'start_date']],
+						1000, '#f28cb1', // Buildings from 1000 to 1200
+						1200, '#3bb2d0', // Buildings from 1200 to 1400
+						1400, '#f1f075', // Buildings from 1400 to 1600
+						1600, '#223b53', // Buildings from 1600 to 1800
+						1800, '#e55e5e', // Buildings from 1800 to 2000
+						2000, '#3bb2d0'  // Buildings from 2000 onwards
+					],
+					'fill-opacity': 1
 				}
 			});
-
 		});
+
 
 	});
 
@@ -112,7 +119,7 @@
 
 <style lang="scss">
   :global(.mapboxgl-popup-content) {
-    display: none;
+    display: block;
   }
 
   .map {
