@@ -31,7 +31,7 @@ export const BUILDINGS_MOCK: Building[] = [
 		name: 'Theo Thijssenhuis',
 		address: 'Amstelcampus Wibautstraat 2 TTH',
 		construction_year: 2000,
-		type_of_user: 'School',
+		type_of_user: undefined,
 		tags: ['tag3', 'tag4'],
 		description: 'Description 2',
 		image_urls: [
