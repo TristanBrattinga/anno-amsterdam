@@ -13,6 +13,7 @@ export const load = async ({ parent, data: { building } }) => {
 
 	return {
 		pageMetaTags,
+		back: LL.back(),
 		building
 	}
 }

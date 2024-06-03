@@ -1,7 +1,14 @@
-import { api } from '$lib/server';
+import { api } from '$lib/server'
 
 export const load = async () => {
-	const buildings = await api.getBuildings();
+	const buildings = await api.getBuildings()
 
-	return { buildings };
-};
+	return { buildings }
+}
+
+export const actions = {
+	default: async ({ request }) => {
+		const data = await request.formData()
+		console.log('data', data)
+	}
+}
