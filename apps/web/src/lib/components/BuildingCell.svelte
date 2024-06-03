@@ -34,7 +34,8 @@
 			</hgroup>
 			<div>
 				<form action={`/${$page.data.locale}/map`} method="post">
-					<input type="hidden" name="id" value={building._id} />
+					<input type="hidden" name="lat" value={building.location.coordinates[0]} />
+					<input type="hidden" name="lon" value={building.location.coordinates[1]} />
 					<button>Map</button>
 				</form>
 			</div>
