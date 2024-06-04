@@ -52,11 +52,10 @@
 		
 		if (trimmedPostcode && trimmedHnumber) {
 			const match = data.find(item => item.Postcode === trimmedPostcode.toUpperCase() && item.Huisnummer === trimmedHnumber);
+			
 			if (match) {
-				console.log('Match found:', match);
 				const form = document.querySelector('#Buildings');
-				
-				
+				form.classList.remove('invalid');
 				if (form) {
 					for (const [key, value] of Object.entries(match)) {
 						const fields = form.querySelectorAll(`[name="${key}"]`);
@@ -69,12 +68,25 @@
 					const naam = match.Naam || '';
 					const huisnummer = match.Huisnummer || '';
 					const adresField = form.querySelector('[name="Adres"]');
+					const constYearFirst = form.querySelector('[id="constYearFirst"]');
 					if (adresField) {
 						adresField.value = `${naam} ${huisnummer}`.trim();
 					}
+					if (constYearFirst && constYearFirst.value === '') {
+						constYearFirst.removeAttribute('disabled');
+					}
+					constYearFirst.addEventListener('blur', fillConstYear);
+					function fillConstYear(){
+						const constYearField = form.querySelector('[id="constYear"]');
+						if (constYearField) {
+							constYearField.value = constYearFirst.value;
+						}
+					}
 				}
 			}else {
-				console.log('No match found.');
+				const form = document.querySelector('#Buildings');
+				console.log('No match found')
+				form.classList.add('invalid');
 			}
 		}
 	}
@@ -97,7 +109,7 @@
             <input id="longtitute"
                    name="Longitude"
                    required
-                   disabled
+                   readonly
                    type="text">
           </label>
 		      
@@ -107,7 +119,7 @@
             <input id="latitute"
                    name="Latitude"
                    required
-                   disabled
+                   readonly
                    type="text"
                    >
           </label>
@@ -151,13 +163,14 @@
 	        
 	        <!-- Question 6 -->
 	        <label class="tiny"
-	               for="constYear">
+	               for="constYearFirst">
           Bouwjaar:
-          <input id="constYear"
+          <input id="constYearFirst"
                  name="Oorspronkelijk_bouwjaar"
                  required
                  disabled
-                 type="number">
+                 type="number"
+                 >
           </label>
         </div>
 	      
@@ -299,11 +312,24 @@
 	  grid-template-rows: 1fr 12fr;
 	  //background: red;
 	  
+	  &.invalid {
+		  details{
+			  .step-content{
+				  #postcode, #Hnumber{
+					  background-color: var(--error-color);
+					  color: var(--text-color-inverse);
+					  border: 1px solid var(--error-color);
+				  }
+			  }
+			  
+		  }
+	  }
 	  details[open] > summary {
 		  background-color: var(--primary-color);
 		  color: var(--text-color-inverse);
 		  border-color: var(--primary-color);
 	  }
+	  
 	  
 	  
 	  details {
@@ -422,7 +448,7 @@
 				  label > input:required{
 					  border: 1px solid var(--primary-color);
 				  }
-				  label > input:disabled{
+				  label > input:disabled, label > input:read-only{
 					  border: 1px solid var(--border-form-color);
 				  }
 				  label > textarea {
