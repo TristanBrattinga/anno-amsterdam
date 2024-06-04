@@ -1,75 +1,163 @@
 <script>
 	import LinkButton from '$lib/components/LinkButton.svelte';
-	import Button from '$lib/components/Button.svelte';
-    import {onMount} from 'svelte';
-  
-  onMount(() => {
-	  const details = document.querySelectorAll('details');
-	  
-	  details.forEach((targetDetail) => {
-		  targetDetail.addEventListener('click', () => {
-			  details.forEach((detail) => {
-				  if (detail !== targetDetail) {
-					  detail.removeAttribute('open');
-				  }
-			  });
-		  });
-	  });
-  });
+	import {onMount} from 'svelte';
+	import Papa from 'papaparse';
+	
+	export let data = [];
+	let postcode = '';
+	let Hnumber = '';
+		onMount(() => {
+			
+			const details = document.querySelectorAll('details');
+			
+			details.forEach((targetDetail) => {
+				targetDetail.addEventListener('click', () => {
+					details.forEach((detail) => {
+						if (detail !== targetDetail) {
+							detail.removeAttribute('open');
+						}
+					});
+				});
+			});
+			async function fetchData() {
+				try {
+					const response = await fetch('data/bag-database.csv');
+					const csvText = await response.text();
+					
+					Papa.parse(csvText, {
+						header: true,
+						complete: function (results) {
+							data = results.data;
+						},
+						error: function (error) {
+							console.error('Error parsing CSV:', error);
+						}
+					});
+				} catch (error) {
+					console.error('Error fetching CSV:', error);
+				}
+			}
+			
+			// Fetch data when the component is mounted
+			fetchData();
+			
+			
+		});
+	function checkInputs() {
+		
+		const trimmedPostcode = String(postcode).trim();
+		const trimmedHnumber = String(Hnumber).trim();
+		
+		
+		
+		if (trimmedPostcode && trimmedHnumber) {
+			const match = data.find(item => item.Postcode === trimmedPostcode.toUpperCase() && item.Huisnummer === trimmedHnumber);
+			if (match) {
+				console.log('Match found:', match);
+				const form = document.querySelector('#Buildings');
+				
+				
+				if (form) {
+					for (const [key, value] of Object.entries(match)) {
+						const fields = form.querySelectorAll(`[name="${key}"]`);
+						fields.forEach(field => {
+							field.value = value;
+						});
+					}
+					
+					// Combine specific fields and set to another field
+					const naam = match.Naam || '';
+					const huisnummer = match.Huisnummer || '';
+					const adresField = form.querySelector('[name="Adres"]');
+					if (adresField) {
+						adresField.value = `${naam} ${huisnummer}`.trim();
+					}
+				}
+			}else {
+				console.log('No match found.');
+			}
+		}
+	}
+	
+	
 </script>
 
 <form id="Buildings">
   
   <details open>
-    <summary><h2>Adres</h2></summary>
+    <summary><h2>ANNO</h2></summary>
     <div class="step-content">
       <!-- Question 1 -->
       <fieldset form="Buildings">
-        <div>
+	      
+	      
+	      <div>
           <label for="longtitute">
             Longitude:
             <input id="longtitute"
-                   name="longtitute"
+                   name="Longitude"
                    required
-                   type="number">
+                   disabled
+                   type="text">
           </label>
-	        
-	        <!-- Question 2 -->
+		      
+		      <!-- Question 2 -->
           <label for="latitute">
             Latitude:
             <input id="latitute"
-                   name="latitute"
+                   name="Latitude"
                    required
-                   type="number">
+                   disabled
+                   type="text"
+                   >
           </label>
         </div>
 	      
 	      <!-- Question 3 -->
         <div>
-          <label for="street">
-            Straat:
-            <input id="street"
-                   name="street"
-                   required
-                   type="text">
-          </label>
-	        
-	        <!-- Question 4 -->
-          <label for="Hnumber">
-            Huisnummer:
-            <input id="Hnumber"
-                   name="Hnumber"
-                   required
-                   type="number">
-          </label>
-	        
-	        <!-- Question 5 -->
-          <label for="postcode">
+	        <label for="postcode" >
             Postcode:
             <input id="postcode"
                    name="postcode"
                    required
+                   type="text"
+                   bind:value={postcode}
+                   on:blur={checkInputs}
+                   >
+          </label>
+	        
+	        <!-- Question 4 -->
+          <label for="Hnumber" >
+            Huisnummer:
+            <input id="Hnumber"
+                   name="Huisnummer"
+                   required
+                   type="text"
+                   bind:value={Hnumber}
+                   on:blur={checkInputs}
+                    >
+          </label>
+	        </div>
+	      <div>
+	        <!-- Question 5 -->
+          <label for="street">
+            Straat:
+            <input id="street"
+                   name="Naam"
+                   required
+                   disabled
                    type="text">
+          </label>
+	        
+	        <!-- Question 6 -->
+	        <label class="tiny"
+	               for="constYear">
+          Bouwjaar:
+          <input id="constYear"
+                 name="Oorspronkelijk_bouwjaar"
+                 required
+                 disabled
+                 type="number">
           </label>
         </div>
 	      
@@ -88,35 +176,35 @@
         <label for="address">
           Adres
           <input id="address"
-                 name="address"
+                 name="Adres"
                  required
+                 disabled
                  type="text">
         </label>
-	      
-	      <!-- Question 7 -->
+		      
+		      <!-- Question 7 -->
         <label for="name">
           Naam (evt. in plaats van adres)
           <input id="name"
-                 name="name"
+                 name="Naam"
                  required
                  type="text">
         </label>
-	      <!-- Question 8 -->
-        <label for="constYear">
+		      <!-- Question 8 -->
+        <label for="constYear" class="tiny">
           Bouwjaar
           <input id="constYear"
-                 name="constYear"
+                 name="Oorspronkelijk_bouwjaar"
                  required
-                 type="number">
+                 type="text">
         </label>
 		      </div>
 	      <div>
 	      <!-- Question 10 -->
-        <label for="typeOfUse">
+        <label for="typeOfUse" >
           Gebruik (?) [select van maken]
           <input id="typeOfUse"
-                 name="typeOfUse"
-                 required
+                 name="Gebruiksdoel"
                  type="text">
         </label>
 	      <!-- Question 11 -->
@@ -124,7 +212,6 @@
           Tags (?) [select + checkbox van maken]
           <input id="tags"
                  name="tags"
-                 required
                  type="text">
         </label>
 		      </div>
@@ -134,7 +221,6 @@
           <textarea cols="50"
                     id="description"
                     name="description"
-                    required
                     rows="4"></textarea>
         </label>
       </fieldset>
@@ -149,15 +235,18 @@
 	      <div>
         <label for="image">
           Upload afbeeldingen van het gebouw
-          <input id="image"
+          <input accept="image/png image/jpeg"
+                 id="image"
                  name="image"
                  required
                  type="file"
-                 accept="image/png image/jpeg"
           >
         </label>
 	      
-	      <LinkButton href="https://archief.amsterdam/beeldbank/" size="large" cta={false} subtle={true}>Bekijk de beeldbank</LinkButton>
+	      <LinkButton cta={false}
+	                  href="https://archief.amsterdam/beeldbank/"
+	                  size="large"
+	                  subtle={true}>Bekijk de beeldbank</LinkButton>
 	      </div>
       </fieldset>
     </div>
@@ -292,19 +381,17 @@
 			  height: calc(70vh * 11 / 12);
 			  left: 0;
 			  bottom: calc(-70vh * (11 / 12) - 1vh);
-			  //border-left: 3px solid var(--primary-color);
 			  border-radius: 0.25rem;
 			  grid-row: 2 / -1;
 			  grid-column: 1 / -1;
 			  
 			  
 			  fieldset {
-				  //border: 1px solid var(--primary-color);
 				  border-radius: 0.25rem;
 				  width: 100%;
 				  padding: 2rem 3rem 1rem;
 				  margin-top: .5rem;
-				  background-color: var(--bg-color);
+				  background-color: var(--border-color);
 				  display: flex;
 				  flex-direction: column;
 				  gap: 2rem;
@@ -312,16 +399,38 @@
 				  
 				  div {
 					  display: flex;
-					  justify-content: flex-start;
-					  gap: 1rem;
+					  justify-content: space-between;
+					  gap: 1.5rem;
 				  }
+				  label{
+					  flex-grow: 1;
+					  flex-basis: 2em;
+				  }
+				  label.tiny{
+					  flex-grow: .385;
+				  }
+				  
 				  
 				  label > input {
 					  display: flex;
-					  
+					  width: 100%;
+					  height: 2.5rem;
+					  border: 1px solid var(--border-form-color);
+					  border-radius: .25rem;
 				  }
-				  label > textarea{
+				  
+				  label > input:required{
+					  border: 1px solid var(--primary-color);
+				  }
+				  label > input:disabled{
+					  border: 1px solid var(--border-form-color);
+				  }
+				  label > textarea {
 					  display: flex;
+					  width: 100%;
+					  height: 60%;
+					  border-radius: .25rem;
+					  border: 1px solid var(--border-form-color);
 				  }
 				  
 				  .maps {

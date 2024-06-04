@@ -14,7 +14,7 @@
             const response = await fetch('data/data.json');
 
             data = await response.json();
-            console.log(data)
+			return data;
         }
 
         // Fetch data when the component is mounted

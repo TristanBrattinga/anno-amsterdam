@@ -33,6 +33,9 @@
     transition: background-color 0.15s, border-color 0.15s, color 0.15s;
     background-color: var(--primary-color);
     color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
     }
   
   a.small {
@@ -45,6 +48,7 @@
   
   a.large {
     width: clamp(12em, fit-content, max-content);
+	flex-grow: 1;
     }
   
   a:hover:not(:disabled):not(.subtle) {

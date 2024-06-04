@@ -12,18 +12,21 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "ui": "*",
-    "sass": "^1.77.2"
+    "papaparse": "^5.4.1",
+    "sass": "^1.77.2",
+    "ui": "*"
   },
   "devDependencies": {
     "@playwright/test": "^1.42.1",
     "@sveltejs/adapter-auto": "^3.1.1",
     "@sveltejs/kit": "^2.5.2",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "@types/papaparse": "^5",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "config": "*",
     "eslint": "^8.57.0",
+    "eslint-plugin-svelte": "^2.35.1",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.2",
     "svelte": "^4.2.12",

@@ -1,6 +1,5 @@
 <script>
     export let data = [];
-
     const excludedKeys = new Set([
         '_id',
         'location',
