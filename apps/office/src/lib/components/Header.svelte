@@ -13,14 +13,14 @@
       <a href="/" aria-current={$activePath === '/' ? 'page' : undefined} class={$activePath === '/' ? 'active' : ''}><Logo /><span>Amsterdam</span></a>
     </li>
     <li>
+      <a href="/" aria-current={$activePath === '/' ? 'page' : undefined} class={$activePath === '/' ? 'active' : ''}>Overzicht</a>
+    </li>
+    <li>
       <a href="/import" aria-current={$activePath === '/import' ? 'page' : undefined} class={$activePath === '/import' ? 'active' : ''}>Toevoegen</a>
     </li>
-<!--    <li>-->
+	  <!--    <li>-->
 <!--      <a href="/statistieken" aria-current={$activePath === '/statistieken' ? 'page' : undefined} class={$activePath === '/statistieken' ? 'active' : ''}>Statistieken</a>-->
 <!--    </li>-->
-    <li>
-      <a href="/gebruikers" aria-current={$activePath === '/gebruikers' ? 'page' : undefined} class={$activePath === '/gebruikers' ? 'active' : ''}>Gebruikers</a>
-    </li>
 
   </ul>
 </header>

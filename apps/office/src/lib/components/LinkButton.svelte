@@ -48,7 +48,7 @@
   
   a.large {
     width: clamp(12em, fit-content, max-content);
-	flex-grow: 1;
+	/* flex-grow: 1; */
     }
   
   a:hover:not(:disabled):not(.subtle) {
