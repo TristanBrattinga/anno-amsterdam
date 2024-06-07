@@ -5,7 +5,7 @@
 	import type { Building, Coords } from '$types'
 
 	// Utils
-	import { getDistanceFromLatLonInKm } from '$lib'
+	import { getDistance } from '$lib'
 
 	// Props
 	export let building: Building
@@ -13,11 +13,9 @@
 
 	$: km =
 		location && building.location.coordinates[0] !== 0
-			? getDistanceFromLatLonInKm(
-					location.lat,
-					location.lng,
-					building.location.coordinates[0],
-					building.location.coordinates[1]
+			? getDistance(
+					{ lat: location.lat, lng: location.lng },
+					{ lat: building.location.coordinates[0], lng: building.location.coordinates[1] }
 				)
 			: 0
 
