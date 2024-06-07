@@ -7,7 +7,7 @@
 	let postcode = "";
 	let Hnumber = "";
 	
-	let openedDetails = "img";
+	let openedDetails = "anno";
 	
 	onMount(() => {
 			const details = document.querySelectorAll("details");
@@ -76,16 +76,27 @@
 											adresField.value = `${naam} ${huisnummer}`.trim();
 									}
 									if (constYearFirst && constYearFirst.value === "") {
-											constYearFirst.removeAttribute("disabled");
-									}
-									constYearFirst.addEventListener("blur", fillConstYear);
-									
-									function fillConstYear() {
-											const constYearField = form.querySelector('[id="constYear"]');
-											if (constYearField) {
-													constYearField.value = constYearFirst.value;
+											constYearFirst.removeAttribute("readonly");
+											constYearFirst.addEventListener("blur", fillConstYear);
+											function fillConstYear() {
+													const constYearField = form.querySelector('[id="constYear"]');
+													if (constYearFirst.value) {
+															constYearField.value = constYearFirst.value;
+															logFormData();
+													}
 											}
 									}
+									else {
+											logFormData();
+									}
+									
+									
+									
+									
+											
+									
+									
+									
 							}
 					} else {
 							const form = document.querySelector("#Buildings");
@@ -94,9 +105,55 @@
 					}
 			}
 	}
+	// async function handleSubmit(event) {
+	// 		const formData = new FormData(event.target);
+	// 		const jsonData = Object.fromEntries(formData.entries());
+	//
+	// 		try {
+	// 				const response = await fetch('/api/log', {
+	// 						method: 'POST',
+	// 						headers: {
+	// 								'Content-Type': 'application/json'
+	// 						},
+	// 						body: JSON.stringify(jsonData)
+	// 				});
+	//
+	// 				if (response.ok) {
+	// 						console.log("Form submitted successfully");
+	// 				} else {
+	// 						console.error("Form submission failed");
+	// 				}
+	// 		} catch (error) {
+	// 				console.error("Error submitting form:", error);
+	// 		}
+	// }
+	
+	async function logFormData(data) {
+			const form = document.querySelector("#Buildings");
+			const formData = new FormData(form);
+			const jsonData = Object.fromEntries(formData.entries());
+			console.log("Form data:", jsonData);
+			try {
+					const response = await fetch('/api/log', {
+							method: 'POST',
+							headers: {
+									'Content-Type': 'application/json'
+							},
+							body: JSON.stringify(jsonData)
+					});
+					
+					if (response.ok) {
+							console.log("Form data logged successfully");
+					} else {
+							console.error("Failed to log form data");
+					}
+			} catch (error) {
+					console.error("Error logging form data:", error);
+			}
+	}
 </script>
 
-<form id="Buildings">
+<form id="Buildings" >
 	<details open={openedDetails === "anno"}>
 		<summary><h2>ANNO</h2></summary>
 		<div class="step-content">
@@ -168,7 +225,6 @@
 			</fieldset>
 		</div>
 	</details>
-
 	<details open={openedDetails === "details"}>
 		<summary><h2>Details</h2></summary>
 		<div class="step-content">
@@ -293,6 +349,12 @@
 			<button type="submit">Submit</button>
 		</div>
 	</details>
+	
+	
+<!--		Hidden inputs       -->
+		<div class="hidden">
+			<input type="text" name="Nummeraanduidingidentificatie" id="Nummeraanduidingidentificatie">
+		</div>
 </form>
 
 <style lang="scss">
@@ -306,6 +368,16 @@
 			grid-template-rows: 1fr 12fr;
 			//background: red;
 			
+			
+			.hidden{
+					clip: rect(0 0 0 0);
+					clip-path: inset(50%);
+					height: 1px;
+					overflow: hidden;
+					position: absolute;
+					white-space: nowrap;
+					width: 1px;
+			}
 			&.invalid {
 					details {
 							.step-content {
@@ -461,6 +533,8 @@
 											div:first-of-type {
 													label {
 															flex-grow: 0.25;
+															min-width: fit-content;
+															padding: 0.25rem 0.75rem;
 															background-color: var(--primary-color);
 															border-radius: 0.25rem;
 															color: var(--text-color-inverse);
@@ -468,6 +542,9 @@
 															justify-content: center;
 															align-items: center;
 															cursor: pointer;
+															&:hover{
+																background-color: var(--secondary-color);
+															}
 															input {
 																	display: none;
 															}
@@ -556,6 +633,7 @@
 													border: 0;
 											}
 									}
+									
 							}
 					}
 			}

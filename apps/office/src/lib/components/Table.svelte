@@ -48,6 +48,8 @@
                     <td>
                         {#if key === 'image_urls' && value.length > 0}
                             <img src={value[0].url} alt={value[0].source} style="width: 100px;" />
+		                        {:else if key === 'name' && value.length > 0}
+														<a href="/import/{item._id}">{value}</a>
                         {:else if Array.isArray(value)}
                             {value.join(', ')}
                         {:else}
