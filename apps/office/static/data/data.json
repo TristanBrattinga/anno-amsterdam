@@ -78,11 +78,12 @@
     "address": "'s-Gravelandse Veer 2",
     "construction_year": "1711",
     "type_of_use": "bijeenkomstfunctie",
-    "tags": [],
+    "tags": "tag12 tags",
     "description": "\t\t\t\t\t",
     "image_urls": {},
     "timeline": [],
-    "active": false
+    "active": false,
+    "updated_at": "2024-06-08T12:35:34.928Z"
   },
   {
     "_id": "0363200012132164",
@@ -97,10 +98,11 @@
     "address": "Mauritskade 3",
     "construction_year": "2023",
     "type_of_use": "residential",
-    "tags": [],
+    "tags": "tag",
     "description": "\t\t\t\t\t",
     "image_urls": {},
     "timeline": [],
-    "active": false
+    "active": false,
+    "updated_at": "2024-06-08T12:32:42.162Z"
   }
 ]

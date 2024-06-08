@@ -51,6 +51,7 @@ async function parseAndTransformData(request) {
       image_urls: rawData.image || [], // default to an empty array if not provided
       timeline: rawData.timeline || [], // default to an empty array if not provided
       active: false, // default to false
+      "created_at": new Date().toISOString(),
     };
 
     return transformedData;
