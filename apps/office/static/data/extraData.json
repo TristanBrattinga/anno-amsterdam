@@ -1,0 +1,183 @@
+[
+{
+"_id": "0363200012097358",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,9071645",
+"52,3591959"
+]
+},
+"name": "Rhijnspoorplein",
+"address": "Rhijnspoorplein 2",
+"construction_year": "2023",
+"type_of_use": "onderwijsfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:05:07.063Z"
+},
+{
+"_id": "0363200012073684",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,8853863",
+"52,3599423"
+]
+},
+"name": "Museumstraat",
+"address": "Museumstraat 1",
+"construction_year": "1885",
+"type_of_use": "bijeenkomstfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:06:29.933Z"
+},
+{
+"_id": "0363200012086033",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,8813227",
+"52,3579247"
+]
+},
+"name": "Museumplein",
+"address": "Museumplein 6",
+"construction_year": "1973",
+"type_of_use": "bijeenkomstfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:07:12.607Z"
+},
+{
+"_id": "0363200012121273",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,9022260",
+"52,3656350"
+]
+},
+"name": "Amstel",
+"address": "Amstel 51",
+"construction_year": "1681",
+"type_of_use": "bijeenkomstfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:11:10.635Z"
+},
+{
+"_id": "0363200011324089",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,8798549",
+"52,3579099"
+]
+},
+"name": "Museumplein",
+"address": "Museumplein 10",
+"construction_year": "1874",
+"type_of_use": "bijeenkomstfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:13:35.130Z"
+},
+{
+"_id": "0363200011210975",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,9012935",
+"52,3841361"
+]
+},
+"name": "IJpromenade",
+"address": "IJpromenade 1",
+"construction_year": "2011",
+"type_of_use": "bijeenkomstfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:19:07.905Z"
+},
+{
+"_id": "0363200012125018",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,8936516",
+"52,4019099"
+]
+},
+"name": "NDSM-plein",
+"address": "NDSM-plein 1",
+"construction_year": "1900",
+"type_of_use": "bijeenkomstfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:24:04.171Z"
+},
+{
+"_id": "0363200000036156",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,9040367",
+"52,3911937"
+]
+},
+"name": "Asterweg",
+"address": "Asterweg 22",
+"construction_year": "1990",
+"type_of_use": "industriefunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:25:06.941Z"
+},
+{
+"_id": "0363200012122622",
+"location": {
+"type": "Point",
+"coordinates": [
+"4,9031499",
+"52,3784733"
+]
+},
+"name": "Stationsplein",
+"address": "Stationsplein 1",
+"construction_year": "2018",
+"type_of_use": "overige gebruiksfunctie",
+"tags": [],
+"description": "\t\t\t\t\t",
+"image_urls": {},
+"timeline": [],
+"active": false,
+"created_at": "2024-06-08T19:27:41.052Z",
+"updated_at": "2024-06-08T20:01:13.710Z"
+}
+  ]

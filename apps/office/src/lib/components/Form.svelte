@@ -2,6 +2,7 @@
 	import LinkButton from "$lib/components/LinkButton.svelte";
 	import { onMount } from "svelte";
 	import Papa from "papaparse";
+	import {redirect} from "@sveltejs/kit";
 	
 	export let data = [];
 	let postcode = "";
@@ -105,28 +106,7 @@
 					}
 			}
 	}
-	// async function handleSubmit(event) {
-	// 		const formData = new FormData(event.target);
-	// 		const jsonData = Object.fromEntries(formData.entries());
-	//
-	// 		try {
-	// 				const response = await fetch('/api/log', {
-	// 						method: 'POST',
-	// 						headers: {
-	// 								'Content-Type': 'application/json'
-	// 						},
-	// 						body: JSON.stringify(jsonData)
-	// 				});
-	//
-	// 				if (response.ok) {
-	// 						console.log("Form submitted successfully");
-	// 				} else {
-	// 						console.error("Form submission failed");
-	// 				}
-	// 		} catch (error) {
-	// 				console.error("Error submitting form:", error);
-	// 		}
-	// }
+	
 	
 	async function logFormData(data) {
 			const form = document.querySelector("#Buildings");
@@ -144,6 +124,8 @@
 					
 					if (response.ok) {
 							console.log("Form data logged successfully");
+							console.log("redirecting...");
+							location.href = `import/${jsonData.Nummeraanduidingidentificatie}`;
 					} else {
 							console.error("Failed to log form data");
 					}
