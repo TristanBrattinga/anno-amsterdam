@@ -119,11 +119,51 @@
     "construction_year": "1725",
     "type_of_use": "woonfunctie",
     "tags": "vrouwelijkeRoeiers",
-    "description": "Dit is het gebouw waar mijn lieftallige nichtje in woont",
+    "description": "Dit is het gebouw waar het lieftallige nichtje van Quinten in woont",
     "image_urls": {},
     "timeline": [],
     "active": false,
     "created_at": "2024-06-08T17:12:15.780Z",
-    "updated_at": "2024-06-08T17:13:23.480Z"
+    "updated_at": "2024-06-09T11:32:33.398Z"
+  },
+  {
+    "_id": "0363200012086033",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        "4,8813227",
+        "52,3579247"
+      ]
+    },
+    "name": "Museumplein",
+    "address": "Museumplein 6",
+    "construction_year": "1973",
+    "type_of_use": "bijeenkomstfunctie",
+    "tags": [],
+    "description": "\t\t\t\t\t",
+    "image_urls": {},
+    "timeline": [],
+    "active": false,
+    "created_at": "2024-06-09T11:35:51.759Z"
+  },
+  {
+    "_id": "0363200012097358",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        "4,9071645",
+        "52,3591959"
+      ]
+    },
+    "name": "Rhijnspoorplein",
+    "address": "Rhijnspoorplein 2",
+    "construction_year": "2023",
+    "type_of_use": "onderwijsfunctie",
+    "tags": [],
+    "description": "\t\t\t\t\t",
+    "image_urls": {},
+    "timeline": [],
+    "active": false,
+    "created_at": "2024-06-09T12:14:20.367Z"
   }
 ]

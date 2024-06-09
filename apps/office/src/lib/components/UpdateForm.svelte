@@ -217,6 +217,7 @@
 							on:change={handleFileChange}
 							required
 							type="file"
+							class="hidden"
 						/>
 					</label>
 
@@ -472,13 +473,12 @@
 								justify-content: center;
 								align-items: center;
 								cursor: pointer;
-
+								transition: .2s;
 								&:hover {
 									background-color: var(--secondary-color);
 								}
-
-								input {
-									display: none;
+								&:focus{
+									border: 1px solid var(--border-form-color);
 								}
 							}
 						}
@@ -503,6 +503,7 @@
 									cursor: pointer;
 									background-color: var(--primary-color);
 									img {
+										width: 100%;
 									}
 
 									input {

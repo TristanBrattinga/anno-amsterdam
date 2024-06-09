@@ -106,32 +106,34 @@
 					}
 			}
 	}
-	
-	
+
+
+	// Client-side logging function
 	async function logFormData(data) {
-			const form = document.querySelector("#Buildings");
-			const formData = new FormData(form);
-			const jsonData = Object.fromEntries(formData.entries());
-			console.log("Form data:", jsonData);
-			try {
-					const response = await fetch('/api/log', {
-							method: 'POST',
-							headers: {
-									'Content-Type': 'application/json'
-							},
-							body: JSON.stringify(jsonData)
-					});
-					
-					if (response.ok) {
-							console.log("Form data logged successfully");
-							console.log("redirecting...");
-							location.href = `import/${jsonData.Nummeraanduidingidentificatie}`;
-					} else {
-							console.error("Failed to log form data");
-					}
-			} catch (error) {
-					console.error("Error logging form data:", error);
+		const form = document.querySelector("#Buildings");
+		const formData = new FormData(form);
+		const jsonData = Object.fromEntries(formData.entries());
+		console.log("Form data:", jsonData); // Log form data for debugging
+
+		try {
+			const response = await fetch('/api/log', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(jsonData)
+			});
+
+			if (response.ok) {
+				console.log("Form data logged successfully");
+				console.log("redirecting...");
+				location.href = `import/${jsonData.Nummeraanduidingidentificatie}`;
+			} else {
+				console.error("Failed to log form data", await response.json()); // Log error response
 			}
+		} catch (error) {
+			console.error("Error logging form data:", error);
+		}
 	}
 </script>
 
