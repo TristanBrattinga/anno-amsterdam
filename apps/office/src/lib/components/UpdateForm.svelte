@@ -2,7 +2,7 @@
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import { onMount } from 'svelte';
 
-	let openedDetails = 'img';
+	let openedDetails = 'details';
 	export let data;
 	let matchData = data.match;
 	let ownData = data.ownMatch;

@@ -7,6 +7,6 @@
 </script>
 
 
-<h1>Update:{data.ownMatch.address}  </h1>
+<h1>Update: {data.ownMatch.address}  </h1>
 
 <UpdateForm {data} />
