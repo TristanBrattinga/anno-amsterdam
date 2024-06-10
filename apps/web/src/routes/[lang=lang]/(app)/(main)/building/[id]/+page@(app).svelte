@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { Arrow } from '$components'
+
+	import { location } from '$stores'
+
 	export let data
 </script>
 
@@ -6,7 +10,18 @@
 	<button on:click={() => history.back()}>&#60; {data.back}</button>
 	<img src={data.building.image_urls[0].url} alt={data.building.name} />
 	<div class="content">
-		<p class="anno">Anno {data.building.construction_year}</p>
+		<div class="top-bar">
+			<p class="anno">Anno {data.building.construction_year}</p>
+			{#if $location}
+				<Arrow
+					from={$location}
+					to={{
+						lat: data.building.location.coordinates[0],
+						lng: data.building.location.coordinates[1]
+					}}
+				/>
+			{/if}
+		</div>
 		<h1>{data.building.address}</h1>
 		<div class="tags">
 			{#each data.building.tags as tag}
@@ -48,16 +63,23 @@
 				}
 			}
 
-			.anno {
-				padding: 0 0.5rem;
-				border-radius: 8px;
-				height: 48px;
+			.top-bar {
 				display: flex;
+				justify-content: space-between;
 				align-items: center;
+				height: 48px;
 				margin-top: calc(-24px - 1rem);
-				width: fit-content;
-				color: #fff;
-				background-color: var(--secondary-color);
+
+				.anno {
+					padding: 0 0.5rem;
+					border-radius: 8px;
+					height: 48px;
+					display: flex;
+					align-items: center;
+					width: fit-content;
+					color: #fff;
+					background-color: var(--secondary-color);
+				}
 			}
 		}
 	}
