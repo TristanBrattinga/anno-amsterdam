@@ -2,7 +2,10 @@
 	import { menuStore } from '$stores/menu';
 	import { onDestroy } from 'svelte';
 	import { Logo } from '$icons';
+	import { page } from '$app/stores';
 
+
+	export let home: string;
 	export let menuId: string;
 	export let filterTitle: string;
 
@@ -22,7 +25,10 @@
 
 <aside class:show={sidebarOpen}>
 	<div>
-		<span><Logo width="100px" />Amsterdam</span>
+		<a href={`/${$page.data.locale}`} aria-label={home}>
+			<Logo />
+			<span>Amsterdam</span>
+		</a>
 		<button on:click={closeSidebar}>
 			<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path fill-rule="evenodd" clip-rule="evenodd"
@@ -116,6 +122,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      a {
+        display: flex;
+        align-items: end;
+        gap: .25rem;
+        width: fit-content;
+
+        span {
+          font-family: Oswald, sans-serif;
+          color: var(--secondary-color-light);
+          text-transform: uppercase;
+          font-weight: 300;
+          font-size: 1.375rem;
+          line-height: 1.1;
+        }
+      }
 
       button {
         appearance: none;
