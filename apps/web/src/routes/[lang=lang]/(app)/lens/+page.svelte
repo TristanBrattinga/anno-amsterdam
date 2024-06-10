@@ -9,7 +9,7 @@
 	export let data
 
 	$: {
-		console.log($location)
+		console.log({ lat: $location?.lat, lon: $location?.lng })
 	}
 
 	onMount(() => {
