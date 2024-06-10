@@ -1,27 +1,26 @@
 <script lang="ts">
-	import type { Building, Coords } from '$types';
-	import { getDistanceFromLatLonInKm } from '~/lib';
-	import { AudioGuideIcon, CloseIcon, RouteIcon } from '$icons';
-	import { page } from '$app/stores';
+	import type { Building, Coords } from '$types'
+	import { getDistanceFromLatLonInKm } from '~/lib'
+	import { AudioGuideIcon, CloseIcon, RouteIcon } from '$icons'
+	import { page } from '$app/stores'
 
-
-	export let building: Building;
-	export let location: Coords | null | undefined = null;
+	export let building: Building
+	export let location: Coords | null | undefined = null
 
 	$: km =
 		location && building.location.coordinates[0] !== 0
 			? getDistanceFromLatLonInKm(
-				location.lat,
-				location.lng,
-				building.location.coordinates[0],
-				building.location.coordinates[1]
-			)
-			: 0;
+					location.lat,
+					location.lng,
+					building.location.coordinates[0],
+					building.location.coordinates[1]
+				)
+			: 0
 
-	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : '';
+	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
-<a href={`/${$page.data.locale}/building/${building._id}`}>
+<a href={`/${$page.data.locale}/building/${building.id}`}>
 	<div>
 		<p>{building?.address || 'Address missing'}</p>
 		<!--		<button>-->
@@ -32,10 +31,10 @@
 		<p class="anno">Anno {building.construction_year}</p>
 		<ul>
 			<li>
-				<RouteIcon color={building.timeline.length === 0 ? '#C5D9E0' : '#00425A'} />
+				<RouteIcon color={!building.timeline?.length ? '#C5D9E0' : '#00425A'} />
 			</li>
 			<li>
-				<AudioGuideIcon color={building.audioguids.length === 0 ? '#C5D9E0' : '#00425A'} />
+				<AudioGuideIcon color={!building.audioguids?.length ? '#C5D9E0' : '#00425A'} />
 			</li>
 		</ul>
 	</div>
@@ -53,71 +52,70 @@
 </a>
 
 <style lang="scss">
-  a {
-    padding: 10px;
-    outline: none;
+	a {
+		padding: 10px;
+		outline: none;
 
-    button {
-      position: absolute;
-      right: 5px;
-      top: 5px;
-      appearance: none;
-      background-color: transparent;
-      border: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 5px;
-    }
+		button {
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			appearance: none;
+			background-color: transparent;
+			border: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 5px;
+		}
 
-    div {
-      display: flex;
+		div {
+			display: flex;
 
-      &:nth-of-type(1) {
-        margin-bottom: 10px;
-      }
+			&:nth-of-type(1) {
+				margin-bottom: 10px;
+			}
 
-      &:nth-of-type(2) {
-        margin-bottom: 12px;
-        justify-content: space-between;
+			&:nth-of-type(2) {
+				margin-bottom: 12px;
+				justify-content: space-between;
 
-        p {
-          font-size: 22px;
-          font-weight: 500;
-          color: var(--secondary-color-dark);
-        }
+				p {
+					font-size: 22px;
+					font-weight: 500;
+					color: var(--secondary-color-dark);
+				}
 
-        ul {
-          gap: 0.5rem;
-        }
-      }
+				ul {
+					gap: 0.5rem;
+				}
+			}
 
-      p {
-        font-family: Oswald, sans-serif;
-        font-size: 1rem;
-        line-height: 1;
-      }
-    }
+			p {
+				font-family: Oswald, sans-serif;
+				font-size: 1rem;
+				line-height: 1;
+			}
+		}
 
-    ul {
-      display: flex;
-      justify-content: space-between;
+		ul {
+			display: flex;
+			justify-content: space-between;
 
-      li {
-        span {
-          display: block;
-          height: 100%;
-          width: 1px;
-          background-color: #C5D9E0;
-        }
+			li {
+				span {
+					display: block;
+					height: 100%;
+					width: 1px;
+					background-color: #c5d9e0;
+				}
 
-        p:first-of-type {
-          font-size: 0.75rem;
-          color: var(--primary-color-light);
-          opacity: 50%;
-        }
-      }
-    }
-
-  }
+				p:first-of-type {
+					font-size: 0.75rem;
+					color: var(--primary-color-light);
+					opacity: 50%;
+				}
+			}
+		}
+	}
 </style>

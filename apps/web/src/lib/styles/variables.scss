@@ -5,7 +5,7 @@
   --logo-color-light: #073854;
 
   --text-color-light: #091520;
-  --bg-color-light: #c5c5c58c;
+  --bg-color-light: #fff;
   --info-color-light: lightskyblue;
   --success-color-light: green;
   --error-color-light: #ad0000;
@@ -23,7 +23,9 @@
 }
 
 /* System prefers light or no preference */
-@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+@media (prefers-color-scheme: light),
+(prefers-color-scheme: dark),
+(prefers-color-scheme: no-preference) {
   :root {
     --primary-color: var(--primary-color-light);
     --secondary-color: var(--secondary-color-light);

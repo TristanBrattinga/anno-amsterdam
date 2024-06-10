@@ -13,15 +13,19 @@
 	export let location: Coords | null = null;
 </script>
 
-<section class="auto-grid" style="--auto-grid-min-size: 400px">
-	<h2 class="sr-only">{buildingsTitle}</h2>
-	{#each buildings as building}
-		<BuildingCell {building} {location} />
-	{/each}
-</section>
+<h2 class="sr-only">{buildingsTitle}</h2>
 
-<style>
-    .auto-grid {
-        justify-items: center;
-    }
+<div>Sorting</div>
+<ul>
+	{#each buildings as building}
+		<li>
+			<BuildingCell {building} {location} />
+		</li>
+	{/each}
+</ul>
+
+<style lang="scss">
+  ul {
+    margin: 3rem 0;
+  }
 </style>

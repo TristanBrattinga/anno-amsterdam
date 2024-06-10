@@ -1,4 +1,4 @@
-import type { Translation } from '../i18n-types';
+import type { Translation } from '../i18n-types'
 
 const en = {
 	lang: 'Language',
@@ -9,7 +9,13 @@ const en = {
 	goHome: 'Go back home',
 	unexpectedError: 'Oops! Something went wrong',
 	light: 'Light',
-	home: 'Home',
+	lens: 'Lens',
+	back: 'Back',
+	residential: 'Residential',
+	industrial: 'Industrial',
+	commercial: 'Commercial',
+	educational: 'Educational',
+	recreational: 'Recreational',
 	building: 'Building',
 	buildings: 'Buildings',
 	dark: 'Dark',
@@ -27,6 +33,6 @@ const en = {
 		20: '20th century',
 		21: '21st century'
 	}
-} satisfies Translation;
+} satisfies Translation
 
-export default en;
+export default en
