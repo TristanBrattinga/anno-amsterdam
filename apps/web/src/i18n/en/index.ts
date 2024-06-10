@@ -9,7 +9,7 @@ const en = {
 	goHome: 'Go back home',
 	unexpectedError: 'Oops! Something went wrong',
 	light: 'Light',
-	home: 'Home',
+	lens: 'Lens',
 	back: 'Back',
 	building: 'Building',
 	buildings: 'Buildings',

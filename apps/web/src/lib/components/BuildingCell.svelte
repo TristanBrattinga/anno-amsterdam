@@ -1,145 +1,228 @@
 <script lang="ts">
 	// Stores
-	import { page } from '$app/stores'
+	import { page } from '$app/stores';
 
-	import type { Building, Coords } from '$types'
+	import type { Building, Coords } from '$types';
 
 	// Utils
-	import { getDistanceFromLatLonInKm } from '$lib'
+	import { getDistanceFromLatLonInKm } from '$lib';
+	import ImageSlider from '$components/ImageSlider.svelte';
 
 	// Props
-	export let building: Building
-	export let location: Coords | null = null
+	export let building: Building;
+	export let location: Coords | null = null;
 
 	$: km =
 		location && building.location.coordinates[0] !== 0
 			? getDistanceFromLatLonInKm(
-					location.lat,
-					location.lng,
-					building.location.coordinates[0],
-					building.location.coordinates[1]
-				)
-			: 0
+				location.lat,
+				location.lng,
+				building.location.coordinates[0],
+				building.location.coordinates[1]
+			)
+			: 0;
 
-	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
+	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : '';
 </script>
 
 <article>
-	<img src={building.image_urls[0].url} alt={building.name} />
+
+	<div class="image">
+		<ImageSlider images={building.image_urls} />
+	</div>
 	<div class="content">
-		<header>
-			<hgroup>
-				<h3>{building.address}</h3>
-				<p>Anno {building.construction_year}</p>
-			</hgroup>
+		<div>
 			<div>
-				<form action={`/${$page.data.locale}/map`} method="post">
-					<input type="hidden" name="lat" value={building.location.coordinates[0]} />
-					<input type="hidden" name="lon" value={building.location.coordinates[1]} />
-					<button>Map</button>
-				</form>
+				<h2>{building.address}</h2>
+				<p>Anno {building.construction_year}</p>
 			</div>
-		</header>
-		<footer>
+			<form action={`/${$page.data.locale}/map`} method="post">
+				<input type="hidden" name="lat" value={building.location.coordinates[0]} />
+				<input type="hidden" name="lon" value={building.location.coordinates[1]} />
+				<button>Map</button>
+			</form>
+		</div>
+		<ul>
+			<li>
+				<p>Distance to</p>
+				<p>{distance ? `${distance}` : ''}</p>
+			</li>
 			{#if building.type_of_user}
-				<a href={`/${$page.data.locale}/building/${building._id}`}>Meer info</a>
+				<li>
+					<a href={`/${$page.data.locale}/building/${building._id}`}>Meer info</a>
+				</li>
 			{/if}
-			<p>{distance ? `(${distance})` : ''}</p>
-		</footer>
+		</ul>
 	</div>
 </article>
 
 <style lang="scss">
-	article {
-		display: flex;
-		max-width: 600px;
-		border-top: solid 1px var(--primary-color);
-		padding-top: 1em;
+  .image {
+    display: block;
+    width: 40%;
+    height: 140px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
 
-		img {
-			height: 100%;
-			max-width: 50%;
-			object-fit: cover;
-			border-radius: 8px;
-		}
+  article {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-top: 1px solid #C5D9E0;
+  }
 
-		.content {
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-			padding: 0.5em;
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-			& > * {
-				flex: 1;
-			}
+    > div:first-of-type {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 20px;
 
-			header {
-				display: flex;
-				justify-content: space-between;
+      p {
+        color: var(--secondary-color-light);
+        font-weight: 500;
+        font-size: 1.375rem;
+        line-height: 1;
+      }
+    }
 
-				hgroup {
-					h3 {
-						margin: 0;
-					}
+    h2 {
+      font-weight: 400;
+      color: var(--primary-color-dark);
+      text-transform: uppercase;
+      margin-bottom: .5rem;
+    }
 
-					p {
-						color: var(--secondary-color);
-						font-size: 1.5em;
-					}
-				}
+    form button {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #C5D9E0;
+      background-color: transparent;
+      transition: all .3s ease;
+      cursor: pointer;
 
-				div {
-					display: flex;
-					align-items: center;
+      &:hover {
+        background-color: #C5D9E0;
+      }
+    }
 
-					a {
-						text-transform: uppercase;
-						display: block;
-						width: fit-content;
-						padding: 0.25rem 0.5rem;
-						border-radius: 8px;
-						border: 2px solid var(--primary-color);
-						color: var(--text-color);
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-						&:hover {
-							background-color: var(--primary-color);
-							color: #fff;
-						}
-					}
-				}
-			}
+      li {
 
-			footer {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
+        p:first-of-type {
+          font-size: 0.75rem;
+          color: var(--primary-color-light);
+          opacity: 50%;
+        }
 
-				a {
-					text-transform: uppercase;
-					display: block;
-					width: fit-content;
-					padding: 0.25rem 0.5rem;
-					border-radius: 8px;
-					background-color: var(--primary-color);
-					color: #fff;
+        a {
+          background-color: var(--secondary-color-light);
+          padding: 8px 24px;
+          border-radius: 5px;
+          color: white;
+          line-height: 16px;
+          border: 1px solid var(--secondary-color-light);
+          transition: all .3s ease;
 
-					&:hover {
-						background-color: unset;
-						border: 2px solid var(--primary-color);
-						color: var(--text-color);
-					}
-				}
-			}
-		}
-	}
+          &:hover {
+            color: var(--secondary-color-light);
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
 
-	@media screen and (max-width: 400px) {
-		article {
-			flex-direction: column;
-
-			img {
-				max-width: 100%;
-			}
-		}
-	}
+  //article {
+  //  display: flex;
+  //  max-width: 600px;
+  //  border-top: solid 1px var(--primary-color);
+  //  padding-top: 1em;
+  //
+  //  img {
+  //    height: auto;
+  //    max-width: 50%;
+  //    object-fit: cover;
+  //    border-radius: 8px;
+  //  }
+  //
+  //  .content {
+  //    display: flex;
+  //    flex-direction: column;
+  //    flex: 1;
+  //    padding: 0.5em;
+  //
+  //    & > * {
+  //      flex: 1;
+  //    }
+  //
+  //    header {
+  //      display: flex;
+  //      justify-content: space-between;
+  //
+  //      hgroup {
+  //        h3 {
+  //          margin: 0;
+  //        }
+  //
+  //        p {
+  //          color: var(--secondary-color);
+  //          font-size: 1.5em;
+  //        }
+  //      }
+  //
+  //      div {
+  //        display: flex;
+  //        align-items: center;
+  //
+  //        a {
+  //          text-transform: uppercase;
+  //          display: block;
+  //          width: fit-content;
+  //          padding: 0.25rem 0.5rem;
+  //          border-radius: 8px;
+  //          border: 2px solid var(--primary-color);
+  //          color: var(--text-color);
+  //
+  //          &:hover {
+  //            background-color: var(--primary-color);
+  //            color: #fff;
+  //          }
+  //        }
+  //      }
+  //    }
+  //
+  //    footer {
+  //      display: flex;
+  //      align-items: center;
+  //      justify-content: space-between;
+  //
+  //      a {
+  //        text-transform: uppercase;
+  //        display: block;
+  //        width: fit-content;
+  //        padding: 0.25rem 0.5rem;
+  //        border-radius: 8px;
+  //        background-color: var(--primary-color);
+  //        color: #fff;
+  //
+  //        &:hover {
+  //          background-color: unset;
+  //          border: 2px solid var(--primary-color);
+  //          color: var(--text-color);
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 </style>
