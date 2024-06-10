@@ -39,4 +39,3 @@
 	width="50"
 	style={`transform: rotate(${angle}deg)`}
 />
-<p>{north}</p>
