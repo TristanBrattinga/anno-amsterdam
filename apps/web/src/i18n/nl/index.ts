@@ -8,7 +8,7 @@ const nl = {
 	goHome: 'Ga naar de startpagina',
 	unexpectedError: 'Oeps! Er is iets misgegaan',
 	light: 'Licht',
-	home: 'Home',
+	lens: 'Lens',
 	dark: 'Donker',
 	back: 'Terug',
 	building: 'Gebouw',

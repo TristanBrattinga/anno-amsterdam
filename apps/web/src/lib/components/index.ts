@@ -9,3 +9,4 @@ export { default as Map } from './Map.svelte';
 export { default as Sidebar } from './Sidebar.svelte';
 export { default as NavBar } from './NavBar.svelte';
 export { default as CardPopup } from './CardPopup.svelte';
+export { default as Onboarding } from './Onboarding.svelte';

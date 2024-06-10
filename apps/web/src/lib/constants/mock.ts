@@ -1,10 +1,10 @@
-import type { Building } from '$types'
+import type { Building } from '$types';
 
 export const BUILDINGS_MOCK: Building[] = [
 	{
 		_id: 'id1',
 		location: { type: 'Point', coordinates: [52.37883521144042, 4.874603183381912] },
-		name: "Pieter's huis",
+		name: 'Pieter\'s huis',
 		address: 'Rombout Hogerbeetsstraat 1',
 		construction_year: 1600,
 		type_of_user: 'Woning',
@@ -17,6 +17,11 @@ export const BUILDINGS_MOCK: Building[] = [
 				source: 'source1',
 				year: 1600,
 				is_main: true
+			}, {
+				url: 'https://i.pinimg.com/originals/cf/04/0c/cf040ca676652e27cf5f7478049d8037.jpg',
+				source: 'source1',
+				year: 1600,
+				is_main: false
 			}
 		],
 		timeline: [],
@@ -48,4 +53,4 @@ export const BUILDINGS_MOCK: Building[] = [
 		created_at: '2022-01-01T00:00:00.000Z',
 		updated_at: '2022-01-01T00:00:00.000Z'
 	}
-]
+];
