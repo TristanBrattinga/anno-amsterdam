@@ -6,9 +6,9 @@ import type { Building } from '$types'
 const url = (path: string) => normalizeURL(API_BASE_URL) + path
 
 export const api = {
-	getBuildings: async (): Promise<Building[]> => {
+	getBuildings: async (limit = 10, offset = 0): Promise<Building[]> => {
 		try {
-			const res = await fetch(url('buildings/'))
+			const res = await fetch(url(`buildings/?limit=${limit}&offset=${offset}`))
 			if (res.ok) return await res.json()
 			error(res.status, await res.text())
 		} catch (e) {

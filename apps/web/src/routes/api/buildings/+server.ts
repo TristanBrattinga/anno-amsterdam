@@ -5,8 +5,11 @@ import * as database from '$lib/server/database'
  * Gets a list of buildings
  * @returns
  */
-export function GET() {
-	const buildings = database.getBuildings()
+export function GET({ url }) {
+	const limit = parseInt(url.searchParams.get('limit') || '10')
+	const offset = parseInt(url.searchParams.get('offset') || '0')
+
+	const buildings = database.getBuildings(limit, offset)
 	return json(buildings, { status: 200 })
 }
 

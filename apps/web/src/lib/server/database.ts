@@ -8,8 +8,8 @@ BUILDINGS_MOCK.forEach((building) => {
 	database.set(building.id, building)
 })
 
-export const getBuildings = (): Building[] => {
-	return Array.from(database.values())
+export const getBuildings = (limit = 10, offset = 0): Building[] => {
+	return Array.from(database.values()).slice(offset, offset + limit)
 }
 
 export const getBuilding = (id: number): Building | null => {
