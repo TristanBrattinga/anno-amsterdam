@@ -8,6 +8,10 @@
 
 	export let data
 
+	$: {
+		console.log($location)
+	}
+
 	onMount(() => {
 		window.onload = () => {
 			let downloaded = false
