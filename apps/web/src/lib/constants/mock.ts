@@ -21,7 +21,7 @@ export const BUILDINGS_MOCK: Building[] = [
 				url: 'https://i.pinimg.com/originals/cf/04/0c/cf040ca676652e27cf5f7478049d8037.jpg',
 				source: 'source1',
 				year: 1600,
-				is_main: true
+				is_main: false
 			}
 		],
 		timeline: [],

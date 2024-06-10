@@ -1,6 +1,6 @@
 <script lang="ts">
 	import mapboxgl from 'mapbox-gl';
-	import '../../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+	import '~~/node_modules/mapbox-gl/dist/mapbox-gl.css';
 	import { onMount, onDestroy } from 'svelte';
 	import type { Building, Coords } from '$types';
 	import { PUBLIC_MAPBOX_API_TOKEN } from '$env/static/public';
@@ -72,7 +72,7 @@
 		map.on('load', () => {
 			map.addSource('buildings', {
 				type: 'geojson',
-				data: 'https://raw.githubusercontent.com/TristanBrattinga/anno-amsterdam/develop-tristan/apps/web/src/lib/constants/export.geojson'
+				data: '/data/export.geojson'
 			});
 
 			map.addLayer({

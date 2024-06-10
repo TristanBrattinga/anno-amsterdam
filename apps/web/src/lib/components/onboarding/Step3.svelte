@@ -4,7 +4,7 @@
 <article>
 	<p>Get Lost in History <br /> Iconic Buildings on the Map<br />Navigate Amsterdam's</p>
 
-	<img src="/onboarding3.png" alt="">
+	<img src="/images/onboarding3.png" alt="">
 </article>
 
 <style lang="scss">

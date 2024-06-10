@@ -4,7 +4,7 @@
 <article>
 	<p>Augmented Reality<br /> The Window to Amsterdam's Past</p>
 
-	<img src="/onboarding2.jpg" alt="">
+	<img src="/images/onboarding2.jpg" alt="">
 </article>
 
 

@@ -3,7 +3,7 @@
 
 <article>
 	<div>
-		<img src="/onboarding4.png" alt="">
+		<img src="/images/onboarding4.png" alt="">
 		<ul>
 			<li>Pictures</li>
 			<li>Anno</li>
