@@ -13,7 +13,7 @@
 	let rotation = 0
 	let north = 0
 
-	$: angle = (bearing + rotation + 360) % 360
+	$: angle = (bearing + north + 360) % 360
 
 	function handleOrentation(e: DeviceOrientationEvent) {
 		rotation = e.alpha || 0
