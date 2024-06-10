@@ -14,6 +14,11 @@ export const load = async ({ parent, data: { building } }) => {
 	return {
 		pageMetaTags,
 		back: LL.back(),
+		residential: LL.residential(),
+		commercial: LL.commercial(),
+		industrial: LL.industrial(),
+		recreational: LL.recreational(),
+		educational: LL.educational(),
 		building
 	}
 }
