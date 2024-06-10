@@ -31,7 +31,7 @@
 		map = new mapboxgl.Map({
 			container: mapContainer,
 			accessToken: PUBLIC_MAPBOX_API_TOKEN,
-			style: 'mapbox://styles/tristanbrattinga/clwtovfzh00or01poa3mo6ljg',
+			style: 'mapbox://styles/mapbox/streets-v11',
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom,
 			attributionControl: false
