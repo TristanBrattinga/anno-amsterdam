@@ -91,7 +91,7 @@
 	<a-entity
 		material="color: red"
 		geometry="primitive: box"
-		gps-new-entity-place="latitude: <your-lat>; longitude: <your-loon>"
+		gps-new-entity-place="latitude: 52.359289920443835; longitude: 4.908652848835472"
 		scale="10 10 10"
 	></a-entity>
 </a-scene>
