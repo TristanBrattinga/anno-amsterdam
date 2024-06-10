@@ -1,28 +1,31 @@
 <script lang="ts">
-	import '$styles/grid.scss'
+	import '$styles/grid.scss';
 
 	// Components
-	import { BuildingCell } from '$components'
+	import { BuildingCell } from '$components';
 
 	// Utils
-	import type { Building, Coords } from '$types'
+	import type { Building, Coords } from '$types';
 
 	// Props
-	export let buildingsTitle: string
-	export let buildings: Building[]
-	export let location: Coords | null = null
+	export let buildingsTitle: string;
+	export let buildings: Building[];
+	export let location: Coords | null = null;
 </script>
 
-<section class="auto-grid" style="--auto-grid-min-size: 400px">
-	<h2 class="sr-only">{buildingsTitle}</h2>
+<h2 class="sr-only">{buildingsTitle}</h2>
+
+<div>Sorting</div>
+<ul>
 	{#each buildings as building}
-		<BuildingCell {building} {location} />
+		<li>
+			<BuildingCell {building} {location} />
+		</li>
 	{/each}
-</section>
+</ul>
 
 <style lang="scss">
-	section {
-		justify-items: center;
-		margin: 0 0.5rem;
-	}
+  ul {
+    margin: 3rem 0;
+  }
 </style>

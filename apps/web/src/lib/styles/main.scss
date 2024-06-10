@@ -2,22 +2,41 @@
 @import './variables.scss';
 @import "./typography.scss";
 
-body {
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: "Noto Serif", Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
   font-family: Oswald, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   position: relative;
 }
 
+li {
+  list-style-type: none;
+}
+
 a {
-	color: currentColor;
-	text-decoration: none;
+  color: currentColor;
+  text-decoration: none;
 
-	&[aria-current='page'] {
-		color: var(--secondary-color);
-	}
+  &[aria-current='page'] {
+    color: var(--secondary-color);
+  }
 
-	&.link:hover {
-		color: var(--primary-color);
-	}
+  &.link:hover {
+    color: var(--primary-color);
+  }
 }
 
 .sr-only {
@@ -29,4 +48,44 @@ a {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+/*CONTAINER STYLING*/
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding-right: 16px;
+  padding-left: 16px
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding-right: 40px;
+    padding-left: 40px
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px
+  }
 }
