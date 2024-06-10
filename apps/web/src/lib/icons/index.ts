@@ -5,4 +5,5 @@ export { default as LocationIcon } from './LocationIcon.svelte';
 export { default as CloseIcon } from './CloseIcon.svelte';
 export { default as ListIcon } from './ListIcon.svelte';
 export { default as MapIcon } from './MapIcon.svelte';
+export { default as MapPinIcon } from './MapPinIcon.svelte';
 export { default as LensIcon } from './LensIcon.svelte';
