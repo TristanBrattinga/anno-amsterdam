@@ -3,10 +3,9 @@
 	import { page } from '$app/stores';
 
 	// Components
-	import { Logo } from '$components';
+	import { Logo } from '$icons';
 
 	// Icons
-	import Cog from 'lucide-svelte/icons/cog';
 
 	// Props
 	export let home: string;
@@ -14,53 +13,39 @@
 </script>
 
 <header>
-	<div class="lead">
+	<nav class="container">
 		<a href={`/${$page.data.locale}`} aria-label={home}>
-			<Logo height="48px" color="var(--color-primary)" />
+			<Logo />
+			<span>Amsterdam</span>
 		</a>
-		<h1>Amsterdam</h1>
-	</div>
-	<div class="trail">
-		<a
-			href={`/${$page.data.locale}/settings`}
-			aria-label={settings}
-			aria-current={$page.url.pathname === `/${$page.data.locale}/settings` ? 'page' : false}
-		>
-			<Cog />
-		</a>
-	</div>
+	</nav>
 </header>
 
-<style>
-	header {
-		position: fixed;
-		top: 0;
-		width: 100%;
-		height: 64px;
-		display: flex;
-		padding-inline: 16px;
-		justify-content: space-between;
-		align-items: center;
-		background-color: var(--bg-color);
-	}
+<style lang="scss">
+  header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid #C5D9E0;
+    height: 64px;
 
-	.lead {
-		display: flex;
-		align-items: center;
-	}
+    a {
+      display: flex;
+      align-items: end;
+      gap: .25rem;
+      width: fit-content;
 
-	.trail a {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 48px;
-		width: 48px;
-	}
-
-	h1 {
-		margin-left: 8px;
-		font-size: 1.5rem;
-		text-transform: uppercase;
-		color: var(--secondary-color);
-	}
+      span {
+        font-family: Oswald, sans-serif;
+        color: var(--secondary-color-light);
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 1.375rem;
+        line-height: 1.1;
+      }
+    }
+  }
 </style>

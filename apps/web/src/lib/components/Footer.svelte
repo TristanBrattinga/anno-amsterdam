@@ -3,47 +3,46 @@
 	import { page } from '$app/stores';
 
 	// Icons
-	import Home from 'lucide-svelte/icons/home';
-	import List from 'lucide-svelte/icons/list';
-	import Map from 'lucide-svelte/icons/map';
+	import { LensIcon, ListIcon, MapIcon } from '$icons';
 
 	// Props
-	export let home: string;
+	export let lens: string;
 	export let map: string;
 	export let list: string;
 
 	type MenuItem = {
-		name: string;
-		href: string;
-		icon: typeof Home;
-	};
+		name: string
+		href: string
+		icon: typeof Home
+	}
 
 	let menuItems: MenuItem[];
 	$: menuItems = [
 		{
-			name: home,
-			href: '',
-			icon: Home
-		},
-		{
 			name: map,
 			href: '/map',
-			icon: Map
+			icon: MapIcon
+		},
+		{
+			name: lens,
+			href: '/lens',
+			icon: LensIcon
 		},
 		{
 			name: list,
 			href: '/list',
-			icon: List
+			icon: ListIcon
 		}
 	];
 </script>
 
 <footer>
-	<nav>
+	<nav class="container">
 		<ul>
 			{#each menuItems as { name, href, icon } (href)}
 				<li>
 					<a
+						class="link"
 						href={`/${$page.data.locale}${href}`}
 						aria-current={$page.url.pathname === `/${$page.data.locale}${href}` ? 'page' : false}
 					>
@@ -56,34 +55,28 @@
 	</nav>
 </footer>
 
-<style>
-	footer {
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		height: 80px;
-		background-color: var(--bg-color);
-		color: var(--text-color);
-		padding: 1rem;
-	}
+<style lang="scss">
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 1rem;
+    border-top: 1px solid #C5D9E0;
+  }
 
-	nav ul {
-		display: flex;
-		justify-content: center;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-	}
+  nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+  }
 
-	nav li {
-		flex: 1;
-		margin: 0 1rem;
-	}
-
-	nav a {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+  nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
