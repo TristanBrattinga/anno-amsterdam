@@ -193,7 +193,7 @@
 
 				<label for="description">
 					Omschrijving
-					<textarea cols="50" id="description" name="description" required rows="4"> </textarea>
+					<textarea cols="50" id="description" name="description" required rows="4"></textarea>
 				</label>
 			</fieldset>
 			<label for="Update">

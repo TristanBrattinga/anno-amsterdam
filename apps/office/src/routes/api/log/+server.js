@@ -35,6 +35,9 @@ async function parseAndTransformData(request) {
   try {
     const rawData = await request.json();
     console.log('Raw data:', rawData); // Log raw data for debugging
+    if (rawData.Gebruiksdoel === 'woonfunctie') {
+        rawData.Gebruiksdoel = 'residential';
+    }
 
     // Transform the incoming data to the desired format
     const transformedData = {
