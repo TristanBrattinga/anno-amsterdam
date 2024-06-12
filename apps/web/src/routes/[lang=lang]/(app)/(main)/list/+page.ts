@@ -2,7 +2,7 @@ import { i18nObject } from '$i18n/i18n-util'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 
 // On page load
-export const load = async ({ parent, data: { buildings } }) => {
+export const load = async ({ parent, data: { buildings, error, status } }) => {
 	// Load the locale
 	const { locale } = await parent()
 	const LL = i18nObject(locale)
@@ -18,6 +18,9 @@ export const load = async ({ parent, data: { buildings } }) => {
 		pageMetaTags,
 		moreInfo: LL.moreInfo(),
 		buildingsTitle: LL.buildings(),
-		buildings
+		buildings: buildings || [],
+		fetchListError: LL.fetchListError(),
+		error,
+		status
 	}
 }

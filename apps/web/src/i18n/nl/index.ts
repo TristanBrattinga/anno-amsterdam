@@ -16,6 +16,7 @@ const nl = {
 	commercial: 'Commercieel',
 	educational: 'Educatief',
 	recreational: 'Recreatief',
+	fetchListError: 'Er is iets fout gegaan bij het ophalen van de gebouwen',
 	building: 'Gebouw',
 	buildings: 'Gebouwen',
 	system: 'Systeem',

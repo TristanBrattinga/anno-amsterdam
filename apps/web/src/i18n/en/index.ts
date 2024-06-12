@@ -11,6 +11,7 @@ const en = {
 	light: 'Light',
 	lens: 'Lens',
 	back: 'Back',
+	fetchListError: 'Something went wrong while fetching the buildings',
 	arrowAlt: 'Arrow pointing to the building',
 	residential: 'Residential',
 	industrial: 'Industrial',
