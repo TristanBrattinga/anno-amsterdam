@@ -31,7 +31,7 @@
 		map = new mapboxgl.Map({
 			container: mapContainer,
 			accessToken: PUBLIC_MAPBOX_API_TOKEN,
-			style: 'mapbox://styles/mapbox/outdoors-v11',
+			style: 'mapbox://styles/mapbox/streets-v11',
 			center: [initialState.lng, initialState.lat],
 			zoom: initialState.zoom,
 			attributionControl: false
@@ -70,33 +70,49 @@
 		}
 
 		map.on('load', () => {
-			map.addSource('buildings', {
-				type: 'geojson',
-				data: '/data/export.geojson'
+			map.addSource('my-tileset', {
+				type: 'vector',
+				url: 'mapbox://tristanbrattinga.89nhwzw4'
 			});
 
 			map.addLayer({
-				'id': 'buildings-layer',
+				'id': 'my-tileset-layer',
 				'type': 'fill',
-				'source': 'buildings',
+				'source': 'my-tileset',
+				'source-layer': 'export',
 				'paint': {
 					'fill-color': [
 						'interpolate',
 						['linear'],
 						['to-number', ['get', 'start_date']],
-						1000, '#f28cb1', // Buildings from 1000 to 1200
-						1200, '#3bb2d0', // Buildings from 1200 to 1400
-						1400, '#f1f075', // Buildings from 1400 to 1600
-						1600, '#223b53', // Buildings from 1600 to 1800
-						1800, '#e55e5e', // Buildings from 1800 to 2000
-						2000, '#3bb2d0'  // Buildings from 2000 onwards
+						-1, '#000', // Buildings from 1000 to 1100
+						1000, '#f28cb1', // Buildings from 1000 to 1100
+						1100, '#e55e5e', // Buildings from 1100 to 1200
+						1200, '#3bb2d0', // Buildings from 1200 to 1300
+						1300, '#ff7f0e', // Buildings from 1300 to 1400
+						1400, '#1f77b4', // Buildings from 1400 to 1500
+						1500, '#2ca02c', // Buildings from 1500 to 1600
+						1600, '#d62728', // Buildings from 1600 to 1700
+						1700, '#9467bd', // Buildings from 1700 to 1800
+						1800, '#8c564b', // Buildings from 1800 to 1900
+						1900, '#e377c2', // Buildings from 1900 to 2000
+						2000, '#7f7f7f'  // Buildings from 2000 onwards
 					],
 					'fill-opacity': 1
 				}
 			});
+			// // Add line layer for outline
+			// map.addLayer({
+			// 	'id': 'my-tileset-outline',
+			// 	'type': 'line',
+			// 	'source': 'my-tileset',
+			// 	'source-layer': 'export',
+			// 	'paint': {
+			// 		'line-color': '#000000',
+			// 		'line-width': .5
+			// 	}
+			// });
 		});
-
-
 	});
 
 	const triggerGeolocate = () => {
