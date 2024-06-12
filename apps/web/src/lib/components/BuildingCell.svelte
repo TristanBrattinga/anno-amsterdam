@@ -2,16 +2,21 @@
 	// Stores
 	import { page } from '$app/stores'
 
+	// Types
 	import type { Building, Coords } from '$types'
 
 	// Utils
 	import { getDistance } from '$lib'
+
+	// Components
 	import ImageSlider from '$components/ImageSlider.svelte'
 
 	// Props
 	export let building: Building
 	export let location: Coords | null = null
+	export let moreInfo: string
 
+	// Distance to building in km
 	$: km =
 		location && building.location.coordinates[0] !== 0
 			? getDistance(
@@ -20,6 +25,7 @@
 				)
 			: 0
 
+	// Distance to building in km or m
 	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
@@ -46,7 +52,7 @@
 			</li>
 			{#if building.type_of_user}
 				<li>
-					<a href={`/${$page.data.locale}/building/${building.id}`}>Meer info</a>
+					<a href={`/${$page.data.locale}/building/${building.id}`}>{moreInfo}</a>
 				</li>
 			{/if}
 		</ul>

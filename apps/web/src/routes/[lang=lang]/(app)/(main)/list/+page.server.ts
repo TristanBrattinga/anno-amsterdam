@@ -1,7 +1,9 @@
-import { api } from '$lib/server';
+import { api } from '$lib/server'
 
+// On page load
 export const load = async () => {
-	const buildings = await api.getBuildings();
+	// Fetch building list
+	const buildings = await api.getBuildings()
 
-	return { buildings };
-};
+	return { buildings }
+}

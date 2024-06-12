@@ -19,6 +19,8 @@ const nl = {
 	building: 'Gebouw',
 	buildings: 'Gebouwen',
 	system: 'Systeem',
+	moreInfo: 'Meer info',
+	arrowAlt: 'Pijl die de richting aangeeft naar het gebouw',
 	list: 'Lijst',
 	map: 'Kaart',
 	settings: 'Instellingen',

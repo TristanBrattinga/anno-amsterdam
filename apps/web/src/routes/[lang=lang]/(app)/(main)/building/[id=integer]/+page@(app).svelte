@@ -1,8 +1,12 @@
 <script lang="ts">
+	// Components
 	import { Arrow } from '$components'
 
+	// Stores
+	import { page } from '$app/stores'
 	import { location } from '$stores'
 
+	// Data
 	export let data
 </script>
 
@@ -14,6 +18,7 @@
 			<p class="anno">Anno {data.building.construction_year}</p>
 			{#if $location}
 				<Arrow
+					arrowAlt={data.arrowAlt}
 					from={$location}
 					to={{
 						lat: data.building.location.coordinates[0],
@@ -24,7 +29,7 @@
 		</div>
 		<h1>{data.building.address}</h1>
 		<div class="tags">
-			{#each data.building.tags.nl as tag}
+			{#each data.building.tags[$page.data.locale] as tag}
 				<span>{tag}</span>
 			{/each}
 		</div>

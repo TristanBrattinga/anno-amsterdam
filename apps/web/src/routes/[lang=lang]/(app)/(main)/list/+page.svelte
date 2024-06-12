@@ -1,19 +1,19 @@
 <script lang="ts">
 	// Components
-	import { BuildingList } from '$components';
+	import { BuildingList } from '$components'
 
 	// Stores
-	import { location } from '$stores';
-	import ImageSlider from '$components/ImageSlider.svelte';
+	import { location } from '$stores'
 
-	export let data;
+	// Data
+	export let data
 </script>
 
 <section class="container">
-	<!--	<h2>{data.buildingsTitle}</h2>-->
 	<BuildingList
 		buildingsTitle={data.buildingsTitle}
 		buildings={data.buildings}
+		moreInfo={data.moreInfo}
 		location={$location || null}
 	/>
 </section>
