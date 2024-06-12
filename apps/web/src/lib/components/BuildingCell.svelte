@@ -46,7 +46,7 @@
 			</li>
 			{#if building.type_of_user}
 				<li>
-					<a href={`/${$page.data.locale}/building/${building._id}`}>Meer info</a>
+					<a href={`/${$page.data.locale}/building/${building.id}`}>Meer info</a>
 				</li>
 			{/if}
 		</ul>

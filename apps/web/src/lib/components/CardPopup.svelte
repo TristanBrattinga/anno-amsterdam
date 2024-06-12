@@ -18,7 +18,7 @@
 	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
-<a href={`/${$page.data.locale}/building/${building._id}`}>
+<a href={`/${$page.data.locale}/building/${building.id}`}>
 	<div>
 		<p>{building?.address || 'Address missing'}</p>
 		<!--		<button>-->

@@ -24,7 +24,7 @@
 		</div>
 		<h1>{data.building.address}</h1>
 		<div class="tags">
-			{#each data.building.tags as tag}
+			{#each data.building.tags.nl as tag}
 				<span>{tag}</span>
 			{/each}
 		</div>
