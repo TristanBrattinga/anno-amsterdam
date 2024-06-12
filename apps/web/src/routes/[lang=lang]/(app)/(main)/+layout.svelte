@@ -6,7 +6,7 @@
 	let sidebarMenuId = 'mainSidebar'
 </script>
 
-<Header home={data.home} settings={data.settings} />
+<Header />
 <main>
 	<NavBar menuId={sidebarMenuId} />
 	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} />
