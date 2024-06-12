@@ -1,20 +1,14 @@
 import { json } from '@sveltejs/kit'
 import * as database from '$lib/server/database'
 
-/**
- * Gets a building by id
- * @returns
- */
+// Gets a building by id
 export function GET({ params }) {
 	const result = database.getBuilding(+params.id)
 	if (!result) return json({ detail: 'Building not found' }, { status: 404 })
 	return json(result, { status: 200 })
 }
 
-/**
- * Updates a building by id
- * @returns
- */
+// Updates a building by id
 export async function PUT({ params, request }) {
 	const body = await request.json()
 	const result = database.updateBuilding(+params.id, body)
@@ -22,10 +16,7 @@ export async function PUT({ params, request }) {
 	return json(result, { status: 200 })
 }
 
-/**
- * Deletes a building by id
- * @returns
- */
+// Deletes a building by id
 export function DELETE({ params }) {
 	const result = database.deleteBuilding(+params.id)
 	if (result) return json({ detail: 'Building not found' }, { status: 404 })
