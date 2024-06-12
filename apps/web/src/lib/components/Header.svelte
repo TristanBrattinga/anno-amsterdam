@@ -1,20 +1,14 @@
 <script lang="ts">
 	// Stores
-	import { page } from '$app/stores';
+	import { page } from '$app/stores'
 
 	// Components
-	import { Logo } from '$icons';
-
-	// Icons
-
-	// Props
-	export let home: string;
-	export let settings: string;
+	import { Logo } from '$icons'
 </script>
 
 <header>
 	<nav class="container">
-		<a href={`/${$page.data.locale}`} aria-label={home}>
+		<a href={`/${$page.data.locale}`} aria-label="Home">
 			<Logo />
 			<span>Amsterdam</span>
 		</a>
@@ -22,30 +16,30 @@
 </header>
 
 <style lang="scss">
-  header {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    border-bottom: 1px solid #C5D9E0;
-    height: 64px;
+	header {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		background-color: #fff;
+		border-bottom: 1px solid #c5d9e0;
+		height: 64px;
 
-    a {
-      display: flex;
-      align-items: end;
-      gap: .25rem;
-      width: fit-content;
+		a {
+			display: flex;
+			align-items: end;
+			gap: 0.25rem;
+			width: fit-content;
 
-      span {
-        font-family: Oswald, sans-serif;
-        color: var(--secondary-color-light);
-        text-transform: uppercase;
-        font-weight: 300;
-        font-size: 1.375rem;
-        line-height: 1.1;
-      }
-    }
-  }
+			span {
+				font-family: Oswald, sans-serif;
+				color: var(--secondary-color-light);
+				text-transform: uppercase;
+				font-weight: 300;
+				font-size: 1.375rem;
+				line-height: 1.1;
+			}
+		}
+	}
 </style>
