@@ -7,6 +7,7 @@ export const load = async ({ parent }) => {
 	return {
 		lens: LL.lens(),
 		settings: LL.settings(),
+		sortBy: LL.sort(),
 		filterTitle: LL.filters(),
 		list: LL.list(),
 		map: LL.map()

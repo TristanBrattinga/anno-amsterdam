@@ -17,6 +17,9 @@ export const load = async ({ parent, data: { buildings, error, status } }) => {
 	return {
 		pageMetaTags,
 		moreInfo: LL.moreInfo(),
+		sortBy: LL.sort(),
+		distanceTo: LL.distanceTo(),
+		map: LL.map(),
 		buildingsTitle: LL.buildings(),
 		buildings: buildings || [],
 		fetchListError: LL.fetchListError(),

@@ -15,6 +15,8 @@
 	export let building: Building
 	export let location: Coords | null = null
 	export let moreInfo: string
+	export let distanceTo: string
+	export let map: string
 
 	// Distance to building in km
 	$: km =
@@ -42,15 +44,17 @@
 			<form action={`/${$page.data.locale}/map`} method="post">
 				<input type="hidden" name="lat" value={building.location.coordinates[0]} />
 				<input type="hidden" name="lon" value={building.location.coordinates[1]} />
-				<button>Map</button>
+				<button>{map}</button>
 			</form>
 		</div>
 		<ul>
 			<li>
-				<p>Distance to</p>
-				<p>{distance ? `${distance}` : ''}</p>
+				{#if location}
+					<p>{distanceTo}</p>
+					<p>{distance ? `${distance}` : ''}</p>
+				{/if}
 			</li>
-			{#if building.type_of_user}
+			{#if building.type_of_user || building.tags[$page.data.locale].length || building.description}
 				<li>
 					<a href={`/${$page.data.locale}/building/${building.id}`}>{moreInfo}</a>
 				</li>

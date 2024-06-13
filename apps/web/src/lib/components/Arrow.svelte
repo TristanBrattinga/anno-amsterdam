@@ -9,6 +9,9 @@
 	import { browser } from '$app/environment'
 	import { getBearing, getCompassHeading } from '$lib'
 
+	// Icons
+	import { ArrowIcon } from '$icons'
+
 	// Props
 	export let from: Coords
 	export let to: Coords
@@ -46,9 +49,4 @@
 	})
 </script>
 
-<img
-	src="https://pngfre.com/wp-content/uploads/red-arrow-26-1-1536x1536.png"
-	alt={arrowAlt}
-	width="50"
-	style={`transform: rotate(${angle}deg)`}
-/>
+<ArrowIcon width={50} height={50} rotate={angle} alt={arrowAlt} />

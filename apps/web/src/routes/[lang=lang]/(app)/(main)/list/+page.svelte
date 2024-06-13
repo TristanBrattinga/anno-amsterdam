@@ -1,10 +1,12 @@
 <script lang="ts">
+	// Svelte
+	import { onMount } from 'svelte'
+
 	// Components
 	import { BuildingList } from '$components'
 
 	// Stores
 	import { location } from '$stores'
-	import { onMount } from 'svelte'
 
 	// Data
 	export let data
@@ -22,6 +24,8 @@
 	{:else}
 		<BuildingList
 			buildingsTitle={data.buildingsTitle}
+			distanceTo={data.distanceTo}
+			map={data.map}
 			buildings={data.buildings}
 			moreInfo={data.moreInfo}
 			location={$location || null}

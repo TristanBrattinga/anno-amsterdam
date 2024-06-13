@@ -15,7 +15,7 @@
 </script>
 
 <section>
-	<button on:click={() => history.back()}>&#60; {data.back}</button>
+	<button class="back" on:click={() => history.back()}>&#60; {data.back}</button>
 	<img src={data.building.image_urls[0].url} alt={data.building.name} />
 	<div class="content">
 		<div class="top-bar">
@@ -34,12 +34,12 @@
 		<h1>{data.building.address}</h1>
 		<div class="more-info">
 			<div class="distance">
-				<p>Distance to</p>
+				<p>{data.distanceTo}</p>
 				<p>3m</p>
 			</div>
 			<div class="type-of-use">
-				<p>Type of use</p>
-				<p>{data.building.type_of_user ? data[data.building.type_of_user] : 'Unknown'}</p>
+				<p>{data.typeOfUse}</p>
+				<p>{data.building.type_of_user ? data[data.building.type_of_user] : data.unknown}</p>
 			</div>
 		</div>
 		<div class="tags">
@@ -57,10 +57,20 @@
 		flex-direction: column;
 		align-items: center;
 
-		button {
+		button.back {
 			position: absolute;
 			top: 0.25em;
 			left: 0.5em;
+			background-color: var(--accent-color);
+			border: none;
+			cursor: pointer;
+			border-radius: 8px;
+			padding: 0.5em 1em;
+
+			&:hover {
+				color: #fff;
+				background-color: var(--primary-color);
+			}
 		}
 
 		.content {
@@ -96,7 +106,7 @@
 			h1 {
 				font-size: 1.5rem;
 				max-width: calc(500px - 2rem);
-				margin: 0 auto;
+				margin: 1rem auto;
 				color: var(--primary-color);
 				text-transform: uppercase;
 			}
@@ -105,12 +115,11 @@
 				display: flex;
 				min-width: fit-content;
 				max-width: calc(500px - 2rem);
-				margin: 0 auto;
+				margin: 1rem auto;
 				justify-content: space-between;
 				padding: 1rem;
 				border-radius: 8px;
 				border: 2px solid var(--accent-color);
-				margin-bottom: 0.5rem;
 
 				> div {
 					flex: 1;
@@ -134,7 +143,7 @@
 
 			.tags {
 				max-width: calc(500px - 2rem);
-				margin: 0 auto;
+				margin: 1rem auto;
 				display: flex;
 				flex-wrap: wrap;
 				gap: 0.5rem;

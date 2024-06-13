@@ -1,179 +1,123 @@
 <script lang="ts">
-	import { menuStore } from '$stores/menu';
-	import { onDestroy } from 'svelte';
-	import { Logo } from '$icons';
-	import { page } from '$app/stores';
+	import { menuStore } from '$stores/menu'
+	import { onDestroy } from 'svelte'
+	import { Logo, CloseIcon } from '$icons'
+	import { page } from '$app/stores'
 
+	export let menuId: string
+	export let filterTitle: string
+	export let sortBy: string
 
-	export let home: string;
-	export let menuId: string;
-	export let filterTitle: string;
-
-	let sidebarOpen = false;
-	const unsubscribe = menuStore.subscribe(value => {
-		sidebarOpen = value[menuId] || false;
-	});
+	let sidebarOpen = false
+	const unsubscribe = menuStore.subscribe((value) => {
+		sidebarOpen = value[menuId] || false
+	})
 
 	onDestroy(() => {
-		unsubscribe();
-	});
+		unsubscribe()
+	})
 
 	const closeSidebar = () => {
-		menuStore.closeMenu(menuId);
-	};
+		menuStore.closeMenu(menuId)
+	}
 </script>
 
 <aside class:show={sidebarOpen}>
 	<div>
-		<a href={`/${$page.data.locale}`} aria-label={home}>
+		<a href={`/${$page.data.locale}`} aria-label="Home">
 			<Logo />
 			<span>Amsterdam</span>
 		</a>
 		<button on:click={closeSidebar}>
-			<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path fill-rule="evenodd" clip-rule="evenodd"
-					  d="M0.863563 0.156456C0.668301 -0.0388058 0.351719 -0.0388058 0.156457 0.156456C-0.0388056 0.351719 -0.0388059 0.668301 0.156456 0.863563L8.28831 8.99541L0.156576 17.1271C-0.0386864 17.3224 -0.0386863 17.639 0.156576 17.8342C0.351838 18.0295 0.66842 18.0295 0.863682 17.8342L8.99541 9.70252L17.127 17.8341C17.3223 18.0294 17.6389 18.0294 17.8341 17.8341C18.0294 17.6389 18.0294 17.3223 17.8341 17.127L9.70252 8.99541L17.8342 0.863685C18.0295 0.668423 18.0295 0.35184 17.8342 0.156578C17.639 -0.0386842 17.3224 -0.0386845 17.1271 0.156578L8.99541 8.2883L0.863563 0.156456Z"
-					  fill="#000" />
-			</svg>
+			<CloseIcon />
 		</button>
 	</div>
-	<p>{filterTitle}</p>
+	<h1>{filterTitle}</h1>
 	<div class="divider" />
-	<ul>
-		<li>
-			<label>
-				16e eeuw
-				<input type="checkbox" />
-			</label>
-		</li>
-		<li>
-			<label>
-				17e eeuw
-				<input type="checkbox" />
-			</label>
-		</li>
-		<li>
-			<label>
-				18e eeuw
-				<input type="checkbox" />
-			</label>
-		</li>
-		<li>
-			<label>
-				19e eeuw
-				<input type="checkbox" />
-			</label>
-		</li>
-		<li>
-			<label>
-				20e eeuw
-				<input type="checkbox" />
-			</label>
-		</li>
-		<li>
-			<label>
-				21e eeuw
-				<input type="checkbox" />
-			</label>
-		</li>
-	</ul>
-	<div class="divider" />
-	<ul>
-		<li>
-			<label>
-				Voorgevel
-				<input type="checkbox" />
-			</label>
-		</li>
-		<li>
-			<label>
-				Bewoner
-				<input type="checkbox" />
-			</label>
-		</li>
-		<li>
-			<label>
-				Type
-				<input type="checkbox" />
-			</label>
-		</li>
-	</ul>
+	<form method="get">
+		<label for="sort">{sortBy}</label>
+		<select id="sort" name="sort">
+			<option value="default" selected>Standaard</option>
+			<option value="distance">Afstand</option>
+			<option value="name">A-Z</option>
+			<option value="year">Bouwjaar</option>
+		</select>
+		<button type="submit">Filteren</button>
+	</form>
 </aside>
 
 <style lang="scss">
-  aside {
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: #fff;
-    width: 100%;
-    height: 100dvh;
-    z-index: 20;
-    padding: 2rem 1rem;
-    color: black;
-    transform: translateX(100%);
-    transition: all .5s ease-in-out;
+	aside {
+		position: fixed;
+		left: 0;
+		top: 0;
+		background-color: #fff;
+		width: 100%;
+		height: 100dvh;
+		z-index: 20;
+		padding: 2rem 1rem;
+		color: black;
+		transform: translateX(100%);
+		transition: all 0.5s ease-in-out;
 
-    &.show {
-      transform: translateX(0);
-    }
+		&.show {
+			transform: translateX(0);
+		}
 
-    > div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+		> div {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 
-      a {
-        display: flex;
-        align-items: end;
-        gap: .25rem;
-        width: fit-content;
+			a {
+				display: flex;
+				align-items: end;
+				gap: 0.25rem;
+				width: fit-content;
 
-        span {
-          font-family: Oswald, sans-serif;
-          color: var(--secondary-color-light);
-          text-transform: uppercase;
-          font-weight: 300;
-          font-size: 1.375rem;
-          line-height: 1.1;
-        }
-      }
+				span {
+					font-family: Oswald, sans-serif;
+					color: var(--secondary-color-light);
+					text-transform: uppercase;
+					font-weight: 300;
+					font-size: 1.375rem;
+					line-height: 1.1;
+				}
+			}
 
-      button {
-        appearance: none;
-        background-color: transparent;
-        border: none;
-      }
-    }
+			button {
+				appearance: none;
+				background-color: transparent;
+				border: none;
+				cursor: pointer;
+			}
+		}
 
-    p {
-      font-size: 2rem;
-      line-height: 1;
-      margin-top: 1rem;
-    }
+		h1 {
+			font-size: 2rem;
+			line-height: 1;
+			margin-top: 1rem;
+		}
 
-    span {
-      display: flex;
-      align-items: center;
-      font-size: 1.2rem;
-      line-height: 1;
-      gap: .5rem;
-      color: #A60001;
-    }
+		form {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 0.5rem;
 
-    label {
-      display: flex;
-      flex-direction: row-reverse;
-      justify-content: start;
-      gap: .5rem;
-    }
+			select {
+				border: 1px solid var(--accent-color);
+				border-radius: 999px;
+				cursor: pointer;
+				padding: 0 0.5rem;
+			}
+		}
+	}
 
-  }
-
-  .divider {
-    width: 100%;
-    height: 1px;
-    background-color: #E6E6E6;
-    margin: 1rem 0;
-  }
+	.divider {
+		width: 100%;
+		height: 1px;
+		background-color: #e6e6e6;
+		margin: 1rem 0;
+	}
 </style>
