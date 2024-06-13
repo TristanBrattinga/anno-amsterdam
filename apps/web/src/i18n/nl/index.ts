@@ -1,4 +1,4 @@
-import type { BaseTranslation } from '../i18n-types';
+import type { BaseTranslation } from '../i18n-types'
 
 const nl = {
 	lang: 'Taal',
@@ -8,18 +8,33 @@ const nl = {
 	goHome: 'Ga naar de startpagina',
 	unexpectedError: 'Oeps! Er is iets misgegaan',
 	light: 'Licht',
-	home: 'Home',
+	lens: 'Lens',
 	dark: 'Donker',
 	back: 'Terug',
+	residential: 'Woonhuis',
+	industrial: 'Industrieel',
+	commercial: 'Commercieel',
+	educational: 'Educatief',
+	recreational: 'Recreatief',
+	fetchListError: 'Er is iets fout gegaan bij het ophalen van de gebouwen',
 	building: 'Gebouw',
 	buildings: 'Gebouwen',
 	system: 'Systeem',
+	moreInfo: 'Meer info',
+	arrowAlt: 'Pijl die de richting aangeeft naar het gebouw',
 	list: 'Lijst',
 	map: 'Kaart',
 	settings: 'Instellingen',
 	theme: 'Thema',
 	filters: 'Filters',
-	centuries: { 16: '16e eeuw', 17: '17e eeuw', 18: '18e eeuw', 19: '19e eeuw', 20: '20e eeuw', 21: '21e eeuw' }
-} satisfies BaseTranslation;
+	centuries: {
+		16: '16e eeuw',
+		17: '17e eeuw',
+		18: '18e eeuw',
+		19: '19e eeuw',
+		20: '20e eeuw',
+		21: '21e eeuw'
+	}
+} satisfies BaseTranslation
 
-export default nl;
+export default nl

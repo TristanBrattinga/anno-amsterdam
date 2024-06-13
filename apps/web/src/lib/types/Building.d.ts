@@ -10,14 +10,21 @@ export interface Image {
 	is_main: boolean
 }
 
+export type BuildingType =
+	| 'residential'
+	| 'industrial'
+	| 'commercial'
+	| 'educational'
+	| 'recreational'
+
 export interface Building {
-	_id: string
+	id: number
 	location: Location
 	name: string
 	address: string
 	construction_year: number
-	type_of_user?: string
-	tags: string[]
+	type_of_user?: BuildingType
+	tags: Record<string, string[]>
 	description?: string
 	image_urls: Image[]
 	timeline?: never[]
@@ -25,4 +32,5 @@ export interface Building {
 	audioguids?: never[]
 	created_at: string
 	updated_at: string
+	distance?: number
 }
