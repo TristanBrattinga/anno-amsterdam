@@ -53,10 +53,18 @@
 			width: 100%;
 			padding: 1rem;
 
+			h1 {
+				font-size: 1.5rem;
+				margin: 0.5rem 0;
+				color: var(--primary-color);
+				text-transform: uppercase;
+			}
+
 			.tags {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 0.5rem;
+				margin-bottom: 1rem;
 
 				> span {
 					display: inline-block;
