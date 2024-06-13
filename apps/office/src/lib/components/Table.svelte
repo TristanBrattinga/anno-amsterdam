@@ -1,7 +1,9 @@
 <script>
-    export let data = [];
+    export let data;
+    console.log(data);
     const excludedKeys = new Set([
-        '_id',
+        'id',
+        'bag_id',
         'location',
         'description',
         'timeline',
@@ -49,7 +51,7 @@
                         {#if key === 'image_urls' && value.length > 0}
                             <img src={value[0].url} alt={value[0].source} style="width: 100px;" />
 		                        {:else if key === 'name' && value.length > 0}
-														<a href="/import/{item._id}">{value}</a>
+														<a href="/import/{item.id}">{value}</a>
                         {:else if Array.isArray(value)}
                             {value.join(', ')}
                         {:else}

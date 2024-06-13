@@ -35,21 +35,36 @@ async function parseAndTransformData(request) {
   try {
     const rawData = await request.json();
     console.log('Raw data:', rawData); // Log raw data for debugging
-    if (rawData.Gebruiksdoel === 'woonfunctie') {
-        rawData.Gebruiksdoel = 'residential';
+    if (rawData.gebruiksdoelen === 'woonfunctie') {
+      rawData.gebruiksdoelen = 'residential';
+    } else if(rawData.gebruiksdoelen === 'overige gebruiksfunctie') {
+      rawData.gebruiksdoelen = 'recreational';
     }
+    else if(rawData.gebruiksdoelen === 'kantoorfunctie') {
+        rawData.gebruiksdoelen = 'commercial';
+    }
+    else if(rawData.gebruiksdoelen === 'bijeenkomstfunctie' || rawData.gebruiksdoelen === 'recreatiefunctie') {
+        rawData.gebruiksdoelen = 'recreational';
+    }
+    else if(rawData.gebruiksdoelen === 'onderwijsfunctie') {
+        rawData.gebruiksdoelen = 'educational';
+    }
+    else if(rawData.gebruiksdoelen === 'industriefunctie'){
+        rawData.gebruiksdoelen = 'industrial';
+    }
+
 
     // Transform the incoming data to the desired format
     const transformedData = {
-      _id: rawData.Nummeraanduidingidentificatie,
+      _id: rawData.nummeraanduidingIdentificatie,
       location: {
         type: 'Point',
         coordinates: [rawData.Longitude, rawData.Latitude]
       },
-      name: rawData.Naam,
+      name: rawData.korteNaam,
       address: rawData.Adres,
-      construction_year: rawData.Oorspronkelijk_bouwjaar,
-      type_of_use: rawData.Gebruiksdoel || 'residential',
+      construction_year: rawData.oorspronkelijkBouwjaar,
+      type_of_use: rawData.gebruiksdoelen || 'residential',
       tags: rawData.tags || [],
       description: rawData.description || '',
       image_urls: rawData.image || [],

@@ -1,28 +1,33 @@
 <script>
 	import LinkButton from '$lib/components/LinkButton.svelte';
+	import {PUBLIC_MAPBOX_KEY} from "$env/static/public";
 	import { onMount } from 'svelte';
 	import Papa from 'papaparse';
-	export let data = [];
+	export let data;
 	let postcode = '';
 	let Hnumber = '';
+	let status = '';
 	let coordinate1 = ''; // example coordinate1
 	let coordinate2 = ''; // example coordinate2
 	let error = null;
-	let openedDetails = 'anno';
 
 	onMount(() => {
-		const details = document.querySelectorAll('details');
-
-		details.forEach((targetDetail) => {
-			targetDetail.addEventListener('click', () => {
-				details.forEach((detail) => {
-					if (detail !== targetDetail) {
-						detail.removeAttribute('open');
-					}
-				});
-			});
-		});
+		const iframe = document.querySelector('iframe');
+		iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#12.12/52.36923/4.89499`;
 	});
+
+	let images = [];
+
+	// Function to handle file input change event
+	function handleFileChange(event) {
+		const file = event.target.files[0];
+		if (file) {
+			const src = URL.createObjectURL(file);
+			images = [...images, { src, isMain: false }];
+		}
+	}
+
+
 
 	async function fetchApiData(inputData) {
 		try {
@@ -30,12 +35,16 @@
 				`/api/bag?postcode=${inputData.postcode}&huisnummer=${inputData.huisnummer}&page=1&pageSize=20`
 			);
 			if (!response.ok) {
+				status = 'invalid';
+				checkStatus();
 				throw new Error('Failed to fetch data');
 			}
+			status = '';
 			const responseData = await response.json();
 			console.log(`${JSON.stringify(responseData)} is data`);
 			return responseData;
 		} catch (err) {
+
 			error = err.message;
 			console.error('Error:', error);
 			return [];
@@ -49,6 +58,7 @@
 			);
 			if (!response.ok) {
 				throw new Error('Failed to fetch data');
+
 			}
 			const responseData = await response.text();
 			console.log(responseData);
@@ -86,11 +96,14 @@
 				if (longtitute && latitute) {
 					longtitute.value = coordsData.longitude;
 					latitute.value = coordsData.latitude;
+					const iframe = document.querySelector('iframe');
+					iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#16.12/${coordsData.latitude}/${coordsData.longitude}`;
 				}
 			}
 		});
 	}
 	async function checkInputs() {
+
 		const trimmedPostcode = String(postcode).trim();
 		const trimmedHnumber = String(Hnumber).trim();
 
@@ -105,7 +118,6 @@
 
 			if (data) {
 				const form = document.querySelector('#Buildings');
-				form.classList.remove('invalid');
 				if (form) {
 					for (const [key, value] of Object.entries(data)) {
 						const fields = form.querySelectorAll(`[name="${key}"]`);
@@ -114,14 +126,17 @@
 						});
 					}
 					const cordsBAG = data.adresseerbaarObjectGeometrie.punt.coordinates;
-
+					checkStatus();
 					processCords(cordsBAG);
 
 					// Combine specific fields and set to another field
 					const naam = data.korteNaam || '';
 					const huisnummer = data.huisnummer || '';
 					const adresField = form.querySelector('[name="Adres"]');
-					// const oorspronkelijkBouwjaar = data.oorspronkelijkBouwjaar[0] || "";
+
+					const typeOfUseField = form.querySelector('select[id="typeOfUse"]');
+					typeOfUseField.value = data.gebruiksdoelen[0];
+
 					const constYearFirst = form.querySelector('[id="constYearFirst"]');
 					if (adresField) {
 						adresField.value = `${naam} ${huisnummer}`.trim();
@@ -134,22 +149,52 @@
 						if (constYearFirst.value) {
 							constYearField.value = constYearFirst.value;
 						}
-					} else {
-						// logFormData();/
 					}
+
 				}
-			} else {
-				const form = document.querySelector('#Buildings');
-				console.log('No match found');
-				form.classList.add('invalid');
 			}
+
+		}
+	}
+	async function createBuilding(event) {
+		const form = document.querySelector("#Buildings");
+		const formData = new FormData(form);
+		const jsonData = Object.fromEntries(formData.entries());
+		console.log("Form data:", jsonData);
+		try {
+			const response = await fetch('/api/log', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(jsonData)
+			});
+
+			if (response.ok) {
+				console.log("Form data logged successfully");
+				location.href = `/import/${jsonData.nummeraanduidingIdentificatie}`;
+			} else {
+				console.error("Failed to log form data");
+			}
+		} catch (error) {
+			console.error("Error logging form data:", error);
 		}
 	}
 
+	function checkStatus(){
+		const form = document.querySelector('#Buildings');
+		console.log(status);
+		if (status === 'invalid') {
+			form.classList.add('invalid');
+		} else {
+			form.classList.remove('invalid');
+		}
+
+	}
 </script>
 
 <form id="Buildings">
-	<details open={openedDetails === 'anno'}>
+	<details open name="buildings">
 		<summary><h2>ANNO</h2></summary>
 		<div class="step-content">
 			<fieldset class="ANNO" form="Buildings">
@@ -203,12 +248,14 @@
 						<input id="latitute" name="Latitude" readonly required type="text" />
 					</label>
 				</div>
-				<div class="maps"></div>
-				<!-- Map incoming -->
+				<div class="maps">
+					<iframe width='100%' height='400px' title="Untitled" style="border:none;"></iframe>
+				</div>
+				<input type="submit" value="Maak gebouw aan" on:click={createBuilding}>
 			</fieldset>
 		</div>
 	</details>
-	<details open={openedDetails === 'details'}>
+	<details name="buildings">
 		<summary><h2>Details</h2></summary>
 		<div class="step-content">
 			<fieldset class="details" form="Buildings">
@@ -228,24 +275,34 @@
 				</div>
 
 				<label for="typeOfUse">
-					Gebruiksdoel [select van maken]
-					<input id="typeOfUse" name="Gebruiksdoel" type="text" />
+					Gebruiksdoel
+					<select id="typeOfUse" value="overige gebruiksfunctie">
+						<option value="woonfunctie">Woonfunctie</option>
+						<option value="kantoorfunctie">Kantoorfunctie</option>
+						<option value="bijeenkomstfunctie">Bijeenkomstfunctie</option>
+						<option value="recreatiefunctie">Recreatiefunctie</option>
+						<option value="onderwijsfunctie">Onderwijsfunctie</option>
+						<option value="industriefunctie">Industriefunctie</option>
+						<option value="overige gebruiksfunctie">Overige gebruiksfunctie</option>
+					</select>
 				</label>
 
+
 				<label for="tags">
-					Tags [select + checkbox van maken]
+					Tags<!--TODO : add tags search, add, remove and select and make it nice -->
+
 					<input id="tags" name="tags" type="text" />
 				</label>
 
 				<label for="description">
 					Omschrijving
-					<textarea cols="50" id="description" name="description" rows="4"></textarea>
+					<textarea cols="50" id="description" name="description" rows="3"></textarea>
 				</label>
 			</fieldset>
 		</div>
 	</details>
 
-	<details open={openedDetails === 'img'}>
+	<details name="buildings">
 		<summary><h2>Afbeeldingen</h2></summary>
 		<div class="step-content">
 			<!-- Question 5 -->
@@ -253,7 +310,15 @@
 				<div>
 					<label for="image">
 						Upload afbeeldingen van het gebouw
-						<input accept="image/png image/jpeg" id="image" name="image" required type="file" />
+						<input
+								accept="image/png image/jpeg"
+								id="image"
+								name="image"
+								on:change={handleFileChange}
+								required
+								type="file"
+								class="hidden"
+						/>
 					</label>
 
 					<LinkButton
@@ -264,31 +329,59 @@
 						>Bekijk de beeldbank
 					</LinkButton>
 				</div>
-				<ul>
-					<li>
-						<img alt="ete" src="favicon.png" />
-					</li>
-					<li>
-						<img alt="ete" src="favicon.png" />
-					</li>
-					<li>
-						<img alt="ete" src="favicon.png" />
-					</li>
-					<li>
-						<img alt="ete" src="favicon.png" />
-					</li>
-					<li>
-						<img alt="ete" src="favicon.png" />
-					</li>
-					<li>
-						<img alt="ete" src="favicon.png" />
-					</li>
+				<ul id="output">
+					{#each images as image, index}
+						<li>
+							<div>
+							<img src={image.src} alt={`Image ${index}`} />
+							</div>
+							<label for={`isImgMain-${index}`}>
+								<input
+										id={`isImgMain-${index}`}
+										type="radio"
+										name="isMain"
+										checked={image.isMain}
+										class="hidden"
+										on:change={() => handleRadioChange(index)}
+								/>
+							</label>
+							<label for="imgDescription">
+								Omschrijving
+								<textarea
+										id="imgDescription"
+										name="imgDescription"
+										required
+										rows="3"
+								></textarea>
+							</label>
+							<div>
+							<label for="imgSource">
+								Bron
+								<input
+										id="imgSource"
+										name="imgSource"
+										required
+										type="text"
+								/>
+							</label>
+							<label for="imgYear">
+								Jaar
+								<input
+										id="imgYear"
+										name="imgYear"
+										required
+										type="number"
+								/>
+							</label>
+							</div>
+						</li>
+					{/each}
 				</ul>
 			</fieldset>
 		</div>
 	</details>
 
-	<details open={openedDetails === 'timeline'}>
+	<details name="buildings">
 		<summary><h2>Tijdlijn</h2></summary>
 		<div class="step-content">
 			<!-- Question 7 -->
@@ -307,7 +400,7 @@
 		</div>
 	</details>
 
-	<details open={openedDetails === 'sum'}>
+	<details name="buildings">
 		<summary><h2>Overzicht</h2></summary>
 		<div class="step-content">
 			<!-- Review/Summary Part -->
@@ -318,7 +411,7 @@
 
 	<!--		Hidden inputs       -->
 	<div class="hidden">
-		<input id="Nummeraanduidingidentificatie" name="Nummeraanduidingidentificatie" type="text" />
+		<input id="nummeraanduidingIdentificatie" name="nummeraanduidingIdentificatie" type="text" />
 	</div>
 </form>
 
@@ -356,11 +449,7 @@
 			}
 		}
 
-		details[open] > summary {
-			background-color: var(--primary-color);
-			color: var(--text-color-inverse);
-			border-color: var(--primary-color);
-		}
+
 
 		details {
 			margin-bottom: 1.5rem;
@@ -369,25 +458,52 @@
 			height: 100%;
 			position: relative;
 			left: 0;
+			&[open] > summary{
+				pointer-events: none;
 
+			}
 			&:has(fieldset:valid) > summary {
 				background-color: var(--primary-color);
 				color: var(--text-color-inverse);
 				border-color: var(--primary-color);
 			}
-
-			&:has(fieldset:valid) > summary:after {
-				content: '  ✓';
+			&:has(fieldset:valid)[open] > summary h2::before {
+			background-color: var(--text-color-inverse);
+			}
+			&[open] > summary h2::before {
+				content: '';
+				padding: 0 1rem;
 				position: absolute;
-				object-fit: contain;
-				width: 1.4rem;
+				left: 0;
+				bottom: -25%;
+				width: 100%;
+				height: .2rem;
+				background-color: var(--primary-color);
+				background-size: 99%;
+				background-position: top center;
+
+				background-position: top left;
+				color: var(--text-color-inverse);
+				font-size: 1.5rem;
+			}
+
+			&:has(fieldset:valid) > summary::after {
+				content: '✓';
+				padding: 0 1rem;
+				position: absolute;
 				right: 10%;
+				width: 3rem;
 				background-image: radial-gradient(
-					circle,
-					transparent 48%,
-					var(--text-color-inverse) 49%,
-					transparent 52%
+								circle,
+								transparent 45%,
+								var(--text-color-inverse) 46%,
+								var(--text-color-inverse) 54%,
+								transparent 55%
 				);
+				background-size: 99%;
+				background-position: top center;
+
+				background-position: top left;
 				color: var(--text-color-inverse);
 				font-size: 1.5rem;
 			}
@@ -427,15 +543,22 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
+
+				-moz-user-select: none; /* Old versions of Firefox */
+				-ms-user-select: none; /* Internet Explorer/Edge */
+				-webkit-user-select: none; /* Safari */
+				user-select: none;
+				h2 {
+					margin: 0;
+					font-size: 1.2rem;
+					font-weight: bold;
+					position: relative;
+					cursor: pointer;
+				}
 			}
 
-			h2 {
-				margin: 0;
-				font-size: 1.2rem;
-				font-weight: bold;
 
-				cursor: pointer;
-			}
+
 
 			.step-content {
 				position: absolute;
@@ -469,7 +592,7 @@
 
 						div.maps {
 							width: 100%;
-							height: 100%;
+							height: 70%;
 							background: var(--disabled-color);
 							grid-column: 2 / -1;
 							grid-row: 1 / 10;
@@ -494,12 +617,15 @@
 							width: 100%;
 							height: 100%;
 							grid-column: 2 / -1;
-							grid-row: 1 / 15;
+							grid-row: 1 / 11;
 						}
 					}
 
 					&.img {
-						div:first-of-type {
+						height: fit-content;
+						min-height: calc(70vh * 11 / 12);
+
+						> div:first-of-type {
 							label {
 								flex-grow: 0.25;
 								min-width: fit-content;
@@ -511,29 +637,59 @@
 								justify-content: center;
 								align-items: center;
 								cursor: pointer;
-
+								transition: .2s;
 								&:hover {
 									background-color: var(--secondary-color);
 								}
-
-								input {
-									display: none;
+								&:focus{
+									border: 1px solid var(--border-form-color);
 								}
 							}
 						}
 
-						ul {
+
+						#output {
 							width: 100%;
 							height: 60%;
-							list-style: none;
+							list-style-type: none;
 							display: flex;
-							justify-content: space-evenly;
+							justify-content: flex-start;
+							flex-wrap: wrap;
+							gap: 10rem;
 							align-items: center;
 
+
 							li {
-								img {
-									max-width: 50vw;
+								width: 25%;
+								display: flex;
+								flex-direction: column;
+								div:first-of-type{
+									min-height: 33vh;
+									max-height: 40vh;
+									overflow: hidden;
+									//object-fit: contain;
+									display: flex;
+									align-items: center;
+									border: 1px solid var(--border-form-color);
+									img {
+										width: 100%;
+										object-fit: contain;
+										height: 100%;
+									}
 								}
+								label:has(input[type='radio']) {
+									padding: 0.5rem 0.75rem;
+									width: 2rem;
+									border: none;
+									border-radius: 0.25rem;
+									cursor: pointer;
+									background-color: var(--primary-color);
+
+								}
+								label:has(input[type='radio']:checked) {
+									background-color: var(--secondary-color);
+								}
+
 							}
 						}
 					}
@@ -547,9 +703,10 @@
 					label {
 						flex-grow: 1;
 						flex-basis: 2em;
+						margin: .25rem .25rem;
 					}
 
-					label > input {
+					label > input, label > select{
 						display: flex;
 						width: 100%;
 						height: 2.5rem;
@@ -557,6 +714,27 @@
 						border-radius: 0.25rem;
 					}
 
+
+					label input[type='submit'],
+					input[type='submit']{
+						position: absolute;
+						bottom: 1rem;
+						right: 3.5rem;
+						padding: 0.5rem 0.75rem;
+						border: none;
+						border-radius: 0.25rem;
+						cursor: pointer;
+						font-size: clamp(1rem, 1vw, 1.1rem);
+						transition: .15s;
+						background-color: var(--primary-color);
+						color: white;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+					input[type='submit']:hover{
+						background-color: var(--secondary-color);
+					}
 					label > input:required {
 						border: 1px solid var(--primary-color);
 					}

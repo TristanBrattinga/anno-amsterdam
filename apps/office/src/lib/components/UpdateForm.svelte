@@ -1,41 +1,33 @@
 <script lang="ts">
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import { onMount } from 'svelte';
+	import {PUBLIC_MAPBOX_KEY} from "$env/static/public";
 
 	let openedDetails = 'details';
 	export let data;
-	let matchData = data.match;
-	let ownData = data.ownMatch;
+
+
 
 	console.log(data);
+	console.log(data.buildingBag)
+	
 
 	onMount(() => {
-		const details = document.querySelectorAll('details');
 
-		details.forEach((targetDetail) => {
-			targetDetail.addEventListener('click', () => {
-				details.forEach((detail) => {
-					if (detail !== targetDetail) {
-						detail.removeAttribute('open');
-					}
-				});
-			});
-		});
-
-		if (matchData && ownData) {
+		if (data) {
 			const form = document.querySelector('#Buildings');
 			const dataTransformed = {
-				Nummeraanduidingidentificatie: matchData.Nummeraanduidingidentificatie,
-				Postcode: matchData.Postcode,
-				Huisnummer: matchData.Huisnummer,
-				Naam: matchData.Naam,
-				Adres: ownData.address,
-				Oorspronkelijk_bouwjaar: ownData.construction_year,
-				Gebruiksdoel: ownData.type_of_use,
-				tags: ownData.tags,
-				description: ownData.description,
-				Longitude: matchData.Longitude,
-				Latitude: matchData.Latitude
+				Nummeraanduidingidentificatie: data.building.bag_id,
+				Postcode: data.buildingBag.postcode,
+				Huisnummer: data.buildingBag.huisnummer,
+				Naam: data.building.name,
+				Adres: data.building.address,
+				Oorspronkelijk_bouwjaar: data.building.construction_year,
+				Gebruiksdoel: data.building.type_of_use,
+				tags: data.building.tags,
+				description: data.building.description,
+				Longitude: data.building.location.coordinates[0],
+				Latitude: data.building.location.coordinates[1]
 			};
 			console.log(dataTransformed);
 			if (form) {
@@ -46,6 +38,16 @@
 							field.value = value;
 						}
 					});
+					const iframe = document.querySelector('iframe');
+					let latitude = dataTransformed.Latitude;
+					let longitude = dataTransformed.Longitude;
+					// Convert to string and replace comma with period
+					latitude = latitude.toString().replace(',', '.');
+					longitude = longitude.toString().replace(',', '.');
+					// Convert back to number
+					latitude = parseFloat(latitude);
+					longitude = parseFloat(longitude);
+					iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#18.12/${latitude}/${longitude}`;
 				}
 			}
 		}
@@ -67,33 +69,7 @@
 		images = images.map((img, i) => ({ ...img, isMain: i === index }));
 	}
 
-	// function loadFile(event) {
-	// 		const output = document.getElementById('output');
-	// 		const outputLi = document.createElement('li');
-	// 		const outputLiLabel = document.createElement('label');
-	// 		outputLiLabel.setAttribute('for', 'isImgMain');
-	// 		const outputLiLabelInput = document.createElement('input');
-	// 		outputLiLabelInput.setAttribute('id', 'imgIsMain');
-	// 		outputLiLabelInput.setAttribute('type', 'radio');
-	// 		const outputLiLabelImg = document.createElement('img');
-	// 		outputLiLabelImg.src = URL.createObjectURL(event.target.files[0]);
-	// 		outputLiLabel.appendChild(outputLiLabelInput);
-	// 		outputLiLabel.appendChild(outputLiLabelImg);
-	// 		outputLi.appendChild(outputLiLabel);
-	//
-	//
-	// 		outputLi.style = "width:20%;";
-	// 		outputLiLabelInput.style = "display: none";
-	// 		outputLiLabel.style = "padding: 0.5rem 0.75rem; width:2rem; border: none; border-radius: 0.25rem; cursor: pointer; background-color: var(--primary-color);";
-	//
-	//
-	//
-	// 		outputLiLabelImg.style = "width: 100%;";
-	// 		output.appendChild(outputLi);
-	// 		output.onload = function() {
-	// 				URL.revokeObjectURL(outputLiLabelImg.src); // free memory
-	// 		};
-	// }
+
 
 	async function updateFormData(event: Event) {
 		event.preventDefault();
@@ -123,7 +99,7 @@
 </script>
 
 <form id="Buildings">
-	<details open={openedDetails === 'anno'}>
+	<details open name="Buildings">
 		<summary><h2>ANNO</h2></summary>
 		<div class="step-content">
 			<fieldset class="ANNO" form="Buildings">
@@ -157,12 +133,13 @@
 						<input id="latitute" name="Latitude" readonly type="text" />
 					</label>
 				</div>
-				<div class="maps"></div>
-				<!-- Map incoming -->
+				<div class="maps">
+					<iframe width='100%' height='400px' title="Untitled" style="border:none;"></iframe>
+				</div>
 			</fieldset>
 		</div>
 	</details>
-	<details open={openedDetails === 'details'}>
+	<details name="Buildings">
 		<summary><h2>Details</h2></summary>
 		<div class="step-content">
 			<fieldset class="details" form="Buildings">
@@ -182,8 +159,16 @@
 				</div>
 
 				<label for="typeOfUse">
-					Gebruiksdoel [select van maken]
-					<input id="typeOfUse" name="Gebruiksdoel" required type="text" />
+					Gebruiksdoel
+					<select id="typeOfUse">
+						<option value="woonfunctie">Woonfunctie</option>
+						<option value="kantoorfunctie">Kantoorfunctie</option>
+						<option value="bijeenkomstfunctie">Bijeenkomstfunctie</option>
+						<option value="recreatiefunctie">Recreatiefunctie</option>
+						<option value="onderwijsfunctie">Onderwijsfunctie</option>
+						<option value="industriefunctie">Industriefunctie</option>
+						<option value="overige gebruiksfunctie">Overige gebruiksfunctie</option>
+					</select>
 				</label>
 
 				<label for="tags">
@@ -202,7 +187,7 @@
 		</div>
 	</details>
 
-	<details open={openedDetails === 'img'}>
+	<details name="Buildings">
 		<summary><h2>Afbeeldingen</h2></summary>
 		<div class="step-content">
 			<!-- Question 5 -->
@@ -231,16 +216,48 @@
 				<ul id="output">
 					{#each images as image, index}
 						<li>
+							<div>
+								<img src={image.src} alt={`Image ${index}`} />
+							</div>
 							<label for={`isImgMain-${index}`}>
 								<input
-									id={`isImgMain-${index}`}
-									type="radio"
-									name="isMain"
-									checked={image.isMain}
-									on:change={() => handleRadioChange(index)}
+										id={`isImgMain-${index}`}
+										type="radio"
+										name="isMain"
+										checked={image.isMain}
+										class="hidden"
+										on:change={() => handleRadioChange(index)}
 								/>
-								<img src={image.src} alt={`Image ${index}`} />
 							</label>
+							<label for="imgDescription">
+								Omschrijving
+								<textarea
+										id="imgDescription"
+										name="imgDescription"
+										required
+										rows="3"
+								></textarea>
+							</label>
+							<div>
+								<label for="imgSource">
+									Bron
+									<input
+											id="imgSource"
+											name="imgSource"
+											required
+											type="text"
+									/>
+								</label>
+								<label for="imgYear">
+									Jaar
+									<input
+											id="imgYear"
+											name="imgYear"
+											required
+											type="number"
+									/>
+								</label>
+							</div>
 						</li>
 					{/each}
 				</ul>
@@ -248,7 +265,7 @@
 		</div>
 	</details>
 
-	<details open={openedDetails === 'timeline'}>
+	<details name="Buildings">
 		<summary><h2>Tijdlijn</h2></summary>
 		<div class="step-content">
 			<!-- Question 7 -->
@@ -267,7 +284,7 @@
 		</div>
 	</details>
 
-	<details open={openedDetails === 'sum'}>
+	<details name="Buildings">
 		<summary><h2>Overzicht</h2></summary>
 		<div class="step-content">
 			<!-- Review/Summary Part -->
@@ -431,7 +448,7 @@
 
 						div.maps {
 							width: 100%;
-							height: 100%;
+							height: 70%;
 							background: var(--disabled-color);
 							grid-column: 2 / -1;
 							grid-row: 1 / 10;
@@ -460,8 +477,12 @@
 						}
 					}
 
+
 					&.img {
-						div:first-of-type {
+						height: fit-content;
+						min-height: calc(70vh * 11 / 12);
+
+						> div:first-of-type {
 							label {
 								flex-grow: 0.25;
 								min-width: fit-content;
@@ -483,36 +504,53 @@
 							}
 						}
 
+
 						#output {
 							width: 100%;
 							height: 60%;
 							list-style-type: none;
 							display: flex;
-							justify-content: space-evenly;
+							justify-content: flex-start;
+							flex-wrap: wrap;
+							gap: 10rem;
 							align-items: center;
 
-							li {
-								background: red;
-								width: 20%;
 
-								label {
+							li {
+								width: 25%;
+								display: flex;
+								flex-direction: column;
+								div:first-of-type{
+									min-height: 33vh;
+									max-height: 40vh;
+									overflow: hidden;
+									//object-fit: contain;
+									display: flex;
+									align-items: center;
+									border: 1px solid var(--border-form-color);
+									img {
+										width: 100%;
+										object-fit: contain;
+										height: 100%;
+									}
+								}
+								label:has(input[type='radio']) {
 									padding: 0.5rem 0.75rem;
 									width: 2rem;
 									border: none;
 									border-radius: 0.25rem;
 									cursor: pointer;
 									background-color: var(--primary-color);
-									img {
-										width: 100%;
-									}
 
-									input {
-										display: none;
-									}
 								}
+								label:has(input[type='radio']:checked) {
+									background-color: var(--secondary-color);
+								}
+
 							}
 						}
 					}
+
 
 					div {
 						display: flex;
@@ -526,11 +564,13 @@
 					}
 
 					label > input,
-					label > textarea {
+					label > textarea,
+					label > select {
 						display: flex;
 						width: 100%;
-						border-radius: 0.25rem;
+						height: 2.5rem;
 						border: 1px solid var(--border-form-color);
+						border-radius: 0.25rem;
 					}
 
 					label > input {
@@ -546,7 +586,8 @@
 						}
 					}
 
-					label input[type='submit'] {
+
+					label > input[type='submit'] {
 						padding: 0.5rem 0.75rem;
 						border: none;
 						border-radius: 0.25rem;
