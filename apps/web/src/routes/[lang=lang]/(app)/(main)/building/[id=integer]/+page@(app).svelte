@@ -94,8 +94,11 @@
 			}
 
 			h1 {
+				font-size: 1.5rem;
 				max-width: calc(500px - 2rem);
 				margin: 0 auto;
+				color: var(--primary-color);
+				text-transform: uppercase;
 			}
 
 			.more-info {
