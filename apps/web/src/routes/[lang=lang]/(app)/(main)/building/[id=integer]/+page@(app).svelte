@@ -8,6 +8,10 @@
 
 	// Data
 	export let data
+
+	$: {
+		console.log(data.building)
+	}
 </script>
 
 <section>
@@ -28,6 +32,16 @@
 			{/if}
 		</div>
 		<h1>{data.building.address}</h1>
+		<div class="more-info">
+			<div class="distance">
+				<p>Distance to</p>
+				<p>3m</p>
+			</div>
+			<div class="type-of-use">
+				<p>Type of use</p>
+				<p>{data.building.type_of_user ? data[data.building.type_of_user] : 'Unknown'}</p>
+			</div>
+		</div>
 		<div class="tags">
 			{#each data.building.tags[$page.data.locale] as tag}
 				<span>{tag}</span>
@@ -53,22 +67,14 @@
 			width: 100%;
 			padding: 1rem;
 
-			.tags {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-
-				> span {
-					display: inline-block;
-					width: fit-content;
-					padding: 0.25rem 0.5rem;
-					border-radius: 8px;
-					border: 2px solid var(--primary-color);
-					color: var(--text-color);
-				}
+			> p {
+				margin: 0 auto;
+				max-width: calc(500px - 2rem);
 			}
 
 			.top-bar {
+				max-width: calc(500px - 2rem);
+				margin: 0 auto;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -84,6 +90,59 @@
 					width: fit-content;
 					color: #fff;
 					background-color: var(--secondary-color);
+				}
+			}
+
+			h1 {
+				max-width: calc(500px - 2rem);
+				margin: 0 auto;
+			}
+
+			.more-info {
+				display: flex;
+				min-width: fit-content;
+				max-width: calc(500px - 2rem);
+				margin: 0 auto;
+				justify-content: space-between;
+				padding: 1rem;
+				border-radius: 8px;
+				border: 2px solid var(--accent-color);
+				margin-bottom: 0.5rem;
+
+				> div {
+					flex: 1;
+
+					&:first-child {
+						padding-right: 8px;
+					}
+
+					p:first-child {
+						font-size: 0.75rem;
+						color: var(--primary-color);
+						opacity: 50%;
+					}
+				}
+
+				.type-of-use {
+					border-left: 1px solid var(--accent-color);
+					padding-left: 8px;
+				}
+			}
+
+			.tags {
+				max-width: calc(500px - 2rem);
+				margin: 0 auto;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+
+				> span {
+					display: inline-block;
+					width: fit-content;
+					padding: 0.25rem 0.5rem;
+					border-radius: 8px;
+					border: 2px solid var(--accent-color);
+					color: var(--text-color);
 				}
 			}
 		}

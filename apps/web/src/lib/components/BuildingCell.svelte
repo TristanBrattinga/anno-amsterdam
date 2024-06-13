@@ -72,7 +72,7 @@
 		display: flex;
 		gap: 20px;
 		padding: 20px 0;
-		border-top: 1px solid #c5d9e0;
+		border-top: 1px solid var(--accent-color);
 	}
 
 	.content {
@@ -105,13 +105,13 @@
 		form button {
 			padding: 10px;
 			border-radius: 5px;
-			border: 1px solid #c5d9e0;
+			border: 1px solid var(--accent-color);
 			background-color: transparent;
 			transition: all 0.3s ease;
 			cursor: pointer;
 
 			&:hover {
-				background-color: #c5d9e0;
+				background-color: var(--accent-color);
 			}
 		}
 
