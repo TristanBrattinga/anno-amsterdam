@@ -7,7 +7,7 @@ export const BUILDINGS_MOCK: Building[] = [
 		name: "Pieter's huis",
 		address: 'Rombout Hogerbeetsstraat 1',
 		construction_year: 1600,
-		type_of_user: 'residence',
+		type_of_user: 'residential',
 		tags: {
 			nl: ['Hendrick de Keyser', 'Stepped gable', 'Amsterdam Renaissance', 'Scroll werk'],
 			en: ['Hendrick de Keyser', 'Stepped gable', 'Amsterdam Renaissance', 'Scrollwork']

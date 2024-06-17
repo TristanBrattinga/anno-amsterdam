@@ -9,7 +9,7 @@
 <Header />
 <main>
 	<NavBar menuId={sidebarMenuId} />
-	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} />
+	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy} />
 	<LocationPopup />
 	<slot />
 </main>

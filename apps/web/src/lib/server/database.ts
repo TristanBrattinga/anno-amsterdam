@@ -1,6 +1,6 @@
 import { BUILDINGS_MOCK } from '$constants'
 
-import type { Building } from '$types'
+import type { Building, BuildingSortBy } from '$types'
 
 const database: Map<number, Building> = new Map()
 
@@ -15,8 +15,19 @@ BUILDINGS_MOCK.forEach((building) => {
  * @param offset The offset to start from
  * @returns A list of buildings
  */
-export const getBuildings = (limit = 10, offset = 0): Building[] => {
-	return Array.from(database.values()).slice(offset, offset + limit)
+export const getBuildings = (
+	limit = 10,
+	offset = 0,
+	sortBy: BuildingSortBy = 'default'
+): Building[] => {
+	return Array.from(database.values())
+		.slice(offset, offset + limit)
+		.sort((a, b) => {
+			if (sortBy === 'name') return a.name.localeCompare(b.name)
+			else if (sortBy === 'distance') return (a.distance || 0) - (b.distance || 0)
+			else if (sortBy === 'year') return a.construction_year - b.construction_year
+			return 0
+		})
 }
 
 /**
