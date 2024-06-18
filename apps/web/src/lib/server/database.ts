@@ -1,6 +1,6 @@
 import { BUILDINGS_MOCK } from '$constants'
-
-import type { Building, BuildingSortBy } from '$types'
+import { getDistance } from '$utils'
+import type { Building, BuildingSortBy, Coords } from '$types'
 
 const database: Map<number, Building> = new Map()
 
@@ -18,10 +18,19 @@ BUILDINGS_MOCK.forEach((building) => {
 export const getBuildings = (
 	limit = 10,
 	offset = 0,
-	sortBy: BuildingSortBy = 'default'
+	sortBy: BuildingSortBy = 'default',
+	location?: Coords
 ): Building[] => {
 	return Array.from(database.values())
 		.slice(offset, offset + limit)
+		.map((building) => {
+			let distance = building.distance
+			if (location && !distance) {
+				const coords = building.location.coordinates
+				distance = getDistance({ lat: coords[0], lng: coords[1] }, location)
+			}
+			return { ...building, distance }
+		})
 		.sort((a, b) => {
 			if (sortBy === 'name') return a.name.localeCompare(b.name)
 			else if (sortBy === 'distance') return (a.distance || 0) - (b.distance || 0)

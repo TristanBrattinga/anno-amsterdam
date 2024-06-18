@@ -13,7 +13,7 @@ export const handleError = (e: unknown) => {
 
 export const parseNumberParam = (url: URL, param: string, defaultValue: number): number => {
 	try {
-		const parsed = parseInt(url.searchParams.get(param) || defaultValue.toString())
+		const parsed = parseFloat(url.searchParams.get(param) || defaultValue.toString())
 		return isNaN(parsed) ? defaultValue : parsed
 	} catch (e) {
 		return defaultValue
