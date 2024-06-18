@@ -137,8 +137,8 @@ export const BUILDINGS_MOCK: Building[] = [
 		"location": {
 			"type": "Point",
 			"coordinates": [
-				4,8813227,
-				52,3579247
+				4.8813227,
+				52.3579247
 			]
 		},
 		"name": "Museumplein",
@@ -158,8 +158,8 @@ export const BUILDINGS_MOCK: Building[] = [
 		"location": {
 			"type": "Point",
 			"coordinates": [
-				4,9071645,
-				52,3591959
+				4.9071645,
+				52.3591959
 			]
 		},
 		"name": "Rhijnspoorplein",

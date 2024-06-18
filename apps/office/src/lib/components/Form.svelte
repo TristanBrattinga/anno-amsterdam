@@ -2,7 +2,6 @@
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import {PUBLIC_MAPBOX_KEY} from "$env/static/public";
 	import { onMount } from 'svelte';
-	import Papa from 'papaparse';
 	export let data;
 	let postcode = '';
 	let Hnumber = '';
@@ -41,7 +40,6 @@
 			}
 			status = '';
 			const responseData = await response.json();
-			console.log(`${JSON.stringify(responseData)} is data`);
 			return responseData;
 		} catch (err) {
 
@@ -61,7 +59,6 @@
 
 			}
 			const responseData = await response.text();
-			console.log(responseData);
 
 			// Extract WGS84 coordinates from the plain text response
 			const wgs84Match = responseData.match(/WGS84\(E,N\):\s*([\d.]+),\s*([\d.]+)/);
@@ -69,7 +66,6 @@
 				const latitude = parseFloat(wgs84Match[1]);
 				const longitude = parseFloat(wgs84Match[2]);
 				const wgs84Coords = { latitude, longitude };
-				console.log(wgs84Coords, 'is wgs84Coords');
 				return wgs84Coords;
 			} else {
 				throw new Error('Failed to parse WGS84 coordinates');
@@ -86,9 +82,7 @@
 			coordinate1: cordsBAG[0],
 			coordinate2: cordsBAG[1]
 		};
-		console.log(cords);
 		fetchProxyData(cords).then((coordsData) => {
-			console.log('Fetched WGS84 coordinates:', coordsData);
 			if (coordsData) {
 				const form = document.querySelector('#Buildings');
 				const longtitute = form.querySelector('[name="Longitude"]');
@@ -114,7 +108,6 @@
 			};
 
 			data = await fetchApiData(inputData); // Await the API call
-			console.log(data, 'is data');
 
 			if (data) {
 				const form = document.querySelector('#Buildings');
@@ -156,34 +149,10 @@
 
 		}
 	}
-	async function createBuilding(event) {
-		const form = document.querySelector("#Buildings");
-		const formData = new FormData(form);
-		const jsonData = Object.fromEntries(formData.entries());
-		console.log("Form data:", jsonData);
-		try {
-			const response = await fetch('/api/log', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(jsonData)
-			});
 
-			if (response.ok) {
-				console.log("Form data logged successfully");
-				location.href = `/import/${jsonData.nummeraanduidingIdentificatie}`;
-			} else {
-				console.error("Failed to log form data");
-			}
-		} catch (error) {
-			console.error("Error logging form data:", error);
-		}
-	}
 
 	function checkStatus(){
 		const form = document.querySelector('#Buildings');
-		console.log(status);
 		if (status === 'invalid') {
 			form.classList.add('invalid');
 		} else {
@@ -193,7 +162,7 @@
 	}
 </script>
 
-<form id="Buildings">
+<form id="Buildings" method="POST" action="/import">
 	<details open name="buildings">
 		<summary><h2>ANNO</h2></summary>
 		<div class="step-content">
@@ -251,7 +220,6 @@
 				<div class="maps">
 					<iframe width='100%' height='400px' title="Untitled" style="border:none;"></iframe>
 				</div>
-				<input type="submit" value="Maak gebouw aan" on:click={createBuilding}>
 			</fieldset>
 		</div>
 	</details>
@@ -315,7 +283,6 @@
 								id="image"
 								name="image"
 								on:change={handleFileChange}
-								required
 								type="file"
 								class="hidden"
 						/>
@@ -336,6 +303,7 @@
 							<img src={image.src} alt={`Image ${index}`} />
 							</div>
 							<label for={`isImgMain-${index}`}>
+								Hoofdafbeelding
 								<input
 										id={`isImgMain-${index}`}
 										type="radio"
@@ -350,7 +318,14 @@
 								<textarea
 										id="imgDescription"
 										name="imgDescription"
-										required
+										rows="3"
+								></textarea>
+							</label>
+							<label for="imgAlt">
+								Alt-tekst
+								<textarea
+										id="imgAlt"
+										name="imgAlt"
 										rows="3"
 								></textarea>
 							</label>
@@ -360,7 +335,6 @@
 								<input
 										id="imgSource"
 										name="imgSource"
-										required
 										type="text"
 								/>
 							</label>
@@ -369,7 +343,6 @@
 								<input
 										id="imgYear"
 										name="imgYear"
-										required
 										type="number"
 								/>
 							</label>
@@ -386,17 +359,21 @@
 		<div class="step-content">
 			<!-- Question 7 -->
 			<fieldset form="Buildings">
-				<label for="color">
-					Favorite Color:
-					<input id="color" name="color" required type="text" />
+				<label for="timelineYear1">
+					Year
+					<input id="timelineYear1" name="timelineYear1" type="number" />
 				</label>
 
 				<!-- Question 8 -->
-				<label for="food">
-					Favorite Food:
-					<input id="food" name="food" required type="text" />
+				<label for="timelineDescription1">
+					Description
+					<input id="timelineDescription1" name="timelineDescription1" type="text" />
 				</label>
 			</fieldset>
+			<!--		Hidden inputs       -->
+			<div class="hidden">
+				<input id="nummeraanduidingIdentificatie" name="nummeraanduidingIdentificatie" type="text" />
+			</div>
 		</div>
 	</details>
 
@@ -405,14 +382,10 @@
 		<div class="step-content">
 			<!-- Review/Summary Part -->
 			<p>Include a review or summary of the process here...</p>
-			<button type="submit">Submit</button>
 		</div>
 	</details>
+	<input type="submit" value="Maak gebouw aan">
 
-	<!--		Hidden inputs       -->
-	<div class="hidden">
-		<input id="nummeraanduidingIdentificatie" name="nummeraanduidingIdentificatie" type="text" />
-	</div>
 </form>
 
 <style lang="scss">
@@ -448,7 +421,26 @@
 				}
 			}
 		}
-
+		input[type='submit']{
+			position: absolute;
+			z-index: 999;
+			bottom: 1rem;
+			right: 3.5rem;
+			padding: 0.5rem 0.75rem;
+			border: none;
+			border-radius: 0.25rem;
+			cursor: pointer;
+			font-size: clamp(1rem, 1vw, 1.1rem);
+			transition: .15s;
+			background-color: var(--primary-color);
+			color: white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		input[type='submit']:hover{
+			background-color: var(--secondary-color);
+		}
 
 
 		details {
@@ -679,6 +671,7 @@
 								}
 								label:has(input[type='radio']) {
 									padding: 0.5rem 0.75rem;
+									text-align: end;
 									width: 2rem;
 									border: none;
 									border-radius: 0.25rem;
@@ -715,26 +708,7 @@
 					}
 
 
-					label input[type='submit'],
-					input[type='submit']{
-						position: absolute;
-						bottom: 1rem;
-						right: 3.5rem;
-						padding: 0.5rem 0.75rem;
-						border: none;
-						border-radius: 0.25rem;
-						cursor: pointer;
-						font-size: clamp(1rem, 1vw, 1.1rem);
-						transition: .15s;
-						background-color: var(--primary-color);
-						color: white;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-					}
-					input[type='submit']:hover{
-						background-color: var(--secondary-color);
-					}
+
 					label > input:required {
 						border: 1px solid var(--primary-color);
 					}

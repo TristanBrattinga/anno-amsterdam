@@ -99,7 +99,7 @@
 </script>
 
 <form id="Buildings">
-	<details open name="Buildings">
+	<details name="Buildings">
 		<summary><h2>ANNO</h2></summary>
 		<div class="step-content">
 			<fieldset class="ANNO" form="Buildings">
@@ -139,7 +139,7 @@
 			</fieldset>
 		</div>
 	</details>
-	<details name="Buildings">
+	<details open name="Buildings">
 		<summary><h2>Details</h2></summary>
 		<div class="step-content">
 			<fieldset class="details" form="Buildings">

@@ -1,4 +1,4 @@
-import { BAG_API_KEY, API_BASE_URL } from '$env/static/private';
+import { BAG_API_KEY, API_BASE_URL, ORIGIN } from '$env/static/private';
 import { error } from '@sveltejs/kit';
 import { normalizeURL } from '$utils';
 
@@ -73,6 +73,7 @@ export const api = {
         try {
             const res = await fetch(apiUrl('buildings/'), {
                 method: 'POST',
+                headers: { origin: ORIGIN},
                 body: JSON.stringify(building)
             });
             if (res.ok) {

@@ -7,7 +7,10 @@ const config = {
 	vitePlugin: { inspector: true },
 	kit:        {
 		adapter: adapter({
-			out: 'build'
+			out: 'build',
+			csrf: {
+				checkOrigin: false,
+			}
 		}),
 		alias:   {
 			'~~':        '.',

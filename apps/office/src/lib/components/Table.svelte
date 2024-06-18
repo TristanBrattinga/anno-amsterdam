@@ -2,7 +2,6 @@
     export let data;
     console.log(data);
     const excludedKeys = new Set([
-        'id',
         'bag_id',
         'location',
         'description',

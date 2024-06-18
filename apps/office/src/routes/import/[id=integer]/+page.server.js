@@ -1,4 +1,5 @@
 import { api, bagApi } from '$lib/server';
+import {error} from "@sveltejs/kit";
 
 export const load = async ({ params }) => {
 	console.log(params.id);
