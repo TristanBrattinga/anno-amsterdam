@@ -12,19 +12,22 @@
   article {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-
-    img {
-      width: 100%;
-      height: auto;
-      max-width: 12rem;
-    }
-
-    p {
-      font-family: Oswald, sans-serif;
-      color: #C5D9E0;
-      text-align: center;
-      font-size: 1.375rem;
-    }
+    gap: 1rem;
   }
+
+  img {
+    width: 25%;
+    height: auto;
+    max-width: 12rem;
+  }
+
+  p {
+    font-family: Oswald, sans-serif;
+    color: #C5D9E0;
+    text-align: center;
+    font-size: 1.375rem;
+  }
+
 </style>
