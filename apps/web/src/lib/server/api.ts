@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '$env/static/private'
 import { error } from '@sveltejs/kit'
 import { normalizeURL } from '$lib'
-import type { Building, BuildingSortBy } from '$types'
+import type { Building, BuildingSortBy, Coords } from '$types'
 
 /**
  * Gets the full URL for an API path
@@ -20,10 +20,15 @@ export const api = {
 	getBuildings: async (
 		limit = 10,
 		offset = 0,
-		sortBy: BuildingSortBy = 'default'
+		sortBy: BuildingSortBy = 'default',
+		location?: Coords
 	): Promise<Building[]> => {
 		try {
-			const res = await fetch(url(`buildings/?limit=${limit}&offset=${offset}&sortBy=${sortBy}`))
+			const res = await fetch(
+				url(
+					`buildings/?limit=${limit}&offset=${offset}&sortBy=${sortBy}&lat=${location?.lat}&lng=${location?.lng}`
+				)
+			)
 			if (res.ok) return await res.json()
 			error(res.status, await res.text())
 		} catch (e) {

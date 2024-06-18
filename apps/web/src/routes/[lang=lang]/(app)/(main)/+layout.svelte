@@ -1,15 +1,14 @@
 <script lang="ts">
 	// Components
-	import { Header, Footer, LocationPopup, Sidebar } from '$components';
+	import { Header, Footer, Sidebar } from '$components';
 
-	export let data;
-	let sidebarMenuId = 'mainSidebar';
+	export let data
+	let sidebarMenuId = 'mainSidebar'
 </script>
 
 <Header sidebarMenuId={sidebarMenuId} searchByAddress={data.searchByAddress} />
 <main>
-	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} home={data.home} />
-	<LocationPopup />
+	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy} />
 	<slot />
 </main>
 <Footer lens={data.lens} list={data.list} map={data.map} />

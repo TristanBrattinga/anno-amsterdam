@@ -25,7 +25,7 @@
 					{ lat: location.lat, lng: location.lng },
 					{ lat: building.location.coordinates[0], lng: building.location.coordinates[1] }
 				)
-			: 0
+			: building.distance || 0
 
 	// Distance to building in km or m
 	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
@@ -38,7 +38,7 @@
 	<div class="content">
 		<div>
 			<div>
-				<h2>{building.address}</h2>
+				<h2>{building.name}</h2>
 				<p>Anno {building.construction_year}</p>
 			</div>
 			<form action={`/${$page.data.locale}/map`} method="post">
@@ -49,7 +49,7 @@
 		</div>
 		<ul>
 			<li>
-				{#if location}
+				{#if location || building.distance}
 					<p>{distanceTo}</p>
 					<p>{distance ? `${distance}` : ''}</p>
 				{/if}
