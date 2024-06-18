@@ -10,7 +10,6 @@
 
 	// Components
 	import ImageSlider from '$components/ImageSlider.svelte'
-	import { onMount } from 'svelte'
 
 	// Props
 	export let building: Building
@@ -18,12 +17,6 @@
 	export let moreInfo: string
 	export let distanceTo: string
 	export let map: string
-
-	onMount(() => {
-		console.log(building.name, building.distance)
-		console.log('km', km)
-		console.log('distance', distance)
-	})
 
 	// Distance to building in km
 	$: km =
