@@ -1,12 +1,21 @@
 <script lang="ts">
+	import { location } from '$stores'
 	import { menuStore } from '$stores/menu'
-	import { onDestroy } from 'svelte'
+	import { onDestroy, onMount } from 'svelte'
 	import { Logo, CloseIcon } from '$icons'
 	import { page } from '$app/stores'
+	import type { BuildingSortBy } from '$types'
+	import { watchLocation, parseNumberParam } from '$utils'
 
 	export let menuId: string
 	export let filterTitle: string
 	export let sortBy: string
+	export let sort: BuildingSortBy = <BuildingSortBy>$page.url.searchParams.get('sort') || 'default'
+
+	$: coords = {
+		lat: parseNumberParam($page.url, 'lat', 0),
+		lng: parseNumberParam($page.url, 'lng', 0)
+	}
 
 	let sidebarOpen = false
 	const unsubscribe = menuStore.subscribe((value) => {
@@ -19,6 +28,12 @@
 
 	const closeSidebar = () => {
 		menuStore.closeMenu(menuId)
+	}
+
+	const onSortChange = () => {
+		if (sort === 'distance') {
+			watchLocation()
+		}
 	}
 </script>
 
@@ -34,15 +49,20 @@
 	</div>
 	<h1>{filterTitle}</h1>
 	<div class="divider" />
-	<form method="get">
+	<form method="get" on:submit={closeSidebar}>
 		<label for="sort">{sortBy}</label>
-		<select id="sort" name="sort">
+		<select bind:value={sort} id="sort" name="sort" on:change={onSortChange}>
 			<option value="default" selected>Standaard</option>
 			<option value="distance">Afstand</option>
 			<option value="name">A-Z</option>
 			<option value="year">Bouwjaar</option>
 		</select>
-		<button type="submit">Filteren</button>
+		<input type="hidden" name="lat" value={$location?.lat || coords.lat} />
+		<input type="hidden" name="lng" value={$location?.lng || coords.lng} />
+		<button
+			type="submit"
+			disabled={sort === 'distance' && !$location && !(coords.lat && coords.lng)}>Filteren</button
+		>
 	</form>
 </aside>
 

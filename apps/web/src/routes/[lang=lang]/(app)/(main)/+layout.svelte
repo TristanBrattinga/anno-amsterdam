@@ -10,7 +10,7 @@
 <main>
 	<NavBar menuId={sidebarMenuId} />
 	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy} />
-	<LocationPopup />
+	<!--<LocationPopup />-->
 	<slot />
 </main>
 <Footer lens={data.lens} list={data.list} map={data.map} />
