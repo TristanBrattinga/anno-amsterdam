@@ -1,4 +1,4 @@
-import type { Translation } from '../i18n-types'
+import type { Translation } from '../i18n-types';
 
 const en = {
 	lang: 'Language',
@@ -32,6 +32,7 @@ const en = {
 	settings: 'Settings',
 	theme: 'Theme',
 	filters: 'Filters',
+	searchByAddress: 'Zoek met adres',
 	centuries: {
 		16: '16th century',
 		17: '17th century',
@@ -40,6 +41,6 @@ const en = {
 		20: '20th century',
 		21: '21st century'
 	}
-} satisfies Translation
+} satisfies Translation;
 
-export default en
+export default en;

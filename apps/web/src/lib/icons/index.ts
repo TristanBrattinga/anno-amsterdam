@@ -8,3 +8,4 @@ export { default as MapIcon } from './MapIcon.svelte'
 export { default as MapPinIcon } from './MapPinIcon.svelte'
 export { default as LensIcon } from './LensIcon.svelte'
 export { default as ArrowIcon } from './ArrowIcon.svelte'
+export { default as InfoIcon } from './InfoIcon.svelte';

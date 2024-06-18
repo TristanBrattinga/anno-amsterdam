@@ -1,15 +1,36 @@
 <script lang="ts">
+	import { Logo } from '$icons';
 </script>
 
-<div>
+<article>
 	<p>Discover Amsterdam's<br /> architectural heritage with</p>
-</div>
+	<Logo width="256px" height="56px" color="#fff" />
+	<h1>Amsterdam</h1>
+</article>
 
 <style lang="scss">
+
+  article {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
   p {
     font-family: Oswald, sans-serif;
     color: #C5D9E0;
     text-align: center;
     font-size: 1.375rem;
+  }
+
+  h1 {
+    font-family: Oswald, sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #FF6464;
   }
 </style>
