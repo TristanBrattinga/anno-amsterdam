@@ -1,6 +1,5 @@
 <script>
     export let data;
-    console.log(data);
     const excludedKeys = new Set([
         'bag_id',
         'location',
@@ -63,5 +62,5 @@
         </tbody>
     </table>
 {:else}
-    <p>Loading...</p>
+<p>No data</p>
 {/if}

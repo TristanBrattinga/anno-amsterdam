@@ -24,7 +24,7 @@ export const bagApi = {
                 const data1 = await res.json();
                 return data1._embedded.adressen[0];
             } else {
-                throw error(res.status, 'Failed to fetch from BAG API');
+                 error(res.status, 'Failed to fetch from BAG API');
             }
         } catch (e) {
             throw error(500, e instanceof Error ? e.message : JSON.stringify(e));
@@ -47,7 +47,7 @@ export const bagApi = {
             if (res.ok) {
                 return await res.json();
             } else {
-                throw error(res.status, 'Failed to fetch from BAG API');
+                error(res.status, 'Failed to fetch from BAG API');
             }
         } catch (e) {
             throw error(500, e instanceof Error ? e.message : JSON.stringify(e));
