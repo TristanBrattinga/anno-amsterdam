@@ -35,7 +35,7 @@ This project is a mono-repo that contains the following packages:
 1. Clone the repository
 
    ```bash
-   git clone
+   git clone git@github.com:TristanBrattinga/anno-amsterdam.git
     ```
 
 2. Install dependencies
