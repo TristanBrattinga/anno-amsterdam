@@ -19,18 +19,19 @@
 </script>
 
 <section class="container">
-  {#if data.error}
-    <h1>{data.fetchListError}</h1>
-  {:else}
-    <BuildingList
-      buildingsTitle={data.buildingsTitle}
-      distanceTo={data.distanceTo}
-      map={data.map}
-      buildings={data.buildings}
-      moreInfo={data.moreInfo}
-      location={$location || null}
-    />
-  {/if}
+	{#if data.error}
+		<h1>{data.fetchListError}</h1>
+	{:else}
+		<BuildingList
+			buildingsTitle={data.buildingsTitle}
+			noResults={data.noResults}
+			distanceTo={data.distanceTo}
+			map={data.map}
+			buildings={data.buildings}
+			moreInfo={data.moreInfo}
+			location={$location || null}
+		/>
+	{/if}
 </section>
 
 <style lang="scss">

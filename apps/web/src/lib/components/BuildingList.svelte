@@ -20,6 +20,14 @@
     const toggleView = (view: string) => {
         viewMode.set(view)
     }
+	// Props
+	export let moreInfo: string
+	export let map: string
+	export let distanceTo: string
+	export let buildingsTitle: string
+	export let noResults: string
+	export let buildings: Building[]
+	export let location: Coords | null = null
 </script>
 
 <h2 class="sr-only">{buildingsTitle}</h2>
@@ -42,6 +50,17 @@
     </li>
   {/each}
 </ul>
+{#if buildings.length}
+	<ul>
+		{#each buildings as building}
+			<li>
+				<BuildingCell {building} {location} {moreInfo} {map} {distanceTo} />
+			</li>
+		{/each}
+	</ul>
+{:else}
+	<p>{noResults}</p>
+{/if}
 
 <style lang="scss">
   button {
