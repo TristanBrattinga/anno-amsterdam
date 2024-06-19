@@ -24,6 +24,7 @@
 	{:else}
 		<BuildingList
 			buildingsTitle={data.buildingsTitle}
+			noResults={data.noResults}
 			distanceTo={data.distanceTo}
 			map={data.map}
 			buildings={data.buildings}

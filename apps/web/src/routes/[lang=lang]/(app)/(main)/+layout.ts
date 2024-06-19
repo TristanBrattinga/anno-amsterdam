@@ -6,6 +6,10 @@ export const load = async ({ parent }) => {
 
 	return {
 		lens: LL.lens(),
+		search: LL.search(),
+		clear: LL.clear(),
+		openFilters: LL.openFilters(),
+		searchPlaceholder: LL.searchPlaceholder(),
 		settings: LL.settings(),
 		sortBy: LL.sort(),
 		filterTitle: LL.filters(),

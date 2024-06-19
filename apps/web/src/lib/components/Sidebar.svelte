@@ -59,6 +59,7 @@
 		</select>
 		<input type="hidden" name="lat" value={$location?.lat || coords.lat} />
 		<input type="hidden" name="lng" value={$location?.lng || coords.lng} />
+		<input type="hidden" name="q" value={$page.url.searchParams.get('q')} />
 		<button
 			type="submit"
 			disabled={sort === 'distance' && !$location && !(coords.lat && coords.lng)}>Filteren</button

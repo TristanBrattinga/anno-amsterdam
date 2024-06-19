@@ -8,7 +8,13 @@
 
 <Header />
 <main>
-	<NavBar menuId={sidebarMenuId} />
+	<NavBar
+		menuId={sidebarMenuId}
+		search={data.search}
+		clear={data.clear}
+		searchPlaceholder={data.searchPlaceholder}
+		openFilters={data.openFilters}
+	/>
 	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy} />
 	<!--<LocationPopup />-->
 	<slot />

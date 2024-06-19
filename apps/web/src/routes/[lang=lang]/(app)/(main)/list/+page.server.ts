@@ -9,10 +9,11 @@ export const load = async ({ url }) => {
 	const lat = parseNumberParam(url, 'lat', 0)
 	const lng = parseNumberParam(url, 'lng', 0)
 	const location = lat && lng ? { lat, lng } : undefined
+	const search = url.searchParams.get('q') || undefined
 
 	// Fetch building list
 	try {
-		const buildings = await api.getBuildings(limit, offset, sortBy, location)
+		const buildings = await api.getBuildings(limit, offset, sortBy, location, search)
 		return { buildings }
 	} catch (e) {
 		return handleError(e)

@@ -1,3 +1,5 @@
+import type { Building } from '$types'
+
 /**
  * Normalizes a URL by ensuring it ends with a trailing slash.
  * @param url The URL to normalize.
@@ -15,4 +17,16 @@ export const parseNumberParam = (url: URL, param: string, defaultValue: number):
 	} catch (e) {
 		return defaultValue
 	}
+}
+
+export const searchInBuilding = (building: Building, query: string): boolean => {
+	if (!query) return false
+	const q = query.toLowerCase()
+	return (
+		building.name.toLowerCase().includes(q) ||
+		building.address.toLowerCase().includes(q) ||
+		building.description?.toLowerCase().includes(q) ||
+		building.construction_year.toString().includes(q) ||
+		Object.values(building.tags).some((tags) => tags.some((tag) => tag.toLowerCase().includes(q)))
+	)
 }
