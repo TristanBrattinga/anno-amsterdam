@@ -46,7 +46,7 @@ This project is a mono-repo that contains the following packages:
 
 3. Copy the values in `.env.example` of [apps/web](./apps/web/.env.example) and [apps/office](./apps/office/.env.example) to `.env` files and fill in your own values
 
-4. Run dev server
+4. Run dev servers (`http://localhost:5173` for the backoffice and `http://localhost:5174` for the web app)
 
     ```bash
     yarn dev
