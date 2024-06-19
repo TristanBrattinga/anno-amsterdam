@@ -1,4 +1,4 @@
-# ANNO-AMSTERDAM Web App
+# ANNO-AMSTERDAM - Web App
 
 This is the web app for the ANNO AMSTERDAM project. Please refer to the [main README.md](../../README.md) for more information about the project as a whole.
 

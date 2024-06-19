@@ -1,4 +1,4 @@
-# ANNO-AMSTERDAM Backoffice
+# ANNO-AMSTERDAM - Backoffice
 
 This is the backoffice for the ANNO AMSTERDAM project. Please refer to the [main README.md](../../README.md) for more information about the project as a whole.
 
