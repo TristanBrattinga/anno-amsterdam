@@ -6,23 +6,23 @@ export const actions = {
         let form_input = await event.request.formData();
         const jsonData = Object.fromEntries(form_input.entries());
         const transformedData = parseAndTransformData(jsonData);
+        let newBuilding = null;
         try {
-            await api.createBuilding(transformedData);
+            newBuilding = await api.createBuilding(transformedData);
 
-            console.log('Building created:', transformedData);
-            load(transformedData);
+            console.log('Building created:', newBuilding);
+
 
         } catch (e) {
             console.error(e);
-        }
+            }
+            if (newBuilding) {
+                throw redirect(303, `/import/${newBuilding.id}`);
+            }
     }
 };
 
-function load(transformedData) {
-    throw redirect(307, `/import/${transformedData.id}`);
 
-}
-let idGenned = '';
 function parseAndTransformData(jsonData) {
 
     try {
@@ -49,10 +49,9 @@ function parseAndTransformData(jsonData) {
                 rawData.gebruiksdoelen = 'industrial';
                 break;
         }
-        idGenned = Math.floor(Math.random() * 1000);
+
         // Transform the incoming data to the desired format
         const transformedData = {
-            id: idGenned,
             bag_id: rawData.nummeraanduidingIdentificatie,
             location: {
                 type: 'Point',

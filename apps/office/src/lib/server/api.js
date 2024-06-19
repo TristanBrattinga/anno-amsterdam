@@ -56,7 +56,7 @@ export const bagApi = {
 };
 
 export const api = {
-    getBuildings: async (limit = 10, offset = 0) => {
+    getBuildings: async (limit = 100, offset = 0) => {
         try {
             const res = await fetch(apiUrl(`buildings/?limit=${limit}&offset=${offset}`));
             if (res.ok) {
@@ -77,6 +77,7 @@ export const api = {
                 body: JSON.stringify(building)
             });
             if (res.ok) {
+                console.log(res.json)
                 return await res.json();
             } else {
                 throw error(res.status, await res.text());
