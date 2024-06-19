@@ -1,5 +1,5 @@
 import { BUILDINGS_MOCK } from '$constants'
-import { getDistance } from '$utils'
+import { getDistance, searchInBuilding } from '$utils'
 import type { Building, BuildingSortBy, Coords } from '$types'
 
 const database: Map<number, Building> = new Map()
@@ -19,10 +19,12 @@ export const getBuildings = (
 	limit = 10,
 	offset = 0,
 	sortBy: BuildingSortBy = 'default',
-	location?: Coords
+	location?: Coords,
+	search?: string
 ): Building[] => {
 	return Array.from(database.values())
 		.slice(offset, offset + limit)
+		.filter((building) => !search || searchInBuilding(building, search))
 		.map((building) => {
 			let distance = building.distance
 			if (location && !distance) {
