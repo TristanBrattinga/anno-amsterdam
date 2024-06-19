@@ -1,38 +1,17 @@
-# create-svelte
+# ANNO-AMSTERDAM Web App
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+This is the web app for the ANNO AMSTERDAM project. Please refer to the [main README.md](../../README.md) for more information about the project as a whole.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+For internationalization, we use [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n). Uou can find the translations in [src/i18n](./src/i18n/). To modify the translations, use the following script:
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+yarn typesafe-i18n
 ```
 
-## Building
+This will listen for changes in the `src/i18n/` directory and update the generated files accordingly.
 
-To create a production version of your app:
+## Project Structure
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+This project follows the [SvelteKit](https://kit.svelte.dev/docs/project-structure) project structure. You can find the main files in the `src/` directory.
