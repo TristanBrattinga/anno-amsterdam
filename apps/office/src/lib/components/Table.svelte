@@ -1,6 +1,4 @@
 <script>
-    import {createLogger} from "vite";
-
     export let data;
     const excludedKeys = new Set([
         'bag_id',

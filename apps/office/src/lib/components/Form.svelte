@@ -30,6 +30,8 @@
 
     // Function to handle file input change event
     function handleFileChange(event) {
+        let form = document.querySelector('#Buildings');
+        form.setAttribute('enctype', 'multipart/form-data');
         const file = event.target.files[0];
         if (file) {
             const src = URL.createObjectURL(file);
@@ -208,8 +210,9 @@
     }
 </script>
 
-<form action="/import" id="Buildings" method="POST" enctype="multipart/form-data">
-    <details name="buildings" >
+
+<form action="/import?/create" id="Buildings" method="POST">
+    <details name="buildings" open>
         <summary><h2>ANNO</h2></summary>
         <div class="step-content">
             <fieldset class="ANNO" form="Buildings">
@@ -440,7 +443,7 @@
         </div>
     </details>
 
-    <details name="buildings" open>
+    <details name="buildings">
         <summary><h2>Overzicht</h2></summary>
         <div class="step-content">
             <fieldset>

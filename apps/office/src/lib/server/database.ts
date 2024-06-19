@@ -18,7 +18,7 @@ export const getBuilding = (id: number): Building | null => {
 }
 
 export const createBuilding = (building: Exclude<Building, 'id'>): Building => {
-	const id = Math.floor(Math.random() * 1000);
+	const id = Math.floor(Math.random() * 10000);
 	const newBuilding = { id, ...building }
 	database.set(id, newBuilding)
 	return newBuilding

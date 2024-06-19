@@ -1,4 +1,4 @@
-import { api, bagApi } from '$lib/server';
+import { api, bagApi} from '$lib/server';
 import {error} from "@sveltejs/kit";
 
 export const load = async ({ params }) => {
@@ -11,3 +11,4 @@ export const load = async ({ params }) => {
 		throw error(500, 'Failed to load building data');
 	}
 };
+
