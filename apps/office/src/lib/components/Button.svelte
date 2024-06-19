@@ -3,17 +3,20 @@
   export let disabled = false;
   export let cta = false;
   export let subtle = false;
-  
+  export let type = 'button';
   const sizeClasses = {
     small: 'small',
     normal: 'normal',
-    large: 'large'
+    large: 'large',
+    content: 'content'
   };
-  
+
+
+
   $: className = sizeClasses[size] || sizeClasses['normal'];
 </script>
 
-<button class="{className} {cta ? 'cta' : ''} {subtle ? 'subtle' : ''}" disabled={disabled}>
+<button on:click type={type} class="{className} {cta ? 'cta' : ''} {subtle ? 'subtle' : ''}" disabled={disabled}>
   <slot></slot>
 </button>
 
@@ -40,6 +43,9 @@
   button.large {
     width: clamp(12em, fit-content, max-content);
     }
+  button.content{
+    width: max-content;
+  }
   
   button:hover:not(:disabled):not(.subtle) {
     background-color: var(--secondary-color);

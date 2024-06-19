@@ -1,4 +1,6 @@
 <script>
+    import {createLogger} from "vite";
+
     export let data;
     const excludedKeys = new Set([
         'bag_id',
@@ -47,7 +49,9 @@
                 {#each Object.entries(item).filter(([key]) => shouldDisplayKey(key)) as [key, value]}
                     <td>
                         {#if key === 'image_urls' && value.length > 0}
-                            <img src={value[0].url} alt={value[0].source} style="width: 100px;" />
+                            {#if value[0].is_main}
+                                <img src={value[0].url} alt={value[0].source} style="width: 100px;" />
+                                {/if}
 		                        {:else if key === 'name' && value.length > 0}
 														<a href="/import/{item.id}">{value}</a>
                         {:else if Array.isArray(value)}

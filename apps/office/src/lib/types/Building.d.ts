@@ -6,13 +6,15 @@ export interface Location {
 export interface Image {
 	url: string
 	source: string
+	description?: string
+	alt?: string
 	year: number
 	is_main: boolean
 }
 
 export interface Building {
-	bag_id?: string
 	id: number
+	bag_id?: string
 	location: Location
 	name: string
 	address: string

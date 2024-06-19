@@ -1,17 +1,28 @@
 import { redirect } from '@sveltejs/kit';
-import { api } from '$lib/server';
+import { api, imageApi } from '$lib/server';
 
 export const actions = {
     default: async (event) => {
         let form_input = await event.request.formData();
         const jsonData = Object.fromEntries(form_input.entries());
         const transformedData = parseAndTransformData(jsonData);
+        const file = form_input.get('image');
+        if (file) {
+            const handleImageUrl = await handleUploadImage(file)
+            transformedData.image_urls = [
+                {
+                    url: handleImageUrl,
+                    source: form_input.get('imgSource') || '',
+                    description: form_input.get('imgDescription') || '',
+                    alt: form_input.get('imgAlt') || '',
+                    year: form_input.get('imgYear') || '',
+                    is_main: form_input.get('isMain') === 'on' || false,
+                }
+            ];
+        }
         let newBuilding = null;
         try {
             newBuilding = await api.createBuilding(transformedData);
-
-            console.log('Building created:', newBuilding);
-
 
         } catch (e) {
             console.error(e);
@@ -22,7 +33,10 @@ export const actions = {
     }
 };
 
-
+async function handleUploadImage(file) {
+    const image = await imageApi.uploadImage(file);
+    return image.url;
+}
 function parseAndTransformData(jsonData) {
 
     try {

@@ -13,6 +13,14 @@
     let error = null;
     let timelineEntries = [{ year: '', description: '' }];
 
+    // Reactive variables for summary
+    let constYearSum = '';
+    let AdresSum = '';
+    let typeOfUseSum = '';
+    let tagsSum = '';
+    let descriptionSum = '';
+    let bagID = '';
+
     onMount(() => {
         const iframe = document.querySelector('iframe');
         iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#12.12/52.36923/4.89499`;
@@ -119,6 +127,14 @@
                         const fields = form.querySelectorAll(`[name="${key}"]`);
                         fields.forEach((field) => {
                             field.value = value;
+                            // Create a new 'input' event
+                            const event = new Event('input', {
+                                bubbles: true,
+                                cancelable: true
+                            });
+
+                            // Dispatch the 'input' event
+                            field.dispatchEvent(event);
                         });
                     }
                     const cordsBAG = data.adresseerbaarObjectGeometrie.punt.coordinates;
@@ -131,11 +147,28 @@
                     const adresField = form.querySelector('[name="Adres"]');
 
                     const typeOfUseField = form.querySelector('select[id="typeOfUse"]');
-                    typeOfUseField.value = data.gebruiksdoelen[0];
 
+                    if(typeOfUseField){
+                        typeOfUseField.value = data.gebruiksdoelen[0];
+                        // Create a new 'input' event
+                        const event = new Event('change', {
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        // Dispatch the 'change' event
+                        typeOfUseField.dispatchEvent(event);
+                    }
                     const constYearFirst = form.querySelector('[id="constYearFirst"]');
                     if (adresField) {
                         adresField.value = `${naam} ${huisnummer}`.trim();
+                        // Create a new 'input' event
+                        const event = new Event('input', {
+                            bubbles: true,
+                            cancelable: true
+                        });
+
+                        // Dispatch the 'input' event
+                        adresField.dispatchEvent(event);
                     }
                     if (constYearFirst && constYearFirst.value === '') {
                         constYearFirst.removeAttribute('readonly');
@@ -163,7 +196,8 @@
         }
 
     }
-    function addTimelineEntry() {
+    function addTimelineEntry(event) {
+        event.preventDefault();
         const lastEntry = timelineEntries[timelineEntries.length - 1];
         if (lastEntry.year && lastEntry.description) {
             timelineEntries = [...timelineEntries, { year: '', description: '' }];
@@ -174,8 +208,8 @@
     }
 </script>
 
-<form action="/import" id="Buildings" method="POST">
-    <details name="buildings" open>
+<form action="/import" id="Buildings" method="POST" enctype="multipart/form-data">
+    <details name="buildings" >
         <summary><h2>ANNO</h2></summary>
         <div class="step-content">
             <fieldset class="ANNO" form="Buildings">
@@ -230,18 +264,18 @@
                     </label>
                 </div>
                 <div class="maps">
-                    <iframe height='400px' style="border:none;" title="Untitled" width='100%'></iframe>
+                    <iframe height='400px' style="border:none;" title="Anno Amsterdam Gebouw" width='100%'></iframe>
                 </div>
             </fieldset>
         </div>
     </details>
-    <details name="buildings">
+    <details name="buildings" >
         <summary><h2>Details</h2></summary>
         <div class="step-content">
             <fieldset class="details" form="Buildings">
                 <label for="address">
                     Adres
-                    <input id="address" name="Adres" readonly required type="text" placeholder="&nbsp;"/>
+                    <input id="address" name="Adres" readonly required type="text" bind:value={AdresSum} placeholder="&nbsp;"/>
                 </label>
                 <div>
                     <label for="name">
@@ -250,13 +284,13 @@
                     </label>
                     <label for="constYear">
                         Bouwjaar
-                        <input id="constYear" name="oorspronkelijkBouwjaar" required type="text"/>
+                        <input id="constYear" name="oorspronkelijkBouwjaar" bind:value={constYearSum} required type="number"/>
                     </label>
                 </div>
 
                 <label for="typeOfUse">
-                    Gebruiksdoel
-                    <select id="typeOfUse" value="overige gebruiksfunctie">
+                    Origineel gebruiksdoel
+                    <select id="typeOfUse" bind:value={typeOfUseSum}>
                         <option value="woonfunctie">Woonfunctie</option>
                         <option value="kantoorfunctie">Kantoorfunctie</option>
                         <option value="bijeenkomstfunctie">Bijeenkomstfunctie</option>
@@ -271,12 +305,12 @@
                 <label for="tags">
                     Tags<!--TODO : add tags search, add, remove and select and make it nice -->
 
-                    <input id="tags" name="tags" type="text"/>
+                    <input id="tags" bind:value={tagsSum} name="tags" type="text"/>
                 </label>
 
                 <label for="description">
                     Omschrijving
-                    <textarea cols="50" id="description" name="description" rows="3"></textarea>
+                    <textarea cols="50" id="description" bind:value={descriptionSum} name="description" rows="3"></textarea>
                 </label>
             </fieldset>
         </div>
@@ -291,7 +325,7 @@
                     <label for="image">
                         Upload afbeeldingen van het gebouw
                         <input
-                                accept="image/png image/jpeg"
+                                accept="image/*"
                                 class="hidden"
                                 id="image"
                                 name="image"
@@ -325,6 +359,7 @@
                                         on:change={() => handleRadioChange(index)}
                                 />
                             </label>
+
                             <label for="imgDescription">
                                 Omschrijving
                                 <textarea
@@ -396,20 +431,60 @@
                         </label>
                     </div>
                 {/each}
-                <div class="button" on:click={addTimelineEntry}>+ Voeg tijdlijn toe</div>
+                <Button size="content" subtle  on:click={addTimelineEntry}>+ Voeg tijdlijn toe</Button>
             </fieldset>
 
             <div class="hidden">
-                <input id="nummeraanduidingIdentificatie" name="nummeraanduidingIdentificatie" type="text" />
+                <input id="nummeraanduidingIdentificatie" name="nummeraanduidingIdentificatie" type="text" bind:value={bagID} />
             </div>
         </div>
     </details>
 
-    <details name="buildings">
+    <details name="buildings" open>
         <summary><h2>Overzicht</h2></summary>
         <div class="step-content">
+            <fieldset>
             <!-- Review/Summary Part -->
-            <p>Include a review or summary of the process here...</p>
+                <div>
+                    <section>
+                        <h3>Anno: {constYearSum}</h3>
+                        <h4>test {AdresSum}</h4>
+                        <img src="" alt="">
+                    </section>
+                    <section>
+                        <div>
+                            <h3>Afstand tot</h3>
+                            <p>?? meter</p>
+                        </div>
+                        <div>
+                            <h3>Origineel</h3>
+                            <p>{typeOfUseSum}</p>
+                        </div>
+                    </section>
+                    <section>
+                        <span>{tagsSum}</span>
+                    </section>
+                    <p>{descriptionSum}</p>
+                </div>
+                <div>
+                    <img src="" alt="">
+                    <section>
+                        <h3>timeline</h3>
+                        <ol>
+                            {#each timelineEntries as entry, index}
+                                <li>
+                                    <h4>{entry.year}</h4>
+                                    <p>{entry.description}</p>
+                                </li>
+                            {/each}
+                        </ol>
+                    </section>
+                </div>
+                <div>
+                    <iframe height='400px' style="border:none;" title="Anno Amsterdam Gebouw" width='100%'></iframe>
+                </div>
+                <input id="nummeraanduidingIdentificatie" required name="nummeraanduidingIdentificatie" type="text" bind:value={bagID} />
+            </fieldset>
         </div>
     </details>
     <input type="submit" value="Maak gebouw aan">

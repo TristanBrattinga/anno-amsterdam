@@ -8,9 +8,7 @@
 
 
 
-	console.log(data);
-	console.log(data.buildingBag)
-	
+
 
 	onMount(() => {
 
