@@ -18,10 +18,10 @@ ANNO AMSTERDAM is an app that allows users to find information, based on their l
 
 This project is a mono-repo that contains the following packages:
 
-- [App](./apps/web) - The web app
+- [App](./apps/web/) - The web app
 - [Backoffice](./apps/office/) - The backoffice (CMS)
-- [ESLint Config](./packages/eslint-config) - The ESLint configuration
-- [UI](./packages/ui) - The UI components that are shared between the web app and the backoffice
+- [ESLint Config](./packages/config/) - The ESLint configuration
+- [UI](./packages/ui/) - The UI components that are shared between the web app and the backoffice
 
 ### Prerequisites
 
