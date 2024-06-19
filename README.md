@@ -76,9 +76,9 @@ $ yarn format
 
 ## Structure
 
-`apps` - Contains the web app and the backoffice
-`packages` - Contains shared packages
-`package.json` - Contains the dependencies and scripts for the entire project
+- `apps` - Contains the web app and the backoffice
+- `packages` - Contains shared packages
+- `package.json` - Contains the dependencies and scripts for the entire project
 
 > [!NOTE]  
 > For more information about the project structure of a specific app, please refere to the [SvelteKit](https://kit.svelte.dev/docs/project-structure) documentation.
