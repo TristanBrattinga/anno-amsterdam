@@ -19,7 +19,7 @@ export const imageApi = {
 	uploadImage: async (file: File): Promise<{ url: string }> => {
 		try {
 			const image = Buffer.from(await file.arrayBuffer()).toString('base64')
-			if (!image) throw new Error('Failed to convert image to base64')
+			if (!image) error(500, 'Failed to convert image to base64')
 
 			const headers = new Headers()
 			headers.set('Content-Type', 'application/x-www-form-urlencoded')
