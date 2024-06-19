@@ -1,13 +1,53 @@
-import { BUILDINGS_MOCK } from '$constants'
+import mongoose from 'mongoose'
 import { getDistance } from '$utils'
 import type { Building, BuildingSortBy, Coords } from '$types'
+import { MONGODB_URI } from '$env/static/private'
 
-const database: Map<number, Building> = new Map()
+const clientOptions: mongoose.ConnectOptions = {
+	serverApi: { version: '1', strict: true, deprecationErrors: true }
+}
 
-// Populate the database with mock data
-BUILDINGS_MOCK.forEach((building) => {
-	database.set(building.id, building)
-})
+const connectDB = async () => {
+	try {
+		if (!mongoose.connection.readyState || mongoose.connection.readyState === 99) {
+			await mongoose.connect(MONGODB_URI, clientOptions)
+		}
+	} catch (e) {
+		console.error('Error while connecting to database', e)
+	}
+}
+
+const BuildingSchema = mongoose.model(
+	'Building',
+	new mongoose.Schema({
+		id: { type: Number, required: true },
+		location: {
+			type: { type: String, enum: ['Point'], required: true },
+			coordinates: { type: [Number], required: true }
+		},
+		name: { type: String, required: true },
+		address: { type: String, required: true },
+		construction_year: { type: Number, required: true },
+		type_of_user: {
+			type: String,
+			enum: ['residential', 'industrial', 'commercial', 'educational', 'recreational']
+		},
+		tags: { type: Map, of: [String], required: true },
+		description: { type: String },
+		image_urls: {
+			type: [
+				{
+					url: { type: String, required: true },
+					source: { type: String, required: true },
+					year: { type: Number, required: true },
+					is_main: { type: Boolean, required: true }
+				}
+			],
+			required: true
+		},
+		timeline: { type: [String] }
+	})
+)
 
 /**
  * Gets a list of buildings
