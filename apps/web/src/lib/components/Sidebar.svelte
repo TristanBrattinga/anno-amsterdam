@@ -39,10 +39,10 @@
 
 <aside class:show={sidebarOpen}>
 	<div>
-		<a href={`/${$page.data.locale}`} aria-label="Home">
+		<p>
 			<Logo />
 			<span>Amsterdam</span>
-		</a>
+		</p>
 		<button on:click={closeSidebar}>
 			<CloseIcon />
 		</button>
@@ -75,7 +75,7 @@
 		width: 100%;
 		height: 100dvh;
 		z-index: 20;
-		padding: 2rem 1rem;
+		padding: 1.25rem 1rem;
 		color: black;
 		transform: translateX(100%);
 		transition: all 0.5s ease-in-out;
@@ -89,7 +89,7 @@
 			justify-content: space-between;
 			align-items: center;
 
-			a {
+			p {
 				display: flex;
 				align-items: end;
 				gap: 0.25rem;

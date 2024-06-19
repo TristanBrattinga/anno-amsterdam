@@ -2,9 +2,9 @@
 </script>
 
 <article>
-	<p>Augmented Reality<br /> The Window to Amsterdam's Past</p>
+  <p>Augmented Reality<br /> The Window to Amsterdam's Past</p>
 
-	<img src="/images/onboarding2.jpg" alt="">
+  <img src="/images/onboarding2.jpg" alt="">
 </article>
 
 
@@ -25,7 +25,7 @@
 
   p {
     font-family: Oswald, sans-serif;
-    color: #C5D9E0;
+    color: var(--accent-color-light);
     text-align: center;
     font-size: 1.375rem;
   }

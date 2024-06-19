@@ -11,6 +11,6 @@ export const load = async ({ parent }) => {
 		filterTitle: LL.filters(),
 		list: LL.list(),
 		map: LL.map(),
-		searchByAddress: LL.searchByAddress()
+		search: LL.search()
 	};
 };

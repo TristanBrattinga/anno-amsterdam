@@ -32,7 +32,7 @@ const en = {
 	settings: 'Settings',
 	theme: 'Theme',
 	filters: 'Filters',
-	searchByAddress: 'Zoek met adres',
+	search: 'Search',
 	centuries: {
 		16: '16th century',
 		17: '17th century',

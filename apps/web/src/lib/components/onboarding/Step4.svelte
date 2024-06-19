@@ -2,17 +2,17 @@
 </script>
 
 <article>
-	<div>
-		<img src="/images/onboarding4.png" alt="">
-		<ul>
-			<li>Pictures</li>
-			<li>Anno</li>
-			<li>Stories</li>
-			<li>Timeline</li>
-			<li>Audio guides</li>
-		</ul>
-	</div>
-	<p>Unlock the Building's Secrets - Explore Detailed Information</p>
+  <div>
+    <img src="/images/onboarding4.png" alt="">
+    <ul>
+      <li>Pictures</li>
+      <li>Anno</li>
+      <li>Stories</li>
+      <li>Timeline</li>
+      <li>Audio guides</li>
+    </ul>
+  </div>
+  <p>Unlock the Building's Secrets - Explore Detailed Information</p>
 </article>
 
 
@@ -31,7 +31,7 @@
     gap: 1rem;
 
     ul {
-      border-left: 1px solid #C5D9E0;
+      border-left: 1px solid var(--accent-color-light);
       padding: 4rem 0 4rem 1rem;
     }
   }
@@ -44,14 +44,14 @@
 
   p {
     font-family: Oswald, sans-serif;
-    color: #C5D9E0;
+    color: var(--accent-color-light);
     text-align: center;
     font-size: 1.375rem;
   }
 
   li {
     font-family: Oswald, sans-serif;
-    color: #C5D9E0;
+    color: var(--accent-color-light);
     font-size: 1.375rem;
     line-height: 1.2;
     text-transform: uppercase;

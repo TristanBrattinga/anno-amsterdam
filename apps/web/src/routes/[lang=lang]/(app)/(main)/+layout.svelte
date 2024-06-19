@@ -6,7 +6,7 @@
 	let sidebarMenuId = 'mainSidebar'
 </script>
 
-<Header sidebarMenuId={sidebarMenuId} searchByAddress={data.searchByAddress} />
+<Header sidebarMenuId={sidebarMenuId} search={data.search} />
 <main>
 	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy} />
 	<slot />

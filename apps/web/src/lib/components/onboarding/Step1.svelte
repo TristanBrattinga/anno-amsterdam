@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Logo } from '$icons';
+    import { Logo } from '$icons';
 </script>
 
 <article>
-	<p>Discover Amsterdam's<br /> architectural heritage with</p>
-	<Logo width="256px" height="56px" color="#fff" />
-	<h1>Amsterdam</h1>
+  <p>Discover Amsterdam's<br /> architectural heritage with</p>
+  <Logo width="256px" height="56px" color="#fff" />
+  <h1>Amsterdam</h1>
 </article>
 
 <style lang="scss">
@@ -20,7 +20,7 @@
 
   p {
     font-family: Oswald, sans-serif;
-    color: #C5D9E0;
+    color: var(--accent-color-light);
     text-align: center;
     font-size: 1.375rem;
   }

@@ -31,7 +31,7 @@ const nl = {
 	settings: 'Instellingen',
 	theme: 'Thema',
 	filters: 'Filters',
-	searchByAddress: 'Zoek met adres',
+	search: 'Zoeken',
 	centuries: {
 		16: '16e eeuw',
 		17: '17e eeuw',

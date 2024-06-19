@@ -1,23 +1,22 @@
 <script lang="ts">
-	// Stores
-	import { page } from '$app/stores';
+    // Components
+    import { ENIcon, Logo, NLIcon } from '$icons';
+    import { NavBar } from '$components/index';
+    import LanguageSelector from "$components/LanguageSelector.svelte";
 
-	// Components
-	import { Logo } from '$icons';
-	import { NavBar } from '$components/index';
-
-	export let sidebarMenuId: string;
-	export let searchByAddress: string;
+    export let sidebarMenuId: string;
+    export let search: string;
 </script>
 
 <header>
-	<nav class="container">
-		<a href={`/${$page.data.locale}`} aria-label="Home">
-			<Logo />
-			<span>Amsterdam</span>
-		</a>
-	</nav>
-	<NavBar menuId={sidebarMenuId} searchByAddress={searchByAddress} />
+  <nav class="container">
+    <p>
+      <Logo />
+      <span>Amsterdam</span>
+    </p>
+    <NavBar menuId={sidebarMenuId} search={search} />
+    <LanguageSelector />
+  </nav>
 </header>
 
 <style lang="scss">
@@ -28,16 +27,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    //border-bottom: 1px solid #c5d9e0;
+    border-bottom: 1px solid var(--accent-color-light);
     z-index: 10;
     gap: .25rem;
 
     nav {
       height: 64px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
 
-      a {
+      p {
         display: flex;
         align-items: end;
         gap: 0.25rem;
@@ -51,6 +51,16 @@
           font-size: 1.375rem;
           line-height: 1.1;
         }
+      }
+    }
+  }
+
+  @media (min-width: 769px) {
+    header {
+      flex-direction: row;
+
+      nav {
+
       }
     }
   }
