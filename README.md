@@ -53,7 +53,7 @@ This project is a mono-repo that contains the following packages:
     ```
 
 > [!NOTE]  
-> For more information about a specific package, please refer to the README.md file in the package's directory.
+> For more information about a specific package, please refer to the README.md file in that package's directory.
 
 ### Scripts
 
@@ -77,11 +77,11 @@ $ yarn format
 ## Structure
 
 - `apps` - Contains the web app and the backoffice
-- `packages` - Contains shared packages
+- `packages` - Contains shared packages used for development
 - `package.json` - Contains the dependencies and scripts for the entire project
 
 > [!NOTE]  
-> For more information about the project structure of a specific app, please refere to the [SvelteKit](https://kit.svelte.dev/docs/project-structure) documentation.
+> For more information about the project structure of a specific app, please refer to the README.md file in the package's directory.
 
 ## Sources
 
