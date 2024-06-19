@@ -67,7 +67,7 @@ export const actions = {
             console.error(e);
         }
         if (newBuilding) {
-            console.log('newBuilding', newBuilding);
+throw redirect(303, `/import/${newBuilding.id}`);
         }
 
     }

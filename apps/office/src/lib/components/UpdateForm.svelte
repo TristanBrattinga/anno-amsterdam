@@ -5,7 +5,6 @@
 	import Button from "$components/Button.svelte";
 
 	export let data;
-	console.log(data);
 	let timelineEntries = [{ year: '', description: '' }];
 
 	let constYearSum = '';
@@ -114,7 +113,7 @@
 
 </script>
 
-<form action="/import?/update" id="Buildings" method="PUT">
+<form  id="Buildings" method="POST">
 	<details name="Buildings" open>
 		<summary><h2>ANNO</h2></summary>
 		<div class="step-content">
