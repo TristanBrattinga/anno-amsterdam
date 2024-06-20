@@ -10,6 +10,13 @@ export const normalizeURL = (url: string) => {
 	return url + '/'
 }
 
+/**
+ * Parses a string parameter from a URL to a number.
+ * @param url The URL to parse a parameter from
+ * @param param The paramater to parse
+ * @param defaultValue The default value if the parameter is not found
+ * @returns The parsed number or the default value
+ */
 export const parseNumberParam = (url: URL, param: string, defaultValue: number): number => {
 	try {
 		const parsed = parseFloat(url.searchParams.get(param) || defaultValue.toString())
@@ -19,6 +26,12 @@ export const parseNumberParam = (url: URL, param: string, defaultValue: number):
 	}
 }
 
+/**
+ * Searches for a query in a building.
+ * @param building The building to search in
+ * @param query The query to search for
+ * @returns Wether the query was found in the building
+ */
 export const searchInBuilding = (building: Building, query: string): boolean => {
 	if (!query) return false
 	const q = query.toLowerCase()

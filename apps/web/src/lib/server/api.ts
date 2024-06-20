@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '$env/static/private'
 import { error } from '@sveltejs/kit'
 import { normalizeURL } from '$lib'
-import type { Building, BuildingSortBy, Coords } from '$types'
+import type { Building, BuildingSortBy, Coords, NewBuilding } from '$types'
 
 /**
  * Gets the full URL for an API path
@@ -15,6 +15,9 @@ export const api = {
 	 * Fetches a list of buildings
 	 * @param limit The number of buildings to fetch
 	 * @param offset The offset to start from
+	 * @param sortBy The field to sort by
+	 * @param location The user location for distance calculation
+	 * @param search The search query
 	 * @returns A list of buildings
 	 */
 	getBuildings: async (
@@ -47,7 +50,7 @@ export const api = {
 	 * @param building The building data
 	 * @returns The created building
 	 */
-	createBuilding: async (building: Exclude<Building, 'id'>): Promise<Building> => {
+	createBuilding: async (building: NewBuilding): Promise<Building> => {
 		try {
 			const res = await fetch(url('buildings/'), { method: 'POST', body: JSON.stringify(building) })
 			if (res.ok) return await res.json()
@@ -78,7 +81,7 @@ export const api = {
 	 * @param building The new building data
 	 * @returns The updated building
 	 */
-	updateBuilding: async (id: number, building: Partial<Building>): Promise<Building> => {
+	updateBuilding: async (id: number, building: Partial<NewBuilding>): Promise<Building> => {
 		try {
 			const res = await fetch(url(`buildings/${id}`), {
 				method: 'PUT',

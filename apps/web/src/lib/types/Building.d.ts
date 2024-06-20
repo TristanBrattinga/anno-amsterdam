@@ -34,3 +34,5 @@ export interface Building {
 	updated_at: string
 	distance?: number
 }
+
+export type NewBuilding = Omit<Building, 'id' | 'created_at' | 'updated_at' | 'distance'>
