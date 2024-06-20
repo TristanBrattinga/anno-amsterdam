@@ -15,11 +15,11 @@
 
 <Header />
 <main>
-    {#if currentRoute !== `/${$locale}/lens`}
+    {#if currentRoute !== `/${$locale}/lens` || currentRoute === `/${$locale}/building/`}
         <TopBar data={data} currentRoute={currentRoute} />
     {/if}
     <Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy}
-             closeSidebar={data.sidebar} />
+             sidebar={data.sidebar} />
     <slot />
 </main>
 <Footer lens={data.lens} list={data.list} map={data.map} />

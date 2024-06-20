@@ -7,6 +7,8 @@
         clear: string;
         search: string;
         openFilters: string;
+        showList: string
+        showGrid: string
     }
 
     export let data: data;
@@ -17,7 +19,7 @@
 <ul class={`container ${currentRoute === `/${$locale}/map` ? 'absolute' : ''}`}>
     {#if currentRoute !== `/${$locale}/map`}
         <li>
-            <ToggleView />
+            <ToggleView data={data} />
         </li>
     {/if}
     <li class="search">

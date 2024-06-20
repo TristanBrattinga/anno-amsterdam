@@ -20,11 +20,11 @@
     // });
 
     // Watch for changes in isDialogOpen to open or close the dialog
-    if (get(isDialogOpen) === true) {
-        dialog?.showModal();
-    } else {
-        dialog?.close();
-    }
+    // if (get(isDialogOpen) === true) {
+    //     dialog?.showModal();
+    // } else {
+    //     dialog?.close();
+    // }
 
     // Close dialog if location is set
     // $: if ($location) {

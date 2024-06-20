@@ -172,7 +172,6 @@
     > div:nth-of-type(1) {
       display: block;
       width: 50%;
-      height: 10vh;
       overflow: hidden;
       border-radius: 5px;
 
