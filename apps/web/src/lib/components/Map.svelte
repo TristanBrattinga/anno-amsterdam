@@ -169,9 +169,9 @@
         <LocationIcon />
     </button>
 
-    <!--    <button aria-label="Open extra info" class="infoButton" on:click={toggleLegend}>-->
-    <!--        <InfoIcon />-->
-    <!--    </button>-->
+    <button aria-label="Open extra info" class="infoButton" on:click={toggleLegend}>
+        <InfoIcon />
+    </button>
 
 </div>
 
