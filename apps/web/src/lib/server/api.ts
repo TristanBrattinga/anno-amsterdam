@@ -1,4 +1,4 @@
-import { API_BASE_URL, ORIGIN } from '$env/static/private'
+import { API_BASE_URL } from '$env/static/private'
 import { error } from '@sveltejs/kit'
 import { normalizeURL } from '$lib'
 import type { Building, BuildingSortBy, Coords, NewBuilding } from '$types'
@@ -10,7 +10,6 @@ import type { Building, BuildingSortBy, Coords, NewBuilding } from '$types'
  */
 const url = (path: string) => normalizeURL(API_BASE_URL) + path
 
-// The main API used for fetching and modifying buildings
 export const api = {
 	/**
 	 * Fetches a list of buildings
@@ -53,13 +52,7 @@ export const api = {
 	 */
 	createBuilding: async (building: NewBuilding): Promise<Building> => {
 		try {
-			const res = await fetch(url('buildings/'), {
-				method: 'POST',
-				headers: {
-					origin: ORIGIN
-				},
-				body: JSON.stringify(building)
-			})
+			const res = await fetch(url('buildings/'), { method: 'POST', body: JSON.stringify(building) })
 			if (res.ok) return await res.json()
 			error(res.status, await res.text())
 		} catch (e) {

@@ -1,4 +1,5 @@
 export interface Location {
+	type: string
 	coordinates: number[]
 }
 
@@ -16,11 +17,6 @@ export type BuildingType =
 	| 'educational'
 	| 'recreational'
 
-export interface BuildingTags {
-	en: string[]
-	nl: string[]
-}
-
 export interface Building {
 	id: number
 	location: Location
@@ -28,7 +24,7 @@ export interface Building {
 	address: string
 	construction_year: number
 	type_of_user?: BuildingType
-	tags: BuildingTags
+	tags: Record<string, string[]>
 	description?: string
 	image_urls: Image[]
 	timeline?: never[]

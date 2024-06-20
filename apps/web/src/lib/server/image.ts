@@ -10,7 +10,6 @@ import { normalizeURL } from '$lib'
  */
 const url = (path: string) => normalizeURL(IMG_API_BASE_URL) + path
 
-// The image API used for uploading images
 export const imageApi = {
 	/**
 	 * Uploads an image to the image API

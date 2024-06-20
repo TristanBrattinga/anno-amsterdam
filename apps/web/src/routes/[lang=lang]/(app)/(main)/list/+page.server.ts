@@ -1,5 +1,5 @@
 import { api, handleError, parseNumberParam } from '$lib/server'
-import type { BuildingSortBy } from '$types'
+import type { BuildingSortBy } from '~~/src/lib/types/Form.js'
 
 // On page load
 export const load = async ({ url }) => {
