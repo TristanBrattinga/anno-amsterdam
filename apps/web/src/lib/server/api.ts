@@ -21,14 +21,20 @@ export const api = {
 		limit = 10,
 		offset = 0,
 		sortBy: BuildingSortBy = 'default',
-		location?: Coords
+		location?: Coords,
+		search?: string
 	): Promise<Building[]> => {
 		try {
-			const res = await fetch(
-				url(
-					`buildings/?limit=${limit}&offset=${offset}&sortBy=${sortBy}&lat=${location?.lat}&lng=${location?.lng}`
-				)
-			)
+			const params = new URLSearchParams()
+			params.set('limit', limit.toString())
+			params.set('offset', offset.toString())
+			params.set('sortBy', sortBy)
+			if (search) params.set('q', search)
+			if (location) {
+				params.set('lat', location.lat.toString())
+				params.set('lng', location.lng.toString())
+			}
+			const res = await fetch(url(`buildings/?${params.toString()}`))
 			if (res.ok) return await res.json()
 			error(res.status, await res.text())
 		} catch (e) {

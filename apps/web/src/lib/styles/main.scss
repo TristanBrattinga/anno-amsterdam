@@ -43,6 +43,13 @@ li {
 	list-style-type: none;
 }
 
+button {
+	appearance: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
 a {
 	color: currentColor;
 	text-decoration: none;

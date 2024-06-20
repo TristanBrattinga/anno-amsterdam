@@ -22,6 +22,7 @@
 </script>
 
 <div class="swiper-container">
+<!--	TODO REFACTOR IMAGE SLIDER	-->
 	<ul class="swiper-wrapper">
 		{#each images as image}
 			<li class="swiper-slide"><img src={image.url} alt="" /></li>
