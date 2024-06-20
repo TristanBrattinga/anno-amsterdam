@@ -108,7 +108,9 @@
                     longtitute.value = coordsData.longitude;
                     latitute.value = coordsData.latitude;
                     const iframe = document.querySelector('iframe');
-                    iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#16.12/${coordsData.latitude}/${coordsData.longitude}`;
+                    iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#16.12/${coordsData.latitude}/${coordsData.longitude}`;iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#16.12/${coordsData.latitude}/${coordsData.longitude}`;
+                    iframeSum.src =
+				                    `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#16.12/${coordsData.latitude}/${coordsData.longitude}`;iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#16.12/${coordsData.latitude}/${coordsData.longitude}`;
                 }
             }
         });
@@ -219,7 +221,7 @@
 
 
 <form action="/import?/create" id="Buildings" method="POST">
-    <details name="buildings">
+    <details name="buildings" open>
         <summary><h2>ANNO</h2></summary>
         <div class="step-content">
             <fieldset class="ANNO" form="Buildings">
@@ -453,7 +455,7 @@
         </div>
     </details>
 
-    <details name="buildings" open>
+    <details name="buildings">
         <summary><h2>Overzicht</h2></summary>
         <div class="step-content">
             <fieldset class="summary">
@@ -462,19 +464,20 @@
                     <section>
                         <h3 id="ANNO">Anno: {constYearSum}</h3>
                         <h4 id="ADRES">{AdresSum}</h4>
-                        <img src={mainImg} alt="">
+		                    <img src={mainImg} alt="">
                     </section>
                     <section>
                         <div>
-                            <h3>Afstand tot</h3>
+                            <h3 id="distance">Afstand tot</h3>
                             <p>?? meter</p>
                         </div>
                         <div>
-                            <h3>Origineel</h3>
+                            <h3 id="type-of-use">Origineel</h3>
                             <p>{typeOfUseSum}</p>
                         </div>
                     </section>
                     <section>
+		                    <h3 class="sr-only">Tags:</h3>
                         <span>{tagsSum}</span>
                     </section>
                     <p>{descriptionSum}</p>
@@ -494,7 +497,8 @@
                     </section>
                 </div>
                 <div>
-                    <iframe height='400px' style="border:none;" title="Anno Amsterdam Gebouw" width='100%'></iframe>
+                    <iframe id="iframeSum" height='400px' style="border:none;" title="Anno Amsterdam Gebouw" width='100%'></iframe>
+		                
                 </div>
                 <input id="nummeraanduidingIdentificatie" required name="nummeraanduidingIdentificatie" class="hidden" bind:value={bagID} />
             </fieldset>
@@ -872,64 +876,136 @@
               }
             }
           }
-		      &.summary{
-				      display: grid;
-				      grid-template-columns: 1fr 1fr 1fr;
-				      height: 70vh;
-				      > div{
-						      background: var(--text-color-inverse);
-						      flex-direction: column;
-						      justify-content: flex-start;
-						      gap: 0;
-						      border-radius: .75rem;
-						     > section{
+		        &.summary{
+				        display: grid;
+				        grid-template-columns: 1fr 1fr 1fr;
+				        height: 70vh;
+				        > div{
+						        background: var(--text-color-inverse);
+						        flex-direction: column;
+						        justify-content: flex-start;
+						        gap: 0;
+						        border-radius: .75rem;
+						        &:first-of-type{
+								        > section{
+										        
+										        //background-color: grey;
+										        height: 45%;
+										        display: flex;
+										        gap: 0;
+										        flex-direction: column;
+										        justify-content: flex-start;
+										        position: relative;
+										        
+										        h3#ANNO{
+												        margin: 0;
+												        bottom: 10%;
+												        left: 1rem;
+												        position: absolute;
+												        width: fit-content;
+												        padding: .25em .5em;
+												        border-radius: .5rem;
+												        font-size: 1.5rem;
+												        color: var(--text-color-inverse);
+												        background-color: var(--secondary-color);
+										        }
+										        h4#ADRES{
+												        margin: 1.5em 0 0 .5rem;
+												        //bottom: 10%;
+												        //left: 1rem;
+												        //position: absolute;
+												        width: fit-content;
+												        padding: .25em .5em;
+												        border-radius: .5rem;
+												        font-size: 1.5rem;
+												        color: var(--text-color);}
+										        img{
+												        width: 100%;
+												        max-height: 80%;
+												        object-fit: cover;
+												        background: #00425a;
+												        order: -1;
+												        border-radius: .75rem .75rem 0 0;
+										        }
+										        &:nth-of-type(2) {
+												        flex-direction: row;
+												        height: min-content;
+												        margin: 2rem 1.25rem .5rem 1.25rem;
+												        border-radius: .5rem;
+												        border: 1px solid var(--summary-color);
+												        padding: .125rem .25rem ;
+												        > div {
+														        position: relative;
+														        display: flex;
+														        flex-direction: column;
+														        gap: 0;
+														        height: fit-content;
+														        margin: 0 .5rem;
+														        
+														        //background-color: blue;
+														        h3 {
+																        margin: 0;
+																        padding: .25em .5em;
+																        border-radius: .5rem;
+																        font-size: .8em;
+																        font-weight: 400;
+																        color: var(--summary-color);
+														        }
+														        
+														        p{
+																        margin: 0;
+																        padding: 0 .5em .25em .5em;
+																        border-radius: .5rem;
+																        font-size: 1em;
+																        font-weight: 400;
+																        color: var(--text-color);
+														        }
+														        &:nth-of-type(2){
+																        border-left: 1px solid var(--summary-color);
+														        }
+														        
+												        }
+												        
+										        }
+										        &:nth-of-type(3){
+												        flex-direction: row;
+												        height: min-content;
+												        margin: 0 1.25rem;
+												        
+												        padding: .125rem .25rem ;
+												        > span {
+														        margin: 0;
+														        padding: .125em .5em;
+														        border-radius: .5rem;
+														        width: min-content;
+														        font-size: 1em;
+														        font-weight: 400;
+														        color: var(--text-color);
+														        border-radius: .5rem;
+														        border: 1px solid var(--summary-color);
+												        }
+										        }
+										        
+								        }
+								        p{
+										        margin: 0 1rem;
+										        padding: .25em .5em;
+										        border-radius: .5rem;
+										        font-size: 1em;
+										        font-weight: 400;
+										        color: var(--text-color);
+								        }
+						        }
+						        &:nth-of-type(2){
 								      
-								      //background-color: grey;
-								      height: 45%;
-								      display: flex;
-								      flex-direction: column;
-								     justify-content: flex-start;
-								      position: relative;
-								      
-								      h3#ANNO{
-										      margin: 0;
-										      bottom: 10%;
-										      left: 1rem;
-										      position: absolute;
-										      width: fit-content;
-										      padding: .25em .5em;
-										      border-radius: .5rem;
-									      font-size: 1.5rem;
-									      color: var(--text-color-inverse);
-										    background-color: var(--secondary-color);
-								      }
-								      h4#ADRES{
-										      margin: 2em 0 0 .5rem;
-										      //bottom: 10%;
-										      //left: 1rem;
-										      //position: absolute;
-										      width: fit-content;
-										      padding: .25em .5em;
-										      border-radius: .5rem;
-									      font-size: 1.5rem;
-									      color: var(--text-color);}
-								      img{
-										      width: 100%;
-										      max-height: 80%;
-										      object-fit: cover;
-										      background: #00425a;
-										      order: -1;
-										      border-radius: .75rem .75rem 0 0;
-								      }
-								      > div{
-										      position: relative;
-										      margin: 0 1rem;
-									      //background-color: blue;
-								      }
-								      
-						      }
-				      }
-		      }
+						        }
+						        &:nth-of-type(3){
+								        iframe{
+										        border-radius: .75rem .75rem 0 0 ;
+								        }
+						        }
+				        }
+		        }
           div {
             display: flex;
             justify-content: space-between;

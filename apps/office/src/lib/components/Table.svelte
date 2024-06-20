@@ -158,6 +158,8 @@
 		    }
 		    
 		    &.tags {
+				    max-width: 25vw;
+				    text-wrap: pretty;
 				    span {
 						    font-size: 1em;
 						    padding: .25em .5em;

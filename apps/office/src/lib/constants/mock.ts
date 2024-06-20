@@ -3,11 +3,12 @@ import type { Building } from '$types'
 export const BUILDINGS_MOCK: Building[] = [
 	{
 		"id": 1,
+		"bag_id": "0363200000254812",
 		"location": {
 			"type": "Point",
 			"coordinates": [
-				52.37883521144042,
-				4.874603183381912
+				4.8746031,
+				52.378835
 			]
 		},
 		"name": "Pieter's huis",
@@ -37,11 +38,12 @@ export const BUILDINGS_MOCK: Building[] = [
 	},
 	{
 		"id": 2,
+		"bag_id": "0363200000326045",
 		"location": {
 			"type": "Point",
 			"coordinates": [
-				52.35941317456723,
-				4.907809735495526
+				4.907809,
+				52.35941
 			]
 		},
 		"name": "Theo Thijssenhuis",
