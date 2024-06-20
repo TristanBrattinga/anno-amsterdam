@@ -17,8 +17,8 @@ export const api = {
 	 * @param limit The number of buildings to fetch
 	 * @param offset The offset to start from
 	 * @param sortBy The field to sort by
-	 * @param location The location of the user
-	 * @param search The search query to filter on
+	 * @param location The user location for distance calculation
+	 * @param search The search query
 	 * @returns A list of buildings
 	 */
 	getBuildings: async (

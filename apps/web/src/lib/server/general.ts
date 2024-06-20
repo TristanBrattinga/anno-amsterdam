@@ -1,7 +1,7 @@
 import { isHttpError } from '@sveltejs/kit'
 
 /**
- * Handles errors and returns a status code and error message
+ * Handles a thrown error and returns a status code and error message.
  * @param e The error to handle
  * @returns The status code and error message
  */
@@ -17,11 +17,11 @@ export const handleError = (e: unknown) => {
 }
 
 /**
- * Parses a string parameter from a URL
+ * Parses a string parameter from a URL to a number.
  * @param url The URL to parse a parameter from
- * @param param The param to parse
- * @param defaultValue The default value if the param is not found
- * @returns The parsed string or the default value
+ * @param param The paramater to parse
+ * @param defaultValue The default value if the parameter is not found
+ * @returns The parsed number or the default value
  */
 export const parseNumberParam = (url: URL, param: string, defaultValue: number): number => {
 	try {
@@ -33,9 +33,9 @@ export const parseNumberParam = (url: URL, param: string, defaultValue: number):
 }
 
 /**
- * Converts a file to a base64 string
+ * Converts a file to a base64 string.
  * @param file The file to convert
- * @returns The base64 string
+ * @returns THe base64 string
  */
 export const toBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
 	new Promise((resolve, reject) => {

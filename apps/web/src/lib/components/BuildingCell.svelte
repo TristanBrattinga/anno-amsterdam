@@ -54,12 +54,19 @@
             </ul>
         </div>
         <h3>Anno {building.construction_year}</h3>
-        <div>
-            {#if location || building.distance}
-                <p>{distanceTo}</p>
-                <p>{distance ? `${distance}` : ''}</p>
+        <ul>
+            <li>
+                {#if location || building.distance}
+                    <p>{distanceTo}</p>
+                    <p>{distance ? `${distance}` : ''}</p>
+                {/if}
+            </li>
+            {#if building.type_of_user || building.tags[$page.data.locale].length || building.description}
+                <li>
+                    <a href={`/${$page.data.locale}/building/${building.id}`}>{moreInfo}</a>
+                </li>
             {/if}
-        </div>
+        </ul>
     </section>
 </a>
 
@@ -121,7 +128,9 @@
         }
       }
 
-      > div:last-of-type {
+      > ul:last-of-type {
+        display: flex;
+        justify-content: space-between;
         height: 2.375rem;
       }
 
@@ -138,10 +147,26 @@
         }
       }
 
-      > div:nth-of-type(2) p:first-child {
+      > ul:last-of-type li p:first-child {
         font-size: 0.75rem;
         color: var(--primary-color-light);
         opacity: 50%;
+      }
+
+      > ul:last-of-type li a {
+        color: white;
+        font-weight: 400;
+        background-color: var(--secondary-color-light);
+        border: 1px solid var(--secondary-color-light);
+
+        @media (max-width: 768px) {
+          display: none;
+        }
+
+        &:hover {
+          background-color: transparent;
+          color: black;
+        }
       }
     }
 
@@ -196,6 +221,11 @@
     &.group:hover {
       > div:nth-of-type(1) img {
         transform: scale(1.05);
+      }
+
+      > ul:last-of-type li a {
+        background-color: transparent;
+        color: black;
       }
     }
   }

@@ -3,47 +3,6 @@ import { location, locError, locWatchId } from '$lib'
 import type { Coords } from '$types'
 
 /**
-export class GeoLocationWrapper extends Geolocation {
-	override getCurrentPosition = (
-		successCallback: PositionCallback,
-		errorCallback?: PositionErrorCallback | null | undefined,
-		options?: PositionOptions | undefined
-	): void => {
-		super.getCurrentPosition(
-			(position) => {
-				successCallback(position)
-				location.set({ lat: position.coords.latitude, lng: position.coords.longitude })
-			},
-			(positionError) => {
-				errorCallback?.(positionError)
-				locError.set(positionError)
-			},
-			options
-		)
-	}
-
-	override watchPosition(
-		successCallback: PositionCallback,
-		errorCallback?: PositionErrorCallback | null | undefined,
-		options?: PositionOptions | undefined
-	): number {
-		const watchId = super.watchPosition(
-			(position) => {
-				successCallback(position)
-				location.set({ lat: position.coords.latitude, lng: position.coords.longitude })
-			},
-			(positionError) => {
-				errorCallback?.(positionError)
-				locError.set(positionError)
-			},
-			options
-		)
-		locWatchId.set(watchId)
-		return watchId
-	}
-} */
-
-/**
  * Watches the user's location and updates the location store
  * @param id The watch id to clear
  */
@@ -102,6 +61,13 @@ export const getBearing = (pos1: Coords, pos2: Coords): number => {
 	return (deg + 360) % 360
 }
 
+/**
+ * Gets the compass heading from device orientation
+ * @param alpha The alpha value
+ * @param beta The beta value
+ * @param gamma The gamma value
+ * @returns The compass heading in degrees
+ */
 export const getCompassHeading = (alpha: number, beta: number, gamma: number) => {
 	// Convert degrees to radians
 	const alphaRad = alpha * (Math.PI / 180)

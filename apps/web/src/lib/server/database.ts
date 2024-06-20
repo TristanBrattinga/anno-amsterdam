@@ -1,11 +1,21 @@
-import { connectDB, BuildingSchema } from '$lib/server/mongodb'
-import type { BuildingSortBy, NewBuilding } from '$types'
+import { BUILDINGS_MOCK } from '$constants'
+import { getDistance, searchInBuilding } from '$utils'
+import type { Building, BuildingSortBy, Coords, NewBuilding } from '$types'
+
+const database: Map<number, Building> = new Map()
+
+// Populate the database with mock data
+BUILDINGS_MOCK.forEach((building) => {
+	database.set(building.id, building)
+})
 
 /**
  * Gets a list of buildings
  * @param limit The number of buildings to return
  * @param offset The offset to start from
  * @param sortBy The field to sort by
+ * @param location The user location for distance calculation
+ * @param search The search query
  * @returns A list of buildings
  */
 export const getBuildings = async (limit = 10, offset = 0, sortBy: BuildingSortBy = 'default') => {
@@ -38,12 +48,16 @@ export const getBuilding = async (id: number) => {
  * @param building The building data
  * @returns The building that was created
  */
-export const createBuilding = async (building: NewBuilding) => {
-	const id = (Math.random() * 1000).toFixed(0)
-	const newBuilding = { ...building, id }
-	await connectDB()
-	const result = await BuildingSchema.create(newBuilding)
-	return result
+export const createBuilding = (building: NewBuilding): Building => {
+	const id = Math.random() * 1000
+	const newBuilding: Building = {
+		...building,
+		id,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString()
+	}
+	database.set(id, newBuilding)
+	return newBuilding
 }
 
 /**
@@ -52,7 +66,7 @@ export const createBuilding = async (building: NewBuilding) => {
  * @param updated The updated building data
  * @returns The updated building or null if not found
  */
-export const updateBuilding = async (id: number, updated: Partial<NewBuilding>) => {
+export const updateBuilding = async async (id: number, updated: Partial<NewBuilding>): Promise<Promise<Building | null>> => {
 	const building = getBuilding(id)
 	if (!building) return null
 	const updatedBuilding = { ...building, ...updated }
