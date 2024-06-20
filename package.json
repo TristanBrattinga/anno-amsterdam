@@ -28,8 +28,5 @@
       "**/typesafe-i18n",
       "**/typesafe-i18n/**"
     ]
-  },
-  "dependencies": {
-    "mongoose": "^8.4.3"
   }
 }
