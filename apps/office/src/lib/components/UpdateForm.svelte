@@ -5,6 +5,7 @@
 	import Button from "$components/Button.svelte";
 
 	export let data;
+	console.log(data.building.image_urls);
 	let timelineEntries = [{ year: '', description: '' }];
 
 	let constYearSum = '';
@@ -13,7 +14,9 @@
 	let tagsSum = '';
 	let descriptionSum = '';
 	let bagID = '';
-
+	
+	let beeldbankUrl = 'https://archief.amsterdam/beeldbank/';
+	
 	onMount(() => {
 
 		if (data) {
@@ -57,7 +60,9 @@
 			tagsSum = dataTransformed.tags;
 			descriptionSum = dataTransformed.description;
 			bagID = dataTransformed.Nummeraanduidingidentificatie;
-
+			
+			beeldbankUrl = `https://archief.amsterdam/beeldbank/?q=${AdresSum}`;
+			
 			console.log(dataTransformed);
 			if (form) {
 				for (const [key, value] of Object.entries(dataTransformed)) {
@@ -68,6 +73,7 @@
 						}
 					});
 					const iframe = document.querySelector('iframe');
+					const iframeSum = document.querySelector('#iframeSum');
 					let latitude = dataTransformed.Latitude;
 					let longitude = dataTransformed.Longitude;
 					// Convert to string and replace comma with period
@@ -77,6 +83,8 @@
 					latitude = parseFloat(latitude);
 					longitude = parseFloat(longitude);
 					iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#18.12/${latitude}/${longitude}`;
+					iframeSum.src =
+									`https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#18.12/${latitude}/${longitude}`;
 				}
 			}
 		}
@@ -113,8 +121,8 @@
 
 </script>
 
-<form  id="Buildings" method="POST">
-	<details name="Buildings" open>
+<form id="Buildings" method="POST">
+	<details name="Buildings">
 		<summary><h2>ANNO</h2></summary>
 		<div class="step-content">
 			<fieldset class="ANNO" form="Buildings">
@@ -219,9 +227,10 @@
 
 				<LinkButton
 						cta={false}
-						href="https://archief.amsterdam/beeldbank/"
+						href={beeldbankUrl}
 						size="large"
 						subtle={true}
+						target="blank"
 				>Bekijk de beeldbank
 				</LinkButton>
 			</div>
@@ -287,6 +296,7 @@
 					{/each}
 					{/if}
 				{#each images as image, index}
+					
 					<li>
 						<div>
 							<img src={image.src} alt={`Image ${index}`}/>
@@ -408,53 +418,61 @@
 		</div>
 	</details>
 
-	<details name="Buildings">
-		<summary><h2>Overzicht</h2></summary>
-		<div class="step-content">
-			<fieldset>
-				<!-- Review/Summary Part -->
-				<div>
-					<section>
-						<h3>Anno: {constYearSum}</h3>
-						<h4>test {AdresSum}</h4>
-						<img src="" alt="">
-					</section>
-					<section>
-						<div>
-							<h3>Afstand tot</h3>
-							<p>?? meter</p>
-						</div>
-						<div>
-							<h3>Origineel</h3>
-							<p>{typeOfUseSum}</p>
-						</div>
-					</section>
-					<section>
-						<span>{tagsSum}</span>
-					</section>
-					<p>{descriptionSum}</p>
-				</div>
-				<div>
-					<img src="" alt="">
-					<section>
-						<h3>timeline</h3>
-						<ol>
-							{#each timelineEntries as entry, index}
-								<li>
-									<h4>{entry.year}</h4>
-									<p>{entry.description}</p>
-								</li>
-							{/each}
-						</ol>
-					</section>
-				</div>
-				<div>
-					<iframe height='400px' style="border:none;" title="Anno Amsterdam Gebouw" width='100%'></iframe>
-				</div>
-				<input id="nummeraanduidingIdentificatie" required name="nummeraanduidingIdentificatie" type="text" bind:value={bagID} />
-			</fieldset>
-		</div>
-	</details>
+	<details name="Buildings" open>
+        <summary><h2>Overzicht</h2></summary>
+        <div class="step-content">
+            <fieldset class="summary">
+            <!-- Review/Summary Part -->
+                <div>
+                    <section>
+                        <h3 id="ANNO">Anno: {constYearSum}</h3>
+                        <h4 id="ADRES">{AdresSum}</h4>
+		                    {#if data.building.image_urls}
+				                    {#each data.building.image_urls as image, index}
+				                    {#if image.is_main}
+					                    <img src={image.url} alt={image.source} />
+				                    {/if}
+			                    {/each}
+		                    {/if}
+                    </section>
+                    <section>
+                        <div>
+                            <h3 id="distance">Afstand tot</h3>
+                            <p>?? meter</p>
+                        </div>
+                        <div>
+                            <h3 id="type-of-use">Origineel</h3>
+                            <p>{typeOfUseSum}</p>
+                        </div>
+                    </section>
+                    <section>
+		                    <h3 class="sr-only">Tags:</h3>
+                        <span>{tagsSum}</span>
+                    </section>
+                    <p>{descriptionSum}</p>
+                </div>
+                <div>
+                    <img src="" alt="">
+                    <section>
+                        <h3>timeline</h3>
+                        <ol>
+                            {#each timelineEntries as entry, index}
+                                <li>
+                                    <h4>{entry.year}</h4>
+                                    <p>{entry.description}</p>
+                                </li>
+                            {/each}
+                        </ol>
+                    </section>
+                </div>
+                <div>
+                    <iframe id="iframeSum" height='400px' style="border:none;" title="Anno Amsterdam Gebouw" width='100%'></iframe>
+		                
+                </div>
+                <input id="nummeraanduidingIdentificatie" required name="nummeraanduidingIdentificatie" class="hidden" bind:value={bagID} />
+            </fieldset>
+        </div>
+    </details>
 	<input type="submit" value="Pas gebouw aan">
 
 </form>
@@ -827,6 +845,136 @@
 							}
 						}
 					}
+						&.summary{
+								display: grid;
+								grid-template-columns: 1fr 1fr 1fr;
+								height: 70vh;
+								> div{
+										background: var(--text-color-inverse);
+										flex-direction: column;
+										justify-content: flex-start;
+										gap: 0;
+										border-radius: .75rem;
+										&:first-of-type{
+										> section{
+												
+												//background-color: grey;
+												height: 45%;
+												display: flex;
+												gap: 0;
+												flex-direction: column;
+												justify-content: flex-start;
+												position: relative;
+												
+												h3#ANNO{
+														margin: 0;
+														bottom: 10%;
+														left: 1rem;
+														position: absolute;
+														width: fit-content;
+														padding: .25em .5em;
+														border-radius: .5rem;
+														font-size: 1.5rem;
+														color: var(--text-color-inverse);
+														background-color: var(--secondary-color);
+												}
+												h4#ADRES{
+														margin: 1.5em 0 0 .5rem;
+														//bottom: 10%;
+														//left: 1rem;
+														//position: absolute;
+														width: fit-content;
+														padding: .25em .5em;
+														border-radius: .5rem;
+														font-size: 1.5rem;
+														color: var(--text-color);}
+												img{
+														width: 100%;
+														max-height: 80%;
+														object-fit: cover;
+														background: #00425a;
+														order: -1;
+														border-radius: .75rem .75rem 0 0;
+												}
+												&:nth-of-type(2) {
+														flex-direction: row;
+														height: min-content;
+														margin: 2rem 1.25rem .5rem 1.25rem;
+														border-radius: .5rem;
+														border: 1px solid var(--summary-color);
+														padding: .125rem .25rem ;
+														> div {
+																position: relative;
+																display: flex;
+																flex-direction: column;
+																gap: 0;
+																height: fit-content;
+																margin: 0 .5rem;
+																
+																//background-color: blue;
+																h3 {
+																		margin: 0;
+																		padding: .25em .5em;
+																		border-radius: .5rem;
+																		font-size: .8em;
+																		font-weight: 400;
+																		color: var(--summary-color);
+																}
+																
+																p{
+																		margin: 0;
+																		padding: 0 .5em .25em .5em;
+																		border-radius: .5rem;
+																		font-size: 1em;
+																		font-weight: 400;
+																		color: var(--text-color);
+																}
+																&:nth-of-type(2){
+																		border-left: 1px solid var(--summary-color);
+																}
+																
+														}
+														
+												}
+												&:nth-of-type(3){
+														flex-direction: row;
+														height: min-content;
+														margin: 0 1.25rem;
+														
+														padding: .125rem .25rem ;
+														> span {
+																margin: 0;
+																padding: .125em .5em;
+																border-radius: .5rem;
+																width: min-content;
+																font-size: 1em;
+																font-weight: 400;
+																color: var(--text-color);
+																border-radius: .5rem;
+																border: 1px solid var(--summary-color);
+														}
+												}
+												
+										}
+										p{
+												margin: 0 1rem;
+												padding: .25em .5em;
+												border-radius: .5rem;
+												font-size: 1em;
+												font-weight: 400;
+												color: var(--text-color);
+										}
+										}
+										&:nth-of-type(2){
+										
+										}
+										&:nth-of-type(3){
+												iframe{
+														border-radius: .75rem .75rem 0 0 ;
+												}
+										}
+								}
+						}
 					div {
 						display: flex;
 						justify-content: space-between;

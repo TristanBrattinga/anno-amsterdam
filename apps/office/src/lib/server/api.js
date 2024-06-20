@@ -104,6 +104,7 @@ export const api = {
         try {
             const res = await fetch(apiUrl(`buildings/${id}`), {
                 method: 'PUT',
+                headers: {origin: ORIGIN},
                 body: JSON.stringify(building)
             });
             if (res.ok) {

@@ -1,4 +1,4 @@
-import { api, bagApi} from '$lib/server';
+import {api, bagApi, imageApi} from '$lib/server';
 import {error, redirect} from "@sveltejs/kit";
 import {createTimeline, parseAndTransformData} from "$utils";
 
@@ -19,26 +19,29 @@ export const actions = {
 		console.log('test')
 		let form_input = await event.request.formData();
 		const jsonData = Object.fromEntries(form_input.entries());
+		console.log(jsonData);
 		const transformedData = parseAndTransformData(jsonData);
-		const file = form_input.get('image');
-		if (file) {
-			const handleImageUrl = await handleUploadImage(file)
-			transformedData.image_urls = [
-				{
+		const files = form_input.getAll('image');
+		transformedData.image_urls = [];
+
+		for (const file of files) {
+			if (file) {
+				const handleImageUrl = await handleUploadImage(file);
+				transformedData.image_urls.push({
 					url: handleImageUrl,
 					source: form_input.get('imgSource') || '',
 					description: form_input.get('imgDescription') || '',
 					alt: form_input.get('imgAlt') || '',
 					year: form_input.get('imgYear') || '',
 					is_main: form_input.get('isMain') === 'on' || false,
-				}
-			];
+				});
+			}
 		}
 
 		transformedData.timeline = createTimeline(jsonData);
 
 		let newBuilding = null;
-		let id = jsonData.id;
+		let id = event.params.id;
 		try {
 			newBuilding = await api.updateBuilding(id, transformedData);
 
@@ -51,3 +54,8 @@ export const actions = {
 
 	}
 };
+
+async function handleUploadImage(file) {
+	const image = await imageApi.uploadImage(file);
+	return image.url;
+}

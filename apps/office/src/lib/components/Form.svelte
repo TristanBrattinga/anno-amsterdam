@@ -20,7 +20,10 @@
     let tagsSum = '';
     let descriptionSum = '';
     let bagID = '';
-
+		let mainImg = '';
+    
+    let beeldbankUrl = 'https://archief.amsterdam/beeldbank/';
+		
     onMount(() => {
         const iframe = document.querySelector('iframe');
         iframe.src = `https://api.mapbox.com/styles/v1/tristanbrattinga/clwtovfzh00or01poa3mo6ljg.html?title=false&access_token=${PUBLIC_MAPBOX_KEY}&zoomwheel=false#12.12/52.36923/4.89499`;
@@ -35,8 +38,10 @@
         const file = event.target.files[0];
         if (file) {
             const src = URL.createObjectURL(file);
+						mainImg = src;
             images = [...images, {src, isMain: false}];
         }
+				
     }
 
 
@@ -163,6 +168,7 @@
                     const constYearFirst = form.querySelector('[id="constYearFirst"]');
                     if (adresField) {
                         adresField.value = `${naam} ${huisnummer}`.trim();
+												
                         // Create a new 'input' event
                         const event = new Event('input', {
                             bubbles: true,
@@ -171,6 +177,7 @@
 
                         // Dispatch the 'input' event
                         adresField.dispatchEvent(event);
+		                    beeldbankUrl = `https://archief.amsterdam/beeldbank/?q=${AdresSum}`;
                     }
                     if (constYearFirst && constYearFirst.value === '') {
                         constYearFirst.removeAttribute('readonly');
@@ -212,7 +219,7 @@
 
 
 <form action="/import?/create" id="Buildings" method="POST">
-    <details name="buildings" open>
+    <details name="buildings">
         <summary><h2>ANNO</h2></summary>
         <div class="step-content">
             <fieldset class="ANNO" form="Buildings">
@@ -339,9 +346,10 @@
 
                     <LinkButton
                             cta={false}
-                            href="https://archief.amsterdam/beeldbank/"
+                            href={beeldbankUrl}
                             size="large"
                             subtle={true}
+                            target="blank"
                     >Bekijk de beeldbank
                     </LinkButton>
                 </div>
@@ -361,6 +369,8 @@
                                         class="hidden"
                                         on:change={() => handleRadioChange(index)}
                                 />
+		                            
+		                            
                             </label>
 
                             <label for="imgDescription">
@@ -443,16 +453,16 @@
         </div>
     </details>
 
-    <details name="buildings">
+    <details name="buildings" open>
         <summary><h2>Overzicht</h2></summary>
         <div class="step-content">
-            <fieldset>
+            <fieldset class="summary">
             <!-- Review/Summary Part -->
                 <div>
                     <section>
-                        <h3>Anno: {constYearSum}</h3>
-                        <h4>test {AdresSum}</h4>
-                        <img src="" alt="">
+                        <h3 id="ANNO">Anno: {constYearSum}</h3>
+                        <h4 id="ADRES">{AdresSum}</h4>
+                        <img src={mainImg} alt="">
                     </section>
                     <section>
                         <div>
@@ -486,7 +496,7 @@
                 <div>
                     <iframe height='400px' style="border:none;" title="Anno Amsterdam Gebouw" width='100%'></iframe>
                 </div>
-                <input id="nummeraanduidingIdentificatie" required name="nummeraanduidingIdentificatie" type="text" bind:value={bagID} />
+                <input id="nummeraanduidingIdentificatie" required name="nummeraanduidingIdentificatie" class="hidden" bind:value={bagID} />
             </fieldset>
         </div>
     </details>
@@ -862,6 +872,64 @@
               }
             }
           }
+		      &.summary{
+				      display: grid;
+				      grid-template-columns: 1fr 1fr 1fr;
+				      height: 70vh;
+				      > div{
+						      background: var(--text-color-inverse);
+						      flex-direction: column;
+						      justify-content: flex-start;
+						      gap: 0;
+						      border-radius: .75rem;
+						     > section{
+								      
+								      //background-color: grey;
+								      height: 45%;
+								      display: flex;
+								      flex-direction: column;
+								     justify-content: flex-start;
+								      position: relative;
+								      
+								      h3#ANNO{
+										      margin: 0;
+										      bottom: 10%;
+										      left: 1rem;
+										      position: absolute;
+										      width: fit-content;
+										      padding: .25em .5em;
+										      border-radius: .5rem;
+									      font-size: 1.5rem;
+									      color: var(--text-color-inverse);
+										    background-color: var(--secondary-color);
+								      }
+								      h4#ADRES{
+										      margin: 2em 0 0 .5rem;
+										      //bottom: 10%;
+										      //left: 1rem;
+										      //position: absolute;
+										      width: fit-content;
+										      padding: .25em .5em;
+										      border-radius: .5rem;
+									      font-size: 1.5rem;
+									      color: var(--text-color);}
+								      img{
+										      width: 100%;
+										      max-height: 80%;
+										      object-fit: cover;
+										      background: #00425a;
+										      order: -1;
+										      border-radius: .75rem .75rem 0 0;
+								      }
+								      > div{
+										      position: relative;
+										      margin: 0 1rem;
+									      //background-color: blue;
+								      }
+								      
+						      }
+				      }
+		      }
           div {
             display: flex;
             justify-content: space-between;

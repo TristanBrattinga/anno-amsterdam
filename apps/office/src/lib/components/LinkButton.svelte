@@ -4,10 +4,16 @@
   export let cta = false;
   export let subtle = false;
   export let href = '#'; // Default href value
-
+	export let target = '_self';
 
   //
-
+	const targetValues = {
+		blank: '_blank',
+		self: '_self',
+		parent: '_parent',
+		top: '_top'
+	};
+	
   const sizeClasses = {
     small: 'small',
     normal: 'normal',
@@ -18,6 +24,7 @@
 </script>
 
 <a href={href}
+   target={targetValues[target]}
    class="{className} {cta ? 'cta' : ''} {subtle ? 'subtle' : ''}"
    disabled={disabled}>
   <slot></slot>

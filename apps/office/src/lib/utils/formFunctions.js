@@ -2,7 +2,6 @@ export function parseAndTransformData(jsonData) {
 
     try {
         const rawData = jsonData;
-        console.log('Raw data:', rawData); // Log raw data for debugging
         switch (rawData.gebruiksdoelen) {
             case 'woonfunctie':
                 rawData.gebruiksdoelen = 'residential';
@@ -58,7 +57,6 @@ export function createTimeline(jsonData) {
             // Match the key to extract the index and type (year or description)
             const match = key.match(/timeline(Year|Description)(\d+)/);
             if (match) {
-                console.log(`{$match} match`)
                 const type = match[1].toLowerCase(); // 'year' or 'description'
                 const index = match[2]; // The index number
 
