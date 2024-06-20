@@ -20,5 +20,5 @@
 
 <section>
     <Map buildings={data.buildings} location={$location} menuId={legendMenuId} />
-    <Legend centuries={data.centuries} menuId={legendMenuId} />
+    <!--    <Legend centuries={data.centuries} menuId={legendMenuId} />-->
 </section>

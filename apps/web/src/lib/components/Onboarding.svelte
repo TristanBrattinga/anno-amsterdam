@@ -4,11 +4,8 @@
     import { onMount } from 'svelte';
     import { Navigation, Pagination } from 'swiper/modules';
     import { Step1, Step2, Step3, Step4 } from '$components/onboarding';
-    import { isDialogOpen } from '$lib/stores/dialog';
-    import { LocationPopup } from "$components/index";
     import { page } from '$app/stores'
 
-    export let data;
     let swiperInstance: Swiper;
 
     onMount(() => {
@@ -37,13 +34,13 @@
     let currentStep = 0;
     const steps = [Step1, Step2, Step3, Step4];
 
-    const updateImagePosition = () => {
-        const progress = swiperInstance.progress;
-        const image = document.querySelector('.background-image');
-        if (image) {
-            image.style.transform = `translateX(${ -progress * 42 }%)`;
-        }
-    };
+    // const updateImagePosition = () => {
+    //     const progress = swiperInstance.progress;
+    //     const image = document.querySelector('.background-image');
+    //     if (image) {
+    //         image.style.transform = `translateX(${ -progress * 42 }%)`;
+    //     }
+    // };
 
     const updateCurrentStep = () => {
         currentStep = swiperInstance.realIndex;
@@ -54,10 +51,6 @@
             currentStep += 1;
         }
     };
-
-    const showDialog = () => {
-        isDialogOpen.set(true);
-    }
 </script>
 
 <section class="swiper-container">
@@ -78,7 +71,7 @@
             {#if currentStep < 3}
                 <button class="nextButton" on:click={handleNextStep}>Next</button>
             {:else}
-                <button on:click={showDialog}>Get started</button>
+                <a class="nextButton" href={`/${$page.data.locale}/map`}>Get started</a>
             {/if}
         </li>
     </ul>
@@ -103,6 +96,11 @@
       align-items: center;
       justify-content: center;
     }
+  }
+
+  .swiper-onboarding-pagination {
+    display: flex;
+    justify-content: center;
   }
 
   .background-image {

@@ -5,7 +5,7 @@
 </script>
 
 <main>
-    <!--    	<Onboarding data={data}>/>-->
+    <Onboarding />
 </main>
 
 <style lang="scss">

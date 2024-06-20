@@ -32,14 +32,14 @@
 
     ul {
       border-left: 1px solid var(--accent-color-light);
-      padding: 4rem 0 4rem 1rem;
+      padding: 2rem 0 2rem 1rem;
     }
   }
 
   img {
     width: 100%;
     height: auto;
-    max-width: 6rem;
+    max-width: 4rem;
   }
 
   p {

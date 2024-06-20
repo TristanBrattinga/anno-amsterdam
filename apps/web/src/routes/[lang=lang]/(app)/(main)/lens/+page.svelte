@@ -60,3 +60,10 @@
         </button>
     {/if}
 </section>
+
+
+<style>
+    button {
+        background-color: var(--secondary-color-light);
+    }
+</style>
