@@ -16,7 +16,7 @@ ANNO AMSTERDAM is an app that allows users to find information, based on their l
 
 ## Design Rationale
 
-The design rationale can be found in the [Wiki](https://github.com/TristanBrattinga/anno-amsterdam/wiki) of this repository.
+The design rationale can be found in the [wiki of this repository](https://github.com/TristanBrattinga/anno-amsterdam/wiki).
 
 ## Development
 
