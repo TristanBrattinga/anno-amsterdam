@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '$env/static/private'
+import { API_BASE_URL, ORIGIN } from '$env/static/private'
 import { error } from '@sveltejs/kit'
 import { normalizeURL } from '$lib'
 import type { Building, BuildingSortBy, Coords } from '$types'
@@ -52,7 +52,7 @@ export const api = {
 			const res = await fetch(url('buildings/'), {
 				method: 'POST',
 				headers: {
-					origin: 'http://localhost:5174'
+					origin: ORIGIN
 				},
 				body: JSON.stringify(building)
 			})
