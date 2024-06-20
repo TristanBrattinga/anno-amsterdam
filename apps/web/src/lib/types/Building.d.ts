@@ -27,7 +27,7 @@ export interface Building {
 	name: string
 	address: string
 	construction_year: number
-	type_of_user?: BuildingType
+	type_of_use?: BuildingType
 	tags: BuildingTags
 	description?: string
 	image_urls: Image[]

@@ -39,7 +39,7 @@
 			</div>
 			<div class="type-of-use">
 				<p>{data.typeOfUse}</p>
-				<p>{data.building.type_of_user ? data[data.building.type_of_user] : data.unknown}</p>
+				<p>{data.building.type_of_use ? data[data.building.type_of_use] : data.unknown}</p>
 			</div>
 		</div>
 		<div class="tags">

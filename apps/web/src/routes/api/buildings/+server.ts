@@ -14,7 +14,7 @@ export async function GET({ url }) {
 	const lng = parseFloat(url.searchParams.get('lng') || '0')
 	const location = lat && lng ? { lat, lng } : undefined
 
-	const result = await database.getBuildings(limit, offset, sortBy)
+	const result = await database.getBuildings(limit, offset, sortBy, search)
 
 	const buildings: Building[] = result.map((doc) => {
 		const building: Building = doc.toObject()

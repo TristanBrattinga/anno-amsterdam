@@ -8,7 +8,7 @@ export const BUILDINGS_MOCK: Building[] = [
 		name: "Pieter's huis",
 		address: 'Rombout Hogerbeetsstraat 1',
 		construction_year: 1669,
-		type_of_user: 'residential',
+		type_of_use: 'residential',
 		tags: {
 			nl: ['Hendrick de Keyser', 'Stepped gable', 'Amsterdam Renaissance', 'Scroll werk'],
 			en: ['Hendrick de Keyser', 'Stepped gable', 'Amsterdam Renaissance', 'Scrollwork']
@@ -41,7 +41,7 @@ export const BUILDINGS_MOCK: Building[] = [
 		name: 'Theo Thijssenhuis',
 		address: 'Amstelcampus Wibautstraat 2 TTH',
 		construction_year: 2001,
-		type_of_user: undefined,
+		type_of_use: undefined,
 		tags: { nl: ['tag3', 'tag4'], en: ['tag3', 'tag4'] },
 		description: 'Description 2',
 		image_urls: [
@@ -64,7 +64,7 @@ export const BUILDINGS_MOCK: Building[] = [
 		name: 'Test Building 3',
 		address: 'Alkmaarstraat 3',
 		construction_year: 1803,
-		type_of_user: undefined,
+		type_of_use: undefined,
 		tags: { nl: ['tag3', 'tag4'], en: ['tag3', 'tag4'] },
 		description: 'Description 2',
 		image_urls: [

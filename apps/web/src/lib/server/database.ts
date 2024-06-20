@@ -6,12 +6,22 @@ import type { BuildingSortBy, NewBuilding } from '$types'
  * @param limit The number of buildings to return
  * @param offset The offset to start from
  * @param sortBy The field to sort by
+ * @param search A search query to filter on
  * @returns A list of buildings
  */
-export const getBuildings = async (limit = 10, offset = 0, sortBy: BuildingSortBy = 'default') => {
+export const getBuildings = async (
+	limit = 10,
+	offset = 0,
+	sortBy: BuildingSortBy = 'default',
+	search?: string
+) => {
 	try {
 		await connectDB()
-		let query = BuildingSchema.find().skip(offset).limit(limit)
+		let query = BuildingSchema.find({
+			$text: search ? { $search: `"${search}"` } : undefined
+		})
+			.skip(offset)
+			.limit(limit)
 		if (sortBy === 'name') query = query.sort({ name: 1 })
 		else if (sortBy === 'year') query = query.sort({ construction_year: 1 })
 
