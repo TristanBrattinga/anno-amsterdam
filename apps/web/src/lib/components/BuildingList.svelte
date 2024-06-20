@@ -4,7 +4,7 @@
 
     // Utils
     import type { Building, Coords } from '$types'
-    import { viewMode } from '~/lib'
+    import { viewMode } from '$lib'
 
     // Props
     export let moreInfo: string
