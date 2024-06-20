@@ -1,8 +1,7 @@
 <script lang="ts">
     import { Dialog } from '$components';
-    import { watchLocation, location, locError, locWatchId } from '$lib';
+    import { watchLocation, location, locError, locWatchId, isDialogOpen } from '$lib';
     import { page } from '$app/stores'
-    import { isDialogOpen } from '$lib/stores/dialog';
     import { onMount } from 'svelte';
     import { get } from 'svelte/store';
     import { goto } from "$app/navigation";
@@ -15,11 +14,11 @@
     // });
 
     // Watch for changes in isDialogOpen to open or close the dialog
-    // if (get(isDialogOpen) === true) {
-    dialog?.showModal();
-    // } else {
-    //     dialog?.close();
-    // }
+    if (get(isDialogOpen) === true) {
+        dialog?.showModal();
+    } else {
+        dialog?.close();
+    }
 
     // Close dialog if location is set
     // $: if ($location) {

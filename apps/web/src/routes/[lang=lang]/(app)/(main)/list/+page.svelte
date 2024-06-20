@@ -10,6 +10,7 @@
     import { sorting } from '$stores/sorting';
     import { goto } from "$app/navigation";
     import { page } from "$app/stores";
+    import { browser } from "$app/environment";
 
     // Data
     export let data
@@ -19,7 +20,9 @@
     const handleSortChange = (sort: SortType) => {
         const params = new URLSearchParams($page.url.searchParams);
         params.set('sort', sort);
-        // goto(`?${ params.toString() }`);
+        if (browser) {
+            goto(`?${ params.toString() }`)
+        }
     };
 
     $: sorting.subscribe((sort: SortType) => {
@@ -50,4 +53,7 @@
 </section>
 
 <style lang="scss">
+  section {
+    margin: 0 0 2rem 0;
+  }
 </style>

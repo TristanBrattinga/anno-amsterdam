@@ -92,6 +92,10 @@
           color: var(--primary-color-dark);
           text-transform: capitalize;
           font-size: 1.25rem;
+
+          @media (max-width: 768px) {
+            font-size: 1rem;
+          }
         }
 
         ul {
@@ -126,6 +130,10 @@
         font-size: 1.5rem;
         line-height: 1;
         font-family: 'Noto Serif', Helvetica, sans-serif;
+
+        @media (max-width: 768px) {
+          margin-bottom: .5rem;
+        }
       }
 
       > div:nth-of-type(2) p:first-child {
@@ -137,7 +145,7 @@
 
     &.grid {
       flex-direction: column;
-      gap: 10px;
+      gap: .5rem;
 
       > div:nth-of-type(1) {
         display: block;
@@ -149,6 +157,7 @@
         img {
           width: 100%;
           height: 100%;
+          max-height: 110px;
           object-fit: cover;
         }
       }
@@ -181,4 +190,9 @@
     }
   }
 
+  @media (max-width: 768px) {
+    h2 {
+      font-size: .75rem;
+    }
+  }
 </style>
