@@ -1,11 +1,14 @@
 import { i18nObject } from '$i18n/i18n-util'
 import type { MetaTagsProps } from 'svelte-meta-tags'
 
-export const load = async ({ parent, data: { building } }) => {
+// On page load
+export const load = async ({ parent }) => {
+	// Load the locale
 	const { locale } = await parent()
 	const LL = i18nObject(locale)
 
-	const title = building.name
+	// Meta tags
+	const title = 'Image upload'
 	const pageMetaTags = Object.freeze({
 		title,
 		openGraph: { title }
@@ -13,7 +16,6 @@ export const load = async ({ parent, data: { building } }) => {
 
 	return {
 		pageMetaTags,
-		back: LL.back(),
-		building
+		list: LL.list()
 	}
 }

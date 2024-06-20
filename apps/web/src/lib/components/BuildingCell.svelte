@@ -1,228 +1,238 @@
 <script lang="ts">
-	// Stores
-	import { page } from '$app/stores';
+    // Stores
+    import { page } from '$app/stores'
 
-	import type { Building, Coords } from '$types';
+    // Types
+    import type { Building, Coords, Tag } from '$types'
 
-	// Utils
-	import { getDistanceFromLatLonInKm } from '$lib';
-	import ImageSlider from '$components/ImageSlider.svelte';
+    // Utils
+    import { getDistance, viewMode } from '$lib'
 
-	// Props
-	export let building: Building;
-	export let location: Coords | null = null;
+    // Components
+    import ImageSlider from '$components/ImageSlider.svelte'
 
-	$: km =
-		location && building.location.coordinates[0] !== 0
-			? getDistanceFromLatLonInKm(
-				location.lat,
-				location.lng,
-				building.location.coordinates[0],
-				building.location.coordinates[1]
-			)
-			: 0;
+    // Props
+    export let building: Building
+    export let location: Coords | null = null
+    export let moreInfo: string
+    export let distanceTo: string
+    export let map: string
 
-	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : '';
+
+    // Distance to building in km
+    $: km =
+        location && building.location.coordinates[0] !== 0
+            ? getDistance(
+                { lat: location.lat, lng: location.lng },
+                { lat: building.location.coordinates[0], lng: building.location.coordinates[1] }
+            )
+            : building.distance || 0
+
+    // Distance to building in km or m
+    $: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
-<article>
 
-	<div class="image">
-		<ImageSlider images={building.image_urls} />
-	</div>
-	<div class="content">
-		<div>
-			<div>
-				<h2>{building.address}</h2>
-				<p>Anno {building.construction_year}</p>
-			</div>
-			<form action={`/${$page.data.locale}/map`} method="post">
-				<input type="hidden" name="lat" value={building.location.coordinates[0]} />
-				<input type="hidden" name="lon" value={building.location.coordinates[1]} />
-				<button>Map</button>
-			</form>
-		</div>
-		<ul>
-			<li>
-				<p>Distance to</p>
-				<p>{distance ? `${distance}` : ''}</p>
-			</li>
-			{#if building.type_of_user}
-				<li>
-					<a href={`/${$page.data.locale}/building/${building._id}`}>Meer info</a>
-				</li>
-			{/if}
-		</ul>
-	</div>
-</article>
+<a href={`/${$page.data.locale}/building/${building.id}`} class="group" class:grid={$viewMode === 'grid'}>
+    <div>
+        <!--{#if building.image_urls.length < 2}-->
+        <img src={building.image_urls[0].url} alt="" />
+        <!--{:else}-->
+        <!--            <ImageSlider images={building.image_urls} />-->
+        <!--        {/if}-->
+    </div>
+    <section>
+        <div>
+            <h2>{building.name}</h2>
+            <ul>
+                <li>
+                    <button on:click={(e) => e.preventDefault()}>Tag 1</button>
+                </li>
+                <li>
+                    <button on:click={(e) => e.preventDefault()}>Tag 2</button>
+                </li>
+            </ul>
+        </div>
+        <h3>Anno {building.construction_year}</h3>
+        <ul>
+            <li>
+                {#if location || building.distance}
+                    <p>{distanceTo}</p>
+                    <p>{distance ? `${distance}` : ''}</p>
+                {/if}
+            </li>
+            {#if building.type_of_user || building.tags[$page.data.locale].length || building.description}
+                <li>
+                    <a href={`/${$page.data.locale}/building/${building.id}`}>{moreInfo}</a>
+                </li>
+            {/if}
+        </ul>
+    </section>
+</a>
 
 <style lang="scss">
-  .image {
-    display: block;
-    width: 40%;
-    height: 140px;
-    overflow: hidden;
-    border-radius: 5px;
-  }
-
-  article {
+  a {
     display: flex;
     gap: 20px;
-    padding: 20px 0;
-    border-top: 1px solid #C5D9E0;
-  }
+    padding: .5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    height: 100%;
+    transition: all .3s ease-in-out;
 
-  .content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    &:hover {
+      border-color: var(--primary-color-light);
+    }
 
-    > div:first-of-type {
+    section {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      gap: 1.5rem;
-      margin-bottom: 20px;
+      width: 100%;
 
-      p {
-        color: var(--secondary-color-light);
-        font-weight: 500;
-        font-size: 1.375rem;
-        line-height: 1;
-      }
-    }
+      > div:first-child {
+        display: flex;
+        justify-content: space-between;
 
-    h2 {
-      font-weight: 400;
-      color: var(--primary-color-dark);
-      text-transform: uppercase;
-      margin-bottom: .5rem;
-    }
+        h2 {
+          font-weight: 400;
+          color: var(--primary-color-dark);
+          text-transform: capitalize;
+          font-size: 1.25rem;
+          margin-bottom: 0.5rem;
 
-    form button {
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #C5D9E0;
-      background-color: transparent;
-      transition: all .3s ease;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #C5D9E0;
-      }
-    }
-
-    ul {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      li {
-
-        p:first-of-type {
-          font-size: 0.75rem;
-          color: var(--primary-color-light);
-          opacity: 50%;
+          @media (max-width: 768px) {
+            font-size: 1rem;
+          }
         }
 
-        a {
-          background-color: var(--secondary-color-light);
-          padding: 8px 24px;
-          border-radius: 5px;
-          color: white;
-          line-height: 16px;
-          border: 1px solid var(--secondary-color-light);
-          transition: all .3s ease;
+        ul {
+          display: none;
 
-          &:hover {
-            color: var(--secondary-color-light);
-            background-color: transparent;
+          @media (min-width: 768px) {
+            display: flex;
+            gap: .5rem;
+
+            button {
+              border: 1px solid var(--primary-color-light);
+              padding: .25rem;
+              border-radius: 5px;
+              transition: all .2s ease-in-out;
+            }
+
+            &:hover {
+              background-color: var(--primary-color-light);
+              color: white;
+            }
           }
         }
       }
+
+      > ul:last-of-type {
+        display: flex;
+        justify-content: space-between;
+        height: 2.375rem;
+      }
+
+      h3 {
+        color: var(--secondary-color-light);
+        font-weight: 500;
+        font-size: 1.5rem;
+        line-height: 1;
+        font-family: 'Noto Serif', Helvetica, sans-serif;
+        margin-bottom: 1rem;
+
+        @media (max-width: 768px) {
+          margin-bottom: .5rem;
+        }
+      }
+
+      > ul:last-of-type li p:first-child {
+        font-size: 0.75rem;
+        color: var(--primary-color-light);
+        opacity: 50%;
+      }
+
+      > ul:last-of-type li a {
+        color: white;
+        font-weight: 400;
+        background-color: var(--secondary-color-light);
+        border: 1px solid var(--secondary-color-light);
+
+        @media (max-width: 768px) {
+          display: none;
+        }
+
+        &:hover {
+          background-color: transparent;
+          color: black;
+        }
+      }
+    }
+
+    &.grid {
+      flex-direction: column;
+      gap: .5rem;
+
+      > div:nth-of-type(1) {
+        display: block;
+        width: 100%;
+        height: 10vh;
+        overflow: hidden;
+        border-radius: 5px;
+
+        @media (min-width: 1200px) {
+          height: 15vh;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+    }
+
+    > div:nth-of-type(1) {
+      display: block;
+      width: 50%;
+      overflow: hidden;
+      border-radius: 5px;
+
+      @media (min-width: 1200px) {
+        height: 15vh;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        transition: transform .3s ease-in-out;
+        border-radius: 5px;
+
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    &.group:hover {
+      > div:nth-of-type(1) img {
+        transform: scale(1.05);
+      }
+
+      > ul:last-of-type li a {
+        background-color: transparent;
+        color: black;
+      }
     }
   }
 
-  //article {
-  //  display: flex;
-  //  max-width: 600px;
-  //  border-top: solid 1px var(--primary-color);
-  //  padding-top: 1em;
-  //
-  //  img {
-  //    height: auto;
-  //    max-width: 50%;
-  //    object-fit: cover;
-  //    border-radius: 8px;
-  //  }
-  //
-  //  .content {
-  //    display: flex;
-  //    flex-direction: column;
-  //    flex: 1;
-  //    padding: 0.5em;
-  //
-  //    & > * {
-  //      flex: 1;
-  //    }
-  //
-  //    header {
-  //      display: flex;
-  //      justify-content: space-between;
-  //
-  //      hgroup {
-  //        h3 {
-  //          margin: 0;
-  //        }
-  //
-  //        p {
-  //          color: var(--secondary-color);
-  //          font-size: 1.5em;
-  //        }
-  //      }
-  //
-  //      div {
-  //        display: flex;
-  //        align-items: center;
-  //
-  //        a {
-  //          text-transform: uppercase;
-  //          display: block;
-  //          width: fit-content;
-  //          padding: 0.25rem 0.5rem;
-  //          border-radius: 8px;
-  //          border: 2px solid var(--primary-color);
-  //          color: var(--text-color);
-  //
-  //          &:hover {
-  //            background-color: var(--primary-color);
-  //            color: #fff;
-  //          }
-  //        }
-  //      }
-  //    }
-  //
-  //    footer {
-  //      display: flex;
-  //      align-items: center;
-  //      justify-content: space-between;
-  //
-  //      a {
-  //        text-transform: uppercase;
-  //        display: block;
-  //        width: fit-content;
-  //        padding: 0.25rem 0.5rem;
-  //        border-radius: 8px;
-  //        background-color: var(--primary-color);
-  //        color: #fff;
-  //
-  //        &:hover {
-  //          background-color: unset;
-  //          border: 2px solid var(--primary-color);
-  //          color: var(--text-color);
-  //        }
-  //      }
-  //    }
-  //  }
-  //}
+  @media (max-width: 768px) {
+    h2 {
+      font-size: .75rem;
+    }
+  }
 </style>

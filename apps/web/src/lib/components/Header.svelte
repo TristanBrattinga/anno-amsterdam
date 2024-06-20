@@ -1,24 +1,17 @@
 <script lang="ts">
-	// Stores
-	import { page } from '$app/stores';
-
-	// Components
-	import { Logo } from '$icons';
-
-	// Icons
-
-	// Props
-	export let home: string;
-	export let settings: string;
+    // Components
+    import { Logo } from '$icons';
+    import { LanguageSelector } from "$components/index";
 </script>
 
 <header>
-	<nav class="container">
-		<a href={`/${$page.data.locale}`} aria-label={home}>
-			<Logo />
-			<span>Amsterdam</span>
-		</a>
-	</nav>
+    <nav class="container">
+        <p>
+            <Logo />
+            <span>Amsterdam</span>
+        </p>
+        <LanguageSelector />
+    </nav>
 </header>
 
 <style lang="scss">
@@ -27,25 +20,39 @@
     top: 0;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    background-color: #fff;
-    border-bottom: 1px solid #C5D9E0;
-    height: 64px;
+    border-bottom: 1px solid var(--accent-color-light);
+    z-index: 10;
+    gap: .25rem;
 
-    a {
+    nav {
+      height: 64px;
       display: flex;
-      align-items: end;
-      gap: .25rem;
-      width: fit-content;
+      justify-content: space-between;
+      align-items: center;
 
-      span {
-        font-family: Oswald, sans-serif;
-        color: var(--secondary-color-light);
-        text-transform: uppercase;
-        font-weight: 300;
-        font-size: 1.375rem;
-        line-height: 1.1;
+      p {
+        display: flex;
+        align-items: end;
+        gap: 0.25rem;
+        width: fit-content;
+
+        span {
+          font-family: Oswald, sans-serif;
+          color: var(--secondary-color-light);
+          text-transform: uppercase;
+          font-weight: 300;
+          font-size: 1.375rem;
+          line-height: 1.1;
+        }
       }
+    }
+  }
+
+  @media (min-width: 769px) {
+    header {
+      flex-direction: row;
     }
   }
 </style>

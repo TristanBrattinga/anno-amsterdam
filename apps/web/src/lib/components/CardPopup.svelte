@@ -1,121 +1,134 @@
 <script lang="ts">
-	import type { Building, Coords } from '$types'
-	import { getDistanceFromLatLonInKm } from '~/lib'
-	import { AudioGuideIcon, CloseIcon, RouteIcon } from '$icons'
-	import { page } from '$app/stores'
+    import type { Building, Coords } from '$types'
+    import { getDistance } from '~/lib'
+    import { AudioGuideIcon, RouteIcon } from '$icons'
+    import { page } from '$app/stores'
 
-	export let building: Building
-	export let location: Coords | null | undefined = null
+    export let building: Building
+    export let location: Coords | null | undefined = null
 
-	$: km =
-		location && building.location.coordinates[0] !== 0
-			? getDistanceFromLatLonInKm(
-					location.lat,
-					location.lng,
-					building.location.coordinates[0],
-					building.location.coordinates[1]
-				)
-			: 0
+    // Distance to building in km
+    $: km =
+        location && building.location.coordinates[0] !== 0
+            ? getDistance(
+                { lat: location.lat, lng: location.lng },
+                { lat: building.location.coordinates[0], lng: building.location.coordinates[1] }
+            )
+            : building.distance || 0
 
-	$: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
+    // Distance to building in km or m
+    $: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
-<a href={`/${$page.data.locale}/building/${building._id}`}>
-	<div>
-		<p>{building?.address || 'Address missing'}</p>
-		<!--		<button>-->
-		<!--			<CloseIcon />-->
-		<!--		</button>-->
-	</div>
-	<div>
-		<p class="anno">Anno {building.construction_year}</p>
-		<ul>
-			<li>
-				<RouteIcon color={!building.timeline?.length ? '#C5D9E0' : '#00425A'} />
-			</li>
-			<li>
-				<AudioGuideIcon color={!building.audioguids?.length ? '#C5D9E0' : '#00425A'} />
-			</li>
-		</ul>
-	</div>
-	<ul>
-		<li>
-			<p>Distance to</p>
-			<p>{distance ? `(${distance})` : ''}</p>
-		</li>
-		<li><span /></li>
-		<li>
-			<p>Type of use</p>
-			<p>{building?.type_of_user}</p>
-		</li>
-	</ul>
+<a href={`/${$page.data.locale}/building/${building.id}`}>
+    <div>
+        <p>{building?.address || 'Address missing'}</p>
+        <!--		<button>-->
+        <!--			<CloseIcon />-->
+        <!--		</button>-->
+    </div>
+    <div>
+        <p class="anno">Anno {building.construction_year}</p>
+        <ul>
+            <li>
+                <RouteIcon color={!building.timeline?.length ? '#C5D9E0' : '#00425A'} />
+            </li>
+            <li>
+                <AudioGuideIcon color={!building.audioguids?.length ? '#C5D9E0' : '#00425A'} />
+            </li>
+        </ul>
+    </div>
+    <ul>
+        <li>
+            <p>Distance to</p>
+            <p>{distance ? `(${distance})` : ''}</p>
+        </li>
+        <li><span /></li>
+        <li>
+            <p>Type of use</p>
+            <p>{building?.type_of_user}</p>
+        </li>
+    </ul>
 </a>
 
 <style lang="scss">
-	a {
-		padding: 10px;
-		outline: none;
+  :global(.mapboxgl-popup-close-button) {
+    right: 5px;
+    //top: 5px;
+  }
 
-		button {
-			position: absolute;
-			right: 5px;
-			top: 5px;
-			appearance: none;
-			background-color: transparent;
-			border: none;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			padding: 5px;
-		}
+  :global(.mapboxgl-popup-content) {
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+  }
 
-		div {
-			display: flex;
+  a {
+    padding: 10px;
+    outline: none;
 
-			&:nth-of-type(1) {
-				margin-bottom: 10px;
-			}
+    button {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+    }
 
-			&:nth-of-type(2) {
-				margin-bottom: 12px;
-				justify-content: space-between;
 
-				p {
-					font-size: 22px;
-					font-weight: 500;
-					color: var(--secondary-color-dark);
-				}
+    div {
+      display: flex;
 
-				ul {
-					gap: 0.5rem;
-				}
-			}
+      &:nth-of-type(1) {
+        margin-bottom: 10px;
+      }
 
-			p {
-				font-family: Oswald, sans-serif;
-				font-size: 1rem;
-				line-height: 1;
-			}
-		}
+      &:nth-of-type(2) {
+        margin: .75rem 0 .75rem 0;
+        justify-content: space-between;
 
-		ul {
-			display: flex;
-			justify-content: space-between;
+        p {
+          font-size: 22px;
+          font-weight: 500;
+          color: var(--secondary-color-dark);
+          font-family: 'Noto Serif', Helvetica, sans-serif;
+        }
 
-			li {
-				span {
-					display: block;
-					height: 100%;
-					width: 1px;
-					background-color: #c5d9e0;
-				}
+        ul {
+          gap: 0.5rem;
+        }
+      }
 
-				p:first-of-type {
-					font-size: 0.75rem;
-					color: var(--primary-color-light);
-					opacity: 50%;
-				}
-			}
-		}
-	}
+      p {
+        font-family: Oswald, sans-serif;
+        font-size: 1rem;
+        line-height: 1;
+      }
+    }
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+
+      li {
+        span {
+          display: block;
+          height: 100%;
+          width: 1px;
+          background-color: var(--accent-color-light);
+        }
+
+        p:first-of-type {
+          font-size: 0.75rem;
+          color: var(--primary-color-light);
+          opacity: 50%;
+        }
+      }
+    }
+  }
 </style>
