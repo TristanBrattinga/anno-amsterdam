@@ -83,9 +83,9 @@
         </li>
     </ul>
 </section>
-{#if currentStep < 3}
-    <LocationPopup data={data} />
-{/if}
+<!--{#if currentStep < 3}-->
+<!--    <LocationPopup data={data} />-->
+<!--{/if}-->
 
 
 <style lang="scss">

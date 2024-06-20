@@ -19,9 +19,7 @@
     const closeLegend = () => {
         menuStore.closeMenu(menuId);
     };
-
-    console.log(centuries)
-
+    
 </script>
 
 <aside class:show={legendOpen}>

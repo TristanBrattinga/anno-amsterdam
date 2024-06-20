@@ -3,6 +3,12 @@
     import { GridViewIcon, ListViewIcon } from '$icons';
     import { onMount } from 'svelte';
 
+    interface data {
+        showList: string
+        showGrid: string
+    }
+
+    export let data: data;
     let isLoading: boolean = true;
 
     // Subscribe to the viewMode store on mount
@@ -17,16 +23,18 @@
     const toggleView = (view: string) => {
         viewMode.set(view);
     };
+
+    console.log(data)
 </script>
 
 <ul>
     <li>
-        <button on:click={() => toggleView('list')}>
+        <button aria-label={data.showList} on:click={() => toggleView('list')}>
             <ListViewIcon color={$viewMode === 'grid' ?  '#C5D9E0': '#00425a'} />
         </button>
     </li>
     <li>
-        <button on:click={() => toggleView('grid')}>
+        <button aria-label={data.showGrid} on:click={() => toggleView('grid')}>
             <GridViewIcon color={$viewMode === 'grid' ? '#00425a' : '#C5D9E0'} />
         </button>
     </li>

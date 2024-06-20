@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { Onboarding } from "$components"
+    import { Onboarding } from "$components"
 
-	export let data;
+    export let data;
 </script>
 
 <main>
-	<Onboarding data={data}>/>
+    <!--    	<Onboarding data={data}>/>-->
 </main>
 
 <style lang="scss">
