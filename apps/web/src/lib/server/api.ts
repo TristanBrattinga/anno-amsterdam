@@ -1,29 +1,77 @@
-import { API_BASE_URL } from '$env/static/private'
+import { API_BASE_URL, ORIGIN } from '$env/static/private'
 import { error } from '@sveltejs/kit'
 import { normalizeURL } from '$lib'
-import type { Building } from '$types'
+import type { Building, BuildingSortBy, Coords, NewBuilding } from '$types'
 
+/**
+ * Gets the full URL for an API path
+ * @param path The relative path
+ * @returns The full URL
+ */
 const url = (path: string) => normalizeURL(API_BASE_URL) + path
 
+// The main API used for fetching and modifying buildings
 export const api = {
-	getBuildings: async (limit = 10, offset = 0): Promise<Building[]> => {
+	/**
+	 * Fetches a list of buildings
+	 * @param limit The number of buildings to fetch
+	 * @param offset The offset to start from
+	 * @param sortBy The field to sort by
+	 * @param location The location of the user
+	 * @param search The search query to filter on
+	 * @returns A list of buildings
+	 */
+	getBuildings: async (
+		limit = 10,
+		offset = 0,
+		sortBy: BuildingSortBy = 'default',
+		location?: Coords,
+		search?: string
+	): Promise<Building[]> => {
 		try {
-			const res = await fetch(url(`buildings/?limit=${limit}&offset=${offset}`))
+			const params = new URLSearchParams()
+			params.set('limit', limit.toString())
+			params.set('offset', offset.toString())
+			params.set('sortBy', sortBy)
+			if (search) params.set('q', search)
+			if (location) {
+				params.set('lat', location.lat.toString())
+				params.set('lng', location.lng.toString())
+			}
+			const res = await fetch(url(`buildings/?${params.toString()}`))
 			if (res.ok) return await res.json()
 			error(res.status, await res.text())
 		} catch (e) {
 			error(500, e instanceof Error ? e.message : JSON.stringify(e))
 		}
 	},
-	createBuilding: async (building: Exclude<Building, 'id'>): Promise<Building> => {
+
+	/**
+	 * Creates a new building
+	 * @param building The building data
+	 * @returns The created building
+	 */
+	createBuilding: async (building: NewBuilding): Promise<Building> => {
 		try {
-			const res = await fetch(url('buildings/'), { method: 'POST', body: JSON.stringify(building) })
+			const res = await fetch(url('buildings/'), {
+				method: 'POST',
+				headers: {
+					origin: ORIGIN
+				},
+				body: JSON.stringify(building)
+			})
 			if (res.ok) return await res.json()
 			error(res.status, await res.text())
 		} catch (e) {
 			error(500, e instanceof Error ? e.message : JSON.stringify(e))
 		}
 	},
+
+	/**
+	 * Fetches a single building
+	 * @param id The id of the building to fetch
+	 * @returns The fetched building
+	 */
 	getBuilding: async (id: number): Promise<Building> => {
 		try {
 			const res = await fetch(url(`buildings/${id}`))
@@ -33,7 +81,14 @@ export const api = {
 			error(500, e instanceof Error ? e.message : JSON.stringify(e))
 		}
 	},
-	updateBuilding: async (id: number, building: Partial<Building>): Promise<Building> => {
+
+	/**
+	 * Updates a building
+	 * @param id The id of the building to update
+	 * @param building The new building data
+	 * @returns The updated building
+	 */
+	updateBuilding: async (id: number, building: Partial<NewBuilding>): Promise<Building> => {
 		try {
 			const res = await fetch(url(`buildings/${id}`), {
 				method: 'PUT',
@@ -45,6 +100,11 @@ export const api = {
 			error(500, e instanceof Error ? e.message : JSON.stringify(e))
 		}
 	},
+
+	/**
+	 * Deletes a building
+	 * @param id The id of the building to delete
+	 */
 	deleteBuilding: async (id: number): Promise<void> => {
 		try {
 			const res = await fetch(url(`buildings/${id}`), { method: 'DELETE' })

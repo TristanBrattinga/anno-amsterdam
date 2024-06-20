@@ -1,97 +1,115 @@
 @import './reset.scss';
 @import './variables.scss';
-@import "./typography.scss";
+@import './typography.scss';
 
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-size: 1rem;
-  font-family: "Noto Serif", Helvetica, sans-serif;
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-size: 1rem;
+	font-family: 'Noto Serif', Helvetica, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: Oswald, Helvetica, sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Oswald, Helvetica, sans-serif;
 }
 
 html {
-  scroll-behavior: auto;
+	scroll-behavior: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto !important;
-  }
+	html {
+		scroll-behavior: auto !important;
+	}
 }
 
 body {
-  position: relative;
+	position: relative;
+}
+
+p {
+	max-width: 65ch;
 }
 
 li {
-  list-style-type: none;
+	list-style-type: none;
+}
+
+button {
+	appearance: none;
+	background: none;
+	border: none;
+	cursor: pointer;
 }
 
 a {
-  color: currentColor;
-  text-decoration: none;
+	color: currentColor;
+	text-decoration: none;
 
-  &[aria-current='page'] {
-    color: var(--secondary-color);
-  }
+	&[aria-current='page'] {
+		color: var(--secondary-color);
+	}
 
-  &.link:hover {
-    color: var(--primary-color);
-  }
+	&.link:hover {
+		color: var(--primary-color);
+	}
 }
 
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 
 /*CONTAINER STYLING*/
 .container {
-  width: 100%;
-  margin: 0 auto;
-  padding-right: 16px;
-  padding-left: 16px
+	width: 100%;
+	margin: 0 auto;
+	padding-right: 16px;
+	padding-left: 16px;
 }
 
 @media (min-width: 640px) {
-  .container {
-    max-width: 640px
-  }
+	.container {
+		max-width: 640px;
+	}
 }
 
 @media (min-width: 768px) {
-  .container {
-    max-width: 768px
-  }
+	.container {
+		max-width: 768px;
+	}
 }
 
 @media (min-width: 1200px) {
-  .container {
-    max-width: 1200px
-  }
+	.container {
+		max-width: 1200px;
+	}
 }
 
 @media (min-width: 1440px) {
-  .container {
-    max-width: 1440px;
-    padding-right: 40px;
-    padding-left: 40px
-  }
+	.container {
+		max-width: 1440px;
+		padding-right: 40px;
+		padding-left: 40px;
+	}
 }
 
 @media (min-width: 1536px) {
-  .container {
-    max-width: 1536px
-  }
+	.container {
+		max-width: 1536px;
+	}
 }

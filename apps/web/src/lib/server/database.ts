@@ -1,37 +1,74 @@
-import { BUILDINGS_MOCK } from '$constants'
+import { connectDB, BuildingSchema } from '$lib/server/mongodb'
+import type { BuildingSortBy, NewBuilding } from '$types'
 
-import type { Building } from '$types'
+/**
+ * Gets a list of buildings
+ * @param limit The number of buildings to return
+ * @param offset The offset to start from
+ * @param sortBy The field to sort by
+ * @returns A list of buildings
+ */
+export const getBuildings = async (limit = 10, offset = 0, sortBy: BuildingSortBy = 'default') => {
+	try {
+		await connectDB()
+		let query = BuildingSchema.find().skip(offset).limit(limit)
+		if (sortBy === 'name') query = query.sort({ name: 1 })
+		else if (sortBy === 'year') query = query.sort({ construction_year: 1 })
 
-const database: Map<number, Building> = new Map()
-
-BUILDINGS_MOCK.forEach((building) => {
-	database.set(building.id, building)
-})
-
-export const getBuildings = (limit = 10, offset = 0): Building[] => {
-	return Array.from(database.values()).slice(offset, offset + limit)
+		const result = await query.exec()
+		return result
+	} catch (e) {
+		throw new Error('Database Error', { cause: e })
+	}
 }
 
-export const getBuilding = (id: number): Building | null => {
-	const match = database.get(id)
+/**
+ * Gets a single building
+ * @param id The id of the building to get
+ * @returns The building or null if not found
+ */
+export const getBuilding = async (id: number) => {
+	await connectDB()
+	const match = await BuildingSchema.findOne({ id }).exec()
 	return match || null
 }
 
-export const createBuilding = (building: Exclude<Building, 'id'>): Building => {
-	const id = Math.random()
+/**
+ * Creates a new building
+ * @param building The building data
+ * @returns The building that was created
+ */
+export const createBuilding = async (building: NewBuilding) => {
+	const id = (Math.random() * 1000).toFixed(0)
 	const newBuilding = { ...building, id }
-	database.set(id, newBuilding)
-	return newBuilding
+	await connectDB()
+	const result = await BuildingSchema.create(newBuilding)
+	return result
 }
 
-export const updateBuilding = (id: number, updated: Partial<Building>): Building | null => {
+/**
+ * Updates a building
+ * @param id The id of the building to update
+ * @param updated The updated building data
+ * @returns The updated building or null if not found
+ */
+export const updateBuilding = async (id: number, updated: Partial<NewBuilding>) => {
 	const building = getBuilding(id)
 	if (!building) return null
 	const updatedBuilding = { ...building, ...updated }
-	database.set(id, updatedBuilding)
-	return updatedBuilding
+	await connectDB()
+	const result = await BuildingSchema.updateOne({ id }, updatedBuilding).exec()
+	if (result.acknowledged && result.modifiedCount) return updatedBuilding
+	return null
 }
 
-export const deleteBuilding = (id: number): boolean => {
-	return database.delete(id)
+/**
+ * Deletes a building
+ * @param id The id of the building to delete
+ * @returns Wether the building was deleted
+ */
+export const deleteBuilding = async (id: number): Promise<boolean> => {
+	await connectDB()
+	const result = await BuildingSchema.deleteOne({ id }).exec()
+	return result.acknowledged && result.deletedCount === 1
 }
