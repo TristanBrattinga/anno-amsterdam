@@ -5,10 +5,10 @@
     import { Navigation, Pagination } from 'swiper/modules';
     import { Step1, Step2, Step3, Step4 } from '$components/onboarding';
     import { isDialogOpen } from '$lib/stores/dialog';
-    import { get } from "svelte/store";
     import { LocationPopup } from "$components/index";
     import { page } from '$app/stores'
 
+    export let data;
     let swiperInstance: Swiper;
 
     onMount(() => {
@@ -84,7 +84,7 @@
     </ul>
 </section>
 {#if currentStep < 3}
-    <LocationPopup />
+    <LocationPopup data={data} />
 {/if}
 
 

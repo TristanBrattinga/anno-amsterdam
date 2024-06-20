@@ -6,7 +6,13 @@
     import { get } from 'svelte/store';
     import { goto } from "$app/navigation";
 
+    interface PropData {
+        yes: string
+        no: string
+    }
+
     let dialog: HTMLDialogElement | undefined;
+    export let data: PropData;
 
     // // Close dialog on mount to ensure it's initially closed
     // onMount(() => {
@@ -44,7 +50,7 @@
                 disabled={!!$locWatchId && !$locError}
                 aria-disabled={!!$locWatchId && !$locError}
             >
-                Nee
+                {data.no}
             </button>
         </li>
         <li>
@@ -56,7 +62,7 @@
                 disabled={!!$locWatchId && !$locError}
                 aria-disabled={!!$locWatchId && !$locError}
             >
-                Ja
+                {data.yes}
             </button>
         </li>
     </ul>

@@ -1,9 +1,11 @@
 <script lang="ts">
-	import Onboarding from '$components/Onboarding.svelte';
+	import { Onboarding } from "$components"
+
+	export let data;
 </script>
 
 <main>
-	<Onboarding />
+	<Onboarding data={data}>/>
 </main>
 
 <style lang="scss">

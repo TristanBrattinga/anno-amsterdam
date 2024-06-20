@@ -102,7 +102,7 @@
         ul {
           display: none;
 
-          @media (min-width: 500px) {
+          @media (min-width: 768px) {
             display: flex;
             gap: .5rem;
 
@@ -156,10 +156,13 @@
         overflow: hidden;
         border-radius: 5px;
 
+        @media (min-width: 1200px) {
+          height: 15vh;
+        }
+
         img {
           width: 100%;
           height: 100%;
-          max-height: 110px;
           object-fit: cover;
         }
       }
@@ -169,9 +172,13 @@
     > div:nth-of-type(1) {
       display: block;
       width: 50%;
-      height: 140px;
+      height: 10vh;
       overflow: hidden;
       border-radius: 5px;
+
+      @media (min-width: 1200px) {
+        height: 15vh;
+      }
 
       img {
         width: 100%;
@@ -179,6 +186,7 @@
         object-fit: fill;
         transition: transform .3s ease-in-out;
         border-radius: 5px;
+
 
         &:hover {
           transform: scale(1.05);

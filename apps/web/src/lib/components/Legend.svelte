@@ -1,10 +1,9 @@
 <script lang="ts">
 
-    import type { century } from '$types';
     import { menuStore } from '$stores/menu';
     import { onDestroy } from 'svelte';
 
-    // export let centuries: century[];
+    export let centuries: Record<number, string>;
 
     export let menuId: string;
 
@@ -21,6 +20,8 @@
         menuStore.closeMenu(menuId);
     };
 
+    console.log(centuries)
+
 </script>
 
 <aside class:show={legendOpen}>
@@ -33,30 +34,12 @@
     </button>
     <h3>Legend</h3>
     <ul>
-        <li>
-            <span></span>
-            <p>16e eeuw</p>
-        </li>
-        <li>
-            <span></span>
-            <p>17e eeuw</p>
-        </li>
-        <li>
-            <span></span>
-            <p>18e eeuw</p>
-        </li>
-        <li>
-            <span></span>
-            <p>19e eeuw</p>
-        </li>
-        <li>
-            <span></span>
-            <p>20e eeuw</p>
-        </li>
-        <li>
-            <span></span>
-            <p>21e eeuw</p>
-        </li>
+        <!--{#each Object.entries(centuries) as [century, label]}-->
+        <!--    <li>-->
+        <!--        <span>{century}</span>-->
+        <!--        <p>{label}</p>-->
+        <!--    </li>-->
+        <!--{/each}-->
     </ul>
 </aside>
 
