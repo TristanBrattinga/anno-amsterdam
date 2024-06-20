@@ -9,6 +9,5 @@ export const load = async () => {
 export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData()
-		console.log('data', data)
 	}
 }

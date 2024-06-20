@@ -63,7 +63,6 @@ schema.index({
 	name: 'text',
 	address: 'text',
 	description: 'text',
-	type_of_user: 'text',
 	construction_year: 'text',
 	'tags.nl': 'text',
 	'tags.en': 'text'

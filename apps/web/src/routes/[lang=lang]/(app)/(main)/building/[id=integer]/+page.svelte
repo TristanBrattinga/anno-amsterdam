@@ -8,10 +8,6 @@
 
 	// Data
 	export let data
-
-	$: {
-		console.log(data.building)
-	}
 </script>
 
 <section>

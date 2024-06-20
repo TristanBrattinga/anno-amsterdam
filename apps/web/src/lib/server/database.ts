@@ -15,21 +15,17 @@ export const getBuildings = async (
 	sortBy: BuildingSortBy = 'default',
 	search?: string
 ) => {
-	try {
-		await connectDB()
-		let query = BuildingSchema.find({
-			$text: search ? { $search: `"${search}"` } : undefined
-		})
-			.skip(offset)
-			.limit(limit)
-		if (sortBy === 'name') query = query.sort({ name: 1 })
-		else if (sortBy === 'year') query = query.sort({ construction_year: 1 })
+	await connectDB()
+	let query = (
+		search ? BuildingSchema.find({ $text: { $search: `"${search}"` } }) : BuildingSchema.find()
+	)
+		.skip(offset)
+		.limit(limit)
+	if (sortBy === 'name') query = query.sort({ name: 1 })
+	else if (sortBy === 'year') query = query.sort({ construction_year: 1 })
 
-		const result = await query.exec()
-		return result
-	} catch (e) {
-		throw new Error('Database Error', { cause: e })
-	}
+	const result = await query.exec()
+	return result
 }
 
 /**
