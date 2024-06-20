@@ -4,7 +4,7 @@
 
     // Utils
     import type { Building, Coords } from '$types'
-    import { viewMode } from '~/lib'
+    import { viewMode } from '$lib'
 
     // Props
     export let moreInfo: string
@@ -18,7 +18,7 @@
 
 <h2 class="sr-only">{buildingsTitle}</h2>
 {#if buildings.length}
-    <ul class={`container ${$viewMode === 'grid' ? 'grid' : ''}`}>
+    <ul class="container" class:grid={viewMode === 'grid'}>
         {#each buildings as building}
             <li>
                 <BuildingCell {building} {location} {moreInfo} {map} {distanceTo} />
