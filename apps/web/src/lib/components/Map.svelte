@@ -105,16 +105,16 @@
                         1000, '#001f3f', // Buildings from 1000 to 1100
                         1100, '#0074D9', // Buildings from 1100 to 1200
                         1200, '#7FDBFF', // Buildings from 1200 to 1300
-                        1300, '#39CCCC', // Buildings from 1300 to 1400
-                        1400, '#3D9970', // Buildings from 1400 to 1500
-                        1500, '#2ECC40', // Buildings from 1500 to 1600
-                        1600, '#01FF70', // Buildings from 1600 to 1700
-                        1700, '#FFDC00', // Buildings from 1700 to 1800
-                        1800, '#FF851B', // Buildings from 1800 to 1900
+                        1300, '#f28cb1', // Buildings from 1300 to 1400
+                        1400, '#85144b', // Buildings from 1400 to 1500
+                        1500, '#f1f075', // Buildings from 1500 to 1600
+                        1600, '#223b53', // Buildings from 1600 to 1700
+                        1700, '#e55e5e', // Buildings from 1700 to 1800
+                        1800, '#3bb2d0', // Buildings from 1800 to 1900
                         1900, '#FF4136', // Buildings from 1900 to 2000
-                        2000, '#85144b'  // Buildings from 2000 onwards
+                        2000, '#3bb2d0'  // Buildings from 2000 onwards
                     ],
-                    'fill-opacity': 1
+                    'fill-opacity': .8
                 }
             }, 'road-label');
 
