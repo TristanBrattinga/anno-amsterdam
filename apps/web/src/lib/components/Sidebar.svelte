@@ -10,6 +10,7 @@
     export let menuId: string
     export let filterTitle: string
     export let sortBy: string
+    export let sidebar: string;
     export let sort: BuildingSortBy = <BuildingSortBy>$page.url.searchParams.get('sort') || 'default'
 
     $: coords = {
@@ -37,14 +38,14 @@
     }
 </script>
 
-<div aria-label="Close sidebar" class="backdrop" class:show={sidebarOpen} on:click={closeSidebar}></div>
+<div aria-label={sidebar} class="backdrop" class:show={sidebarOpen} on:click={closeSidebar}></div>
 <aside class:show={sidebarOpen}>
     <div>
         <p>
             <Logo />
             <span>Amsterdam</span>
         </p>
-        <button on:click={closeSidebar}>
+        <button aria-label={sidebar} on:click={closeSidebar}>
             <CloseIcon />
         </button>
     </div>

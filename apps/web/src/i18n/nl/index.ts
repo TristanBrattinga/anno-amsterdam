@@ -43,7 +43,15 @@ const nl = {
         19: '19e eeuw',
         20: '20e eeuw',
         21: '21e eeuw'
-    }
+    },
+    select: 'Selecteer',
+    yes: 'Ja',
+    no: 'Nee',
+    skip: 'Skip',
+    getStarted: 'Starten',
+    sidebar: 'Sluit sidebar',
+    showGrid: 'Gebruik Grid View',
+    showList: 'Gebruik List View',
 } satisfies BaseTranslation;
 
 export default nl;

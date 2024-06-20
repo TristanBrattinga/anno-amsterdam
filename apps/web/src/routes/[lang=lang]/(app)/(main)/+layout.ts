@@ -15,5 +15,6 @@ export const load = async ({ parent }) => {
         filterTitle: LL.filters(),
         list: LL.list(),
         map: LL.map(),
+        sidebar: LL.sidebar()
     };
 };

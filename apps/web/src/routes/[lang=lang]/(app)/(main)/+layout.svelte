@@ -1,22 +1,16 @@
 <script lang="ts">
     // Components
-    import { Header, Footer, Sidebar, LocationPopup } from '$components';
+    import { Footer, Header, Sidebar } from '$components';
     import TopBar from "$components/TopBar.svelte";
     import { page } from "$app/stores";
-    import { onDestroy } from "svelte";
     import { locale } from "$i18n/i18n-svelte";
 
     export let data;
     let sidebarMenuId = 'filterSidebar'
     let currentRoute: string;
 
-    const unsubscribe = page.subscribe(p => {
-        currentRoute = p.url.pathname;
-    });
 
-    onDestroy(() => {
-        unsubscribe();
-    });
+    $: currentRoute = $page.url.pathname
 </script>
 
 <Header />
@@ -24,7 +18,8 @@
     {#if currentRoute !== `/${$locale}/lens`}
         <TopBar data={data} currentRoute={currentRoute} />
     {/if}
-    <Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy} />
+    <Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy}
+             closeSidebar={data.sidebar} />
     <slot />
 </main>
 <Footer lens={data.lens} list={data.list} map={data.map} />

@@ -7,49 +7,61 @@
     export let building: Building
     export let location: Coords | null | undefined = null
 
+    // Distance to building in km
     $: km =
         location && building.location.coordinates[0] !== 0
             ? getDistance(
                 { lat: location.lat, lng: location.lng },
                 { lat: building.location.coordinates[0], lng: building.location.coordinates[1] }
             )
-            : 0
+            : building.distance || 0
 
+    // Distance to building in km or m
     $: distance = km > 0 ? Math.round(km < 1 ? km * 1000 : km) + (km < 1 ? ' m' : ' km') : ''
 </script>
 
 <a href={`/${$page.data.locale}/building/${building.id}`}>
-  <div>
-    <p>{building?.address || 'Address missing'}</p>
-    <!--		<button>-->
-    <!--			<CloseIcon />-->
-    <!--		</button>-->
-  </div>
-  <div>
-    <p class="anno">Anno {building.construction_year}</p>
+    <div>
+        <p>{building?.address || 'Address missing'}</p>
+        <!--		<button>-->
+        <!--			<CloseIcon />-->
+        <!--		</button>-->
+    </div>
+    <div>
+        <p class="anno">Anno {building.construction_year}</p>
+        <ul>
+            <li>
+                <RouteIcon color={!building.timeline?.length ? '#C5D9E0' : '#00425A'} />
+            </li>
+            <li>
+                <AudioGuideIcon color={!building.audioguids?.length ? '#C5D9E0' : '#00425A'} />
+            </li>
+        </ul>
+    </div>
     <ul>
-      <li>
-        <RouteIcon color={!building.timeline?.length ? '#C5D9E0' : '#00425A'} />
-      </li>
-      <li>
-        <AudioGuideIcon color={!building.audioguids?.length ? '#C5D9E0' : '#00425A'} />
-      </li>
+        <li>
+            <p>Distance to</p>
+            <p>{distance ? `(${distance})` : ''}</p>
+        </li>
+        <li><span /></li>
+        <li>
+            <p>Type of use</p>
+            <p>{building?.type_of_user}</p>
+        </li>
     </ul>
-  </div>
-  <ul>
-    <li>
-      <p>Distance to</p>
-      <p>{distance ? `(${distance})` : ''}</p>
-    </li>
-    <li><span /></li>
-    <li>
-      <p>Type of use</p>
-      <p>{building?.type_of_user}</p>
-    </li>
-  </ul>
 </a>
 
 <style lang="scss">
+  :global(.mapboxgl-popup-close-button) {
+    right: 5px;
+    //top: 5px;
+  }
+
+  :global(.mapboxgl-popup-content) {
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+  }
+
   a {
     padding: 10px;
     outline: none;
@@ -67,6 +79,7 @@
       padding: 5px;
     }
 
+
     div {
       display: flex;
 
@@ -75,13 +88,14 @@
       }
 
       &:nth-of-type(2) {
-        margin-bottom: 12px;
+        margin: .75rem 0 .75rem 0;
         justify-content: space-between;
 
         p {
           font-size: 22px;
           font-weight: 500;
           color: var(--secondary-color-dark);
+          font-family: 'Noto Serif', Helvetica, sans-serif;
         }
 
         ul {
@@ -99,6 +113,7 @@
     ul {
       display: flex;
       justify-content: space-between;
+      gap: 1rem;
 
       li {
         span {

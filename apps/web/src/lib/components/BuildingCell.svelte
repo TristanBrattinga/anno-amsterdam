@@ -92,6 +92,7 @@
           color: var(--primary-color-dark);
           text-transform: capitalize;
           font-size: 1.25rem;
+          margin-bottom: 0.5rem;
 
           @media (max-width: 768px) {
             font-size: 1rem;
@@ -101,7 +102,7 @@
         ul {
           display: none;
 
-          @media (min-width: 769px) {
+          @media (min-width: 500px) {
             display: flex;
             gap: .5rem;
 
@@ -130,6 +131,7 @@
         font-size: 1.5rem;
         line-height: 1;
         font-family: 'Noto Serif', Helvetica, sans-serif;
+        margin-bottom: 1rem;
 
         @media (max-width: 768px) {
           margin-bottom: .5rem;
@@ -150,7 +152,7 @@
       > div:nth-of-type(1) {
         display: block;
         width: 100%;
-        height: auto;
+        height: 10vh;
         overflow: hidden;
         border-radius: 5px;
 
@@ -176,6 +178,7 @@
         height: 100%;
         object-fit: fill;
         transition: transform .3s ease-in-out;
+        border-radius: 5px;
 
         &:hover {
           transform: scale(1.05);

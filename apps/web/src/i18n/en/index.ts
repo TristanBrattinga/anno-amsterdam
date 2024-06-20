@@ -44,7 +44,15 @@ const en = {
         19: '19th century',
         20: '20th century',
         21: '21st century'
-    }
+    },
+    select: 'Select',
+    yes: 'Yes',
+    no: 'No',
+    skip: 'Skip',
+    getStarted: 'Get started',
+    sidebar: 'Close Sidebar',
+    showGrid: 'Toggle Grid View',
+    showList: 'Toggle List View',
 } satisfies Translation;
 
 export default en;

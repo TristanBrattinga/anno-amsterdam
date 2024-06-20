@@ -27,11 +27,11 @@
             fill="#343330"
         />
     </svg>
-    {#if nrOfFilters}
-        <div class="indicator">
-            <div role="status">{nrOfFilters}</div>
-        </div>
-    {/if}
+    <!--{#if nrOfFilters}-->
+    <!--    <div class="indicator">-->
+    <!--        <div role="status">{nrOfFilters}</div>-->
+    <!--    </div>-->
+    <!--{/if}-->
 </button>
 
 <style lang="scss">

@@ -163,15 +163,15 @@
 </script>
 
 <div class="map-wrap">
-  <div class="map" bind:this={mapContainer} />
+    <div class="map" bind:this={mapContainer} />
 
-  <button class="locationButton" on:click={triggerGeolocate}>
-    <LocationIcon />
-  </button>
+    <button aria-label="Go to live location" class="locationButton" on:click={triggerGeolocate}>
+        <LocationIcon />
+    </button>
 
-  <button class="infoButton" on:click={toggleLegend}>
-    <InfoIcon />
-  </button>
+    <button aria-label="Open extra info" class="infoButton" on:click={toggleLegend}>
+        <InfoIcon />
+    </button>
 
 </div>
 
