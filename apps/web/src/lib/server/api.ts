@@ -43,7 +43,13 @@ export const api = {
 	 */
 	createBuilding: async (building: Exclude<Building, 'id'>): Promise<Building> => {
 		try {
-			const res = await fetch(url('buildings/'), { method: 'POST', body: JSON.stringify(building) })
+			const res = await fetch(url('buildings/'), {
+				method: 'POST',
+				headers: {
+					origin: 'http://localhost:5174'
+				},
+				body: JSON.stringify(building)
+			})
 			if (res.ok) return await res.json()
 			error(res.status, await res.text())
 		} catch (e) {

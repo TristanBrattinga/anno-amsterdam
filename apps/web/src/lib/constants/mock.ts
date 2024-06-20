@@ -3,7 +3,7 @@ import type { Building } from '$types'
 export const BUILDINGS_MOCK: Building[] = [
 	{
 		id: 1,
-		location: { type: 'Point', coordinates: [52.37883521144042, 4.874603183381912] },
+		location: { coordinates: [52.37883521144042, 4.874603183381912] },
 		name: "Pieter's huis",
 		address: 'Rombout Hogerbeetsstraat 1',
 		construction_year: 1669,
@@ -36,7 +36,7 @@ export const BUILDINGS_MOCK: Building[] = [
 	},
 	{
 		id: 2,
-		location: { type: 'Point', coordinates: [52.35941317456723, 4.907809735495526] },
+		location: { coordinates: [52.35941317456723, 4.907809735495526] },
 		name: 'Theo Thijssenhuis',
 		address: 'Amstelcampus Wibautstraat 2 TTH',
 		construction_year: 2001,
@@ -59,7 +59,7 @@ export const BUILDINGS_MOCK: Building[] = [
 	},
 	{
 		id: 3,
-		location: { type: 'Point', coordinates: [52.632456265421865, 4.754800386401466] },
+		location: { coordinates: [52.632456265421865, 4.754800386401466] },
 		name: 'Test Building 3',
 		address: 'Alkmaarstraat 3',
 		construction_year: 1803,
