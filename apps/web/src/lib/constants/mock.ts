@@ -1,5 +1,6 @@
 import type { Building } from '$types'
 
+// Mock for testing purposes
 export const BUILDINGS_MOCK: Building[] = [
 	{
 		id: 1,

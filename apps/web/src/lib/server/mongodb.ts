@@ -5,6 +5,9 @@ const clientOptions: mongoose.ConnectOptions = {
 	serverApi: { version: '1', strict: true, deprecationErrors: true }
 }
 
+/**
+ * Connects to the MongoDB database
+ */
 export const connectDB = async () => {
 	try {
 		if (!mongoose.connection.readyState || mongoose.connection.readyState === 99) {
@@ -15,6 +18,7 @@ export const connectDB = async () => {
 	}
 }
 
+// The schema for a building
 export const BuildingSchema = mongoose.model(
 	'Building',
 	new mongoose.Schema(

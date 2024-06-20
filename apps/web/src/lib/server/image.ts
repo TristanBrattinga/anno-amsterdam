@@ -10,10 +10,11 @@ import { normalizeURL } from '$lib'
  */
 const url = (path: string) => normalizeURL(IMG_API_BASE_URL) + path
 
+// The image API used for uploading images
 export const imageApi = {
 	/**
 	 * Uploads an image to the image API
-	 * @param image The image to upload
+	 * @param file The file to upload
 	 * @returns The URL of the uploaded image
 	 */
 	uploadImage: async (file: File): Promise<{ url: string }> => {
