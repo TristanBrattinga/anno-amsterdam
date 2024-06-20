@@ -91,9 +91,9 @@
                     class="dropdown-item"
 
                     on:click={() => {
-                      selectLanguage(l.code)
-                      goto(replaceLocaleInUrl($page.url, l.code))
-                    }
+                          selectLanguage(l.code)
+                          goto(replaceLocaleInUrl($page.url, l.code))
+                        }
                     }
                 >
                     <svelte:component this={l.icon} />

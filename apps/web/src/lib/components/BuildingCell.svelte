@@ -33,7 +33,7 @@
 </script>
 
 
-<a href={`/${$page.data.locale}/building/${building.id}`} class="group" class:grid={viewMode === 'grid'}>
+<a href={`/${$page.data.locale}/building/${building.id}`} class="group" class:grid={$viewMode === 'grid'}>
     <div>
         <!--{#if building.image_urls.length < 2}-->
         <img src={building.image_urls[0].url} alt="" />
