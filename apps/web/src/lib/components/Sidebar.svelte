@@ -50,23 +50,23 @@
     </div>
     <h1>{filterTitle}</h1>
     <div class="divider" />
-    <form method="get" on:submit={closeSidebar}>
-        <label for="sort">{sortBy}</label>
-        <select bind:value={sort} id="sort" name="sort" on:change={onSortChange}>
-            <option value="default" selected>Standaard</option>
-            <option value="distance">Afstand</option>
-            <option value="name">A-Z</option>
-            <option value="year">Bouwjaar</option>
-        </select>
-        <input type="hidden" name="lat" value={$location?.lat || coords.lat} />
-        <input type="hidden" name="lng" value={$location?.lng || coords.lng} />
-        <input type="hidden" name="q" value={$page.url.searchParams.get('q')} />
-        <button
-            type="submit"
-            disabled={sort === 'distance' && !$location && !(coords.lat && coords.lng)}>Filteren
-        </button
-        >
-    </form>
+    <!--    <form method="get" on:submit={closeSidebar}>-->
+    <!--        <label for="sort">{sortBy}</label>-->
+    <!--        <select bind:value={sort} id="sort" name="sort" on:change={onSortChange}>-->
+    <!--            <option value="default" selected>Standaard</option>-->
+    <!--            <option value="distance">Afstand</option>-->
+    <!--            <option value="name">A-Z</option>-->
+    <!--            <option value="year">Bouwjaar</option>-->
+    <!--        </select>-->
+    <!--        <input type="hidden" name="lat" value={$location?.lat || coords.lat} />-->
+    <!--        <input type="hidden" name="lng" value={$location?.lng || coords.lng} />-->
+    <!--        <input type="hidden" name="q" value={$page.url.searchParams.get('q')} />-->
+    <!--        <button-->
+    <!--            type="submit"-->
+    <!--            disabled={sort === 'distance' && !$location && !(coords.lat && coords.lng)}>Filteren-->
+    <!--        </button-->
+    <!--        >-->
+    <!--    </form>-->
 </aside>
 
 <style lang="scss">
