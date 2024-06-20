@@ -56,9 +56,7 @@
     };
 
     const showDialog = () => {
-        console.log(get(isDialogOpen))
         isDialogOpen.set(true);
-        console.log(get(isDialogOpen))
     }
 </script>
 
