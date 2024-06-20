@@ -88,6 +88,10 @@ $ yarn format
 - [SvelteKit](https://kit.svelte.dev/)
 - [Turborepo](https://turbo.build/repo)
 
+## Design Rationale
+
+The design rationale can be found in the [WIKI](https://github.com/TristanBrattinga/anno-amsterdam/wiki)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
