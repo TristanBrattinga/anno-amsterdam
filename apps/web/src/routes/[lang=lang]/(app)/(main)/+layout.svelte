@@ -1,32 +1,35 @@
 <script lang="ts">
-	// Components
-	import { Header, Footer, LocationPopup, NavBar, Sidebar } from '$components'
+    // Components
+    import { Footer, Header, Sidebar } from '$components';
+    import TopBar from "$components/TopBar.svelte";
+    import { page } from "$app/stores";
+    import { locale } from "$i18n/i18n-svelte";
 
-	export let data
-	let sidebarMenuId = 'mainSidebar'
+    export let data;
+    let sidebarMenuId = 'filterSidebar'
+    let currentRoute: string;
+
+
+    $: currentRoute = $page.url.pathname
 </script>
 
 <Header />
 <main>
-	<NavBar
-		menuId={sidebarMenuId}
-		search={data.search}
-		clear={data.clear}
-		searchPlaceholder={data.searchPlaceholder}
-		openFilters={data.openFilters}
-	/>
-	<Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy} />
-	<!--<LocationPopup />-->
-	<slot />
+    {#if currentRoute !== `/${$locale}/lens`}
+        <TopBar data={data} currentRoute={currentRoute} />
+    {/if}
+    <Sidebar menuId={sidebarMenuId} filterTitle={data.filterTitle} sortBy={data.sortBy}
+             closeSidebar={data.sidebar} />
+    <slot />
 </main>
 <Footer lens={data.lens} list={data.list} map={data.map} />
 
 <style>
-	main {
-		position: absolute;
-		top: 64px;
-		width: 100%;
-		overflow: auto;
-		height: calc(100dvh - 60px - 80px);
-	}
+    main {
+        position: absolute;
+        top: 64px;
+        width: 100%;
+        overflow: auto;
+        height: calc(100dvh - 60px - 80px);
+    }
 </style>

@@ -5,6 +5,11 @@ export { default as LocationIcon } from './LocationIcon.svelte'
 export { default as CloseIcon } from './CloseIcon.svelte'
 export { default as ListIcon } from './ListIcon.svelte'
 export { default as MapIcon } from './MapIcon.svelte'
-export { default as MapPinIcon } from './MapPinIcon.svelte'
 export { default as LensIcon } from './LensIcon.svelte'
 export { default as ArrowIcon } from './ArrowIcon.svelte'
+export { default as InfoIcon } from './InfoIcon.svelte';
+export { default as GridViewIcon } from './GridViewIcon.svelte';
+export { default as ListViewIcon } from './ListViewIcon.svelte';
+export { default as ENIcon } from './ENIcon.svelte';
+export { default as NLIcon } from './NLIcon.svelte';
+export { default as CaretDownIcon } from './CaretDownIcon.svelte';
