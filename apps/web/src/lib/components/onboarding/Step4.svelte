@@ -2,17 +2,17 @@
 </script>
 
 <article>
-  <div>
-    <img src="/images/onboarding4.png" alt="">
-    <ul>
-      <li>Pictures</li>
-      <li>Anno</li>
-      <li>Stories</li>
-      <li>Timeline</li>
-      <li>Audio guides</li>
-    </ul>
-  </div>
-  <p>Unlock the Building's Secrets - Explore Detailed Information</p>
+    <div>
+        <img src="/images/onboarding4.png" alt="">
+        <ul>
+            <li>Pictures</li>
+            <li>Anno</li>
+            <li>Stories</li>
+            <li>Timeline</li>
+            <li>Audio guides</li>
+        </ul>
+    </div>
+    <p>Unlock the Building's Secrets - Explore Detailed Information</p>
 </article>
 
 

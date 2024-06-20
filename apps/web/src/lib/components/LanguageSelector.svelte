@@ -1,56 +1,107 @@
 <script lang="ts">
+    // SvelteKit
+    import { browser } from '$app/environment'
+    import { goto, invalidateAll, pushState, replaceState } from '$app/navigation'
+    import { page } from '$app/stores'
+
+    // I18n
+    import { locale, setLocale } from '$i18n/i18n-svelte'
+    import type { Locales } from '$i18n/i18n-types'
+    import { loadLocaleAsync } from '$i18n/i18n-util.async'
     import { selectedLanguage } from '$stores/language';
     import { get } from 'svelte/store';
     import { CaretDownIcon, ENIcon, NLIcon } from "$icons";
-    import { onMount } from "svelte";
+    import { closeDropdownOnOutsideClick } from "~/lib";
 
-    type languageItem = {
-        code: string
-        name: string
-        icon: typeof NLIcon
+    // Utils
+    import { replaceLocaleInUrl } from '$lib'
+
+    const switchLocale = async (newLocale: Locales, updateHistoryState = true) => {
+        if (!newLocale || $locale === newLocale) return
+
+        // load new dictionary from server
+        await loadLocaleAsync(newLocale)
+
+        // select locale
+        setLocale(newLocale)
+
+        if (updateHistoryState) {
+            // update url to reflect locale changes
+            pushState(replaceLocaleInUrl($page.url, newLocale), { locale: newLocale })
+        }
+
+        // run the `load` function again
+        await invalidateAll()
     }
 
-    let languages: languageItem[]
-    $: languages = [
-        {
-            code: 'nl',
-            name: 'Nederlands',
-            icon: NLIcon
-        },
-        {
-            code: 'en',
-            name: 'English',
-            icon: ENIcon
-        },
-    ]
+    // update `lang` attribute
+    $: browser && document.querySelector('html')!.setAttribute('lang', $locale)
 
-    let dropdownOpen = false;
+    // update locale when navigating via browser back/forward buttons
+    const handlePopStateEvent = async ({ state }: PopStateEvent) => switchLocale(state.locale, false)
 
-    const selectLanguage = (languageCode: string) => {
+    // update locale when page store changes
+    $: if (browser) {
+        const lang = $page.params.lang as Locales
+        if (lang !== $locale) {
+            switchLocale(lang, false)
+            replaceState(replaceLocaleInUrl($page.url, lang), { ...$page.state, locale: lang })
+        }
+    }
+
+    type LanguageItem = {
+        code: Locales;
+        label: string;
+        icon: typeof NLIcon;
+    };
+
+    const langs: LanguageItem[] = [
+        { code: 'en', label: 'English', icon: ENIcon },
+        { code: 'nl', label: 'Nederlands', icon: NLIcon },
+    ];
+
+    const selectLanguage = (languageCode: Locales) => {
         selectedLanguage.set(languageCode);
         dropdownOpen = false;
     };
 
-    // Get the current selected language
-    $: currentLanguage = languages.find(lang => lang.code === get(selectedLanguage));
+    const currentLanguage = langs.find(lang => lang.code === get(selectedLanguage))
 
-    // Close dropdown when clicking outside of it
-    const closeDropdownOnOutsideClick = (event: MouseEvent) => {
-        const target = event.target as HTMLElement;
-        if (!target.closest('.language-selector')) {
-            dropdownOpen = false;
-        }
+    let dropdownOpen = false;
+
+    const setDropdownOpen = (open: boolean) => {
+        dropdownOpen = open;
     };
 
-    onMount(() => {
-        window.addEventListener('click', closeDropdownOnOutsideClick);
-
-        // Clean up the event listener when component is destroyed
-        return () => {
-            window.removeEventListener('click', closeDropdownOnOutsideClick);
-        };
-    });
+    closeDropdownOnOutsideClick('.language-selector', setDropdownOpen);
 </script>
+
+<svelte:window on:popstate={handlePopStateEvent} />
+
+<div class="language-selector">
+    <button on:click={() => dropdownOpen = !dropdownOpen}>
+        <svelte:component this={currentLanguage?.icon} />
+        <CaretDownIcon className={`${dropdownOpen ? 'rotated' : ''}`} />
+    </button>
+    <ul class={`dropdown ${dropdownOpen ? 'open' : ''}`}>
+        {#each langs as l}
+            <li>
+                <button
+                    aria-label={`Select {${l.label}`}
+                    class="dropdown-item"
+
+                    on:click={() => {
+                      selectLanguage(l.code)
+                      goto(replaceLocaleInUrl($page.url, l.code))
+                    }
+                    }
+                >
+                    <svelte:component this={l.icon} />
+                </button>
+            </li>
+        {/each}
+    </ul>
+</div>
 
 <style lang="scss">
   .language-selector {
@@ -66,23 +117,28 @@
       border: 1px solid var(--accent-color-light);
       border-radius: 5px;
       padding: 0 .5rem;
+      gap: .25rem;
     }
   }
 
   .dropdown {
-    display: none;
+    display: block;
     position: absolute;
     top: 110%;
-    left: 0;
+    right: 0;
     background-color: white;
+    z-index: 2;
+    height: 0;
+    border: 1px solid transparent;
     border-radius: 5px;
-    border: 1px solid var(--accent-color-light);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    z-index: 1;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
   }
 
   .dropdown.open {
-    display: block;
+    height: 89px;
+    border: 1px solid var(--accent-color-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   .dropdown-item {
@@ -95,17 +151,3 @@
     background-color: var(--accent-color-light);
   }
 </style>
-
-<div class="language-selector">
-  <button on:click={() => dropdownOpen = !dropdownOpen}>
-    <svelte:component this={currentLanguage?.icon} />
-    <CaretDownIcon />
-  </button>
-  <div class={`dropdown ${dropdownOpen ? 'open' : ''}`}>
-    {#each languages as lang}
-      <button class="dropdown-item" on:click={() => selectLanguage(lang.code)}>
-        <svelte:component this={lang.icon} />
-      </button>
-    {/each}
-  </div>
-</div>

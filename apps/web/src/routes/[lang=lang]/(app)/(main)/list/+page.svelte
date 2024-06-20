@@ -7,9 +7,24 @@
 
     // Stores
     import { location } from '$stores'
+    import { sorting } from '$stores/sorting';
+    import { goto } from "$app/navigation";
+    import { page } from "$app/stores";
 
     // Data
     export let data
+    type SortType = 'default' | 'name' | 'year' | 'distance';
+
+    // Handle sorting change
+    const handleSortChange = (sort: SortType) => {
+        const params = new URLSearchParams($page.url.searchParams);
+        params.set('sort', sort);
+        // goto(`?${ params.toString() }`);
+    };
+
+    $: sorting.subscribe((sort: SortType) => {
+        handleSortChange(sort);
+    });
 
     onMount(() => {
         if (data.error) {
@@ -18,20 +33,20 @@
     })
 </script>
 
-<section class="container">
-	{#if data.error}
-		<h1>{data.fetchListError}</h1>
-	{:else}
-		<BuildingList
-			buildingsTitle={data.buildingsTitle}
-			noResults={data.noResults}
-			distanceTo={data.distanceTo}
-			map={data.map}
-			buildings={data.buildings}
-			moreInfo={data.moreInfo}
-			location={$location || null}
-		/>
-	{/if}
+<section>
+    {#if data.error}
+        <h1>{data.fetchListError}</h1>
+    {:else}
+        <BuildingList
+            buildingsTitle={data.buildingsTitle}
+            noResults={data.noResults}
+            distanceTo={data.distanceTo}
+            map={data.map}
+            buildings={data.buildings}
+            moreInfo={data.moreInfo}
+            location={$location || null}
+        />
+    {/if}
 </section>
 
 <style lang="scss">

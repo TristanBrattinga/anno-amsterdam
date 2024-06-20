@@ -1,22 +1,17 @@
 <script lang="ts">
     // Components
-    import { ENIcon, Logo, NLIcon } from '$icons';
-    import { NavBar } from '$components/index';
-    import LanguageSelector from "$components/LanguageSelector.svelte";
-
-    export let sidebarMenuId: string;
-    export let search: string;
+    import { Logo } from '$icons';
+    import { LanguageSelector } from "$components/index";
 </script>
 
 <header>
-  <nav class="container">
-    <p>
-      <Logo />
-      <span>Amsterdam</span>
-    </p>
-    <NavBar menuId={sidebarMenuId} search={search} />
-    <LanguageSelector />
-  </nav>
+    <nav class="container">
+        <p>
+            <Logo />
+            <span>Amsterdam</span>
+        </p>
+        <LanguageSelector />
+    </nav>
 </header>
 
 <style lang="scss">
@@ -58,10 +53,6 @@
   @media (min-width: 769px) {
     header {
       flex-direction: row;
-
-      nav {
-
-      }
     }
   }
 </style>
