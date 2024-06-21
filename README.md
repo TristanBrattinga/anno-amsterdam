@@ -14,6 +14,10 @@ The Meesterproef is the final project of the minor Web Design & Development. It'
 
 ANNO AMSTERDAM is an app that allows users to find information, based on their location in the physical space, unlocking the history and culture of Amsterdam.
 
+## Design Rationale
+
+The design rationale can be found in the [wiki of this repository](https://github.com/TristanBrattinga/anno-amsterdam/wiki).
+
 ## Development
 
 This project is a mono-repo that contains the following packages:

@@ -1,6 +1,6 @@
 import { BUILDINGS_MOCK } from '$constants'
 import { getDistance, searchInBuilding } from '$utils'
-import type { Building, BuildingSortBy, Coords } from '$types'
+import type { Building, BuildingSortBy, Coords, NewBuilding } from '$types'
 
 const database: Map<number, Building> = new Map()
 
@@ -13,6 +13,9 @@ BUILDINGS_MOCK.forEach((building) => {
  * Gets a list of buildings
  * @param limit The number of buildings to return
  * @param offset The offset to start from
+ * @param sortBy The field to sort by
+ * @param location The user location for distance calculation
+ * @param search The search query
  * @returns A list of buildings
  */
 export const getBuildings = (
@@ -56,9 +59,14 @@ export const getBuilding = (id: number): Building | null => {
  * @param building The building data
  * @returns The building that was created
  */
-export const createBuilding = (building: Exclude<Building, 'id'>): Building => {
+export const createBuilding = (building: NewBuilding): Building => {
 	const id = Math.random() * 1000
-	const newBuilding = { ...building, id }
+	const newBuilding: Building = {
+		...building,
+		id,
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString()
+	}
 	database.set(id, newBuilding)
 	return newBuilding
 }
@@ -69,7 +77,7 @@ export const createBuilding = (building: Exclude<Building, 'id'>): Building => {
  * @param updated The updated building data
  * @returns The updated building or null if not found
  */
-export const updateBuilding = (id: number, updated: Partial<Building>): Building | null => {
+export const updateBuilding = (id: number, updated: Partial<NewBuilding>): Building | null => {
 	const building = getBuilding(id)
 	if (!building) return null
 	const updatedBuilding = { ...building, ...updated }
